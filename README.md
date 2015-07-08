@@ -17,7 +17,7 @@ RESTful API Graph and Web Services for Elgg
 ## Acknowledgements
 
 * Some of the classes are based on the core web services plugin, but have been heavily
-refactored to suit the need of this plugin. Nevertheless, thanks go to the original authors.
+refactored to suit the needs of this plugin. Nevertheless, thanks go to the original authors.
 
 * The approach has been inspired by Evan Winslow, and his multiple posts on the subject.
 I am not entirely sure if he likes the actual implementation, but some of his ideas have been
@@ -29,7 +29,6 @@ sponsoring various elements of the plugin.
 ## Authentication
 
 You can configure which authentication methods are allowed on your site.
-Examples below assume you have API key authentication enabled.
 
 Note that calling REST/Graph endpoints will terminate current user session,
 and use registered PAM handlers to reauthenticate. In order to test web services
@@ -189,6 +188,9 @@ This is a core hook, triggered by ```ElggEntity::toObject()```, so make sure you
 
 * ```'result','graph'``` plugin hook can be used to filter the final result before it is sent to the requestor
 This hook received ```GenericResult``` instance as the return value.
+
+* To prevent access to a certain node or an endpoint, you can use ```'permissions_check:graph',$route``` hook, which receives
+a node as a parameter.
 
 ## Magic
 

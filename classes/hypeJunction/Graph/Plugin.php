@@ -127,6 +127,8 @@ final class Plugin extends \hypeJunction\Plugin {
 		elgg_register_plugin_hook_handler('to:object', 'all', array($this->graph, 'exportRelationship'));
 		elgg_register_plugin_hook_handler('to:object', 'all', array($this->graph, 'exportExtender'));
 
+		// Restrict access to graph endpoints for certain consumers
+		elgg_register_plugin_hook_handler('permissions_check:graph', 'all', array($this->pam, 'checkAccess'));
 	}
 
 }

@@ -214,15 +214,22 @@ class Router {
 
 			array_unshift($alt_segments, $alias);
 
-			$ctrl = $this->getController(implode('/', $alt_segments));
+			$alt_route = implode('/', $alt_segments);
+			$can_access = elgg_trigger_plugin_hook('permissions_check:graph', $alt_route, ['node' => $node], true);
+			if (!$can_access) {
+				continue;
+			}
+
+			$ctrl = $this->getController($alt_route);
 			if ($ctrl instanceof ControllerInterface) {
 				break;
 			}
 		}
 
 		if (!$ctrl instanceof ControllerInterface) {
-			throw new GraphException("Requested endpoint does not exist", 404);
+			throw new GraphException("You do not have access to the requested endpoint", 403);
 		}
+
 		return $ctrl->call();
 	}
 

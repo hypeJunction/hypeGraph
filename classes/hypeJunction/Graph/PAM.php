@@ -332,4 +332,29 @@ class PAM {
 		return false;
 	}
 
+	/**
+	 * Checks if the consumer can access a graph endpoint
+	 * 
+	 * @param string $hook   "permissions_check:graph"
+	 * @param string $route  Route
+	 * @param bool   $return Current permission
+	 * @param array  $params Hook params
+	 * @return bool Filtered permission
+	 */
+	public function checkAccess($hook, $route, $return, $params) {
+
+		$consumer = $this->session->consumer();
+		if (!$consumer) {
+			return $return;
+		}
+
+		$request_type = $this->request->getMethod();
+		$request = "{$request_type} /{$route}";
+
+		if (!in_array($request, (array) $consumer->endpoints)) {
+			return false;
+		}
+
+		return $return;
+	}
 }

@@ -7,7 +7,7 @@ use ElggObject;
 /**
  * API Consumer object
  *
- * @property array  $methods Methods that this consumer is allowed to consume
+ * @property array  $endpoints Graph endpoints the consumer is allowed to consume
  */
 class Consumer extends ElggObject {
 
