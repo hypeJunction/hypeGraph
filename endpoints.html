@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<h1>hypeGraph Endpoints</h1>
-		<table class="elgg-table-alt ws-endpoints-form" style="width: 100%;">
+		<table>
 			<thead>
 				<tr><th>Endpoint</th><th>Description</th></tr>
 			</thead>
@@ -28,7 +28,7 @@
 					<td><strong> GET /:site/users </strong></td>
 					<td>
 						<p>Returns a list of users registered on the site</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -65,7 +65,7 @@
 					<td><strong> POST /:site/users </strong></td>
 					<td>
 						<p>Registers a new user on the site</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -142,7 +142,7 @@
 					<td><strong> GET /:site/activity </strong></td>
 					<td>
 						<p>Returns a list of latest site activity (river)</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -195,7 +195,7 @@
 					<td><strong> POST /:site/activity </strong></td>
 					<td>
 						<p>Adds a new activity (river) item to the feed</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -274,7 +274,7 @@
 					<td><strong> PUT /:user/token </strong></td>
 					<td>
 						<p>Exchanges a short lived access token for a token with a 30-day validity</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -295,7 +295,7 @@
 					<td><strong> DELETE /:user/token </strong></td>
 					<td>
 						<p>Revokes a user token</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -316,7 +316,7 @@
 					<td><strong> GET /:user/friends </strong></td>
 					<td>
 						<p>Returns a list of user's friends</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -353,7 +353,7 @@
 					<td><strong> POST /:user/friends </strong></td>
 					<td>
 						<p>Adds a friendship</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -374,7 +374,7 @@
 					<td><strong> DELETE /:user/friends </strong></td>
 					<td>
 						<p>Removes a friendship</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -395,7 +395,7 @@
 					<td><strong> GET /:user/profile </strong></td>
 					<td>
 						<p>Returns user's profile</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -416,7 +416,7 @@
 					<td><strong> PUT /:user/profile </strong></td>
 					<td>
 						<p>Updates user's profile</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -541,7 +541,7 @@
 					<td><strong> GET /:user/activity </strong></td>
 					<td>
 						<p>Returns a list of activity (river) items where a user is either a subject, object or target</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -594,7 +594,7 @@
 					<td><strong> POST /:user/activity </strong></td>
 					<td>
 						<p>Adds a new activity (river) item with the user as a subject</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -653,7 +653,7 @@
 					<td><strong> PUT /:comment </strong></td>
 					<td>
 						<p>Update s a single comment</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -680,7 +680,7 @@
 					<td><strong> GET /:object/comments </strong></td>
 					<td>
 						<p>Returns a list of comments made on the object</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -717,7 +717,7 @@
 					<td><strong> POST /:object/comments </strong></td>
 					<td>
 						<p>Adds a new comment on the object</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -750,7 +750,7 @@
 					<td><strong> GET /:object/likes </strong></td>
 					<td>
 						<p>Returns a list of object likes</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -797,7 +797,7 @@
 					<td><strong> PUT /:group </strong></td>
 					<td>
 						<p>Updates a group</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -920,7 +920,7 @@
 					<td><strong> GET /:group/members </strong></td>
 					<td>
 						<p>Returns a list of group members</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -963,7 +963,7 @@
 					<td><strong> DELETE /:group/members </strong></td>
 					<td>
 						<p>Revokes membership in a group (or deletes membership request or revokes invitation)</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -984,7 +984,7 @@
 					<td><strong> GET /:site/groups </strong></td>
 					<td>
 						<p>Returns a list of all groups on the site</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1021,7 +1021,7 @@
 					<td><strong> POST /:site/groups </strong></td>
 					<td>
 						<p>Creates a new group</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1138,7 +1138,7 @@
 					<td><strong> GET /:user/groups </strong></td>
 					<td>
 						<p>Returns a list of all groups created by the user</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1175,7 +1175,7 @@
 					<td><strong> POST /:user/groups </strong></td>
 					<td>
 						<p>Creates a new group</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1292,7 +1292,7 @@
 					<td><strong> GET /:user/groups/membership </strong></td>
 					<td>
 						<p>Returns a list of all groups a user is a member of</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1335,7 +1335,7 @@
 					<td><strong> PUT /:blog </strong></td>
 					<td>
 						<p>Updates a blog post</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1410,7 +1410,7 @@
 					<td><strong> GET /:group/blogs </strong></td>
 					<td>
 						<p>Returns a list of all group blogs</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1447,7 +1447,7 @@
 					<td><strong> POST /:group/blogs </strong></td>
 					<td>
 						<p>Creates a new group blog</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1516,7 +1516,7 @@
 					<td><strong> GET /:site/blogs </strong></td>
 					<td>
 						<p>Returns a list of all blogs on the site</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1553,7 +1553,7 @@
 					<td><strong> GET /:user/blogs </strong></td>
 					<td>
 						<p>Returns a list of all blogs by the user</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1590,7 +1590,7 @@
 					<td><strong> POST /:user/blogs </strong></td>
 					<td>
 						<p>Creates a new blog</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1659,7 +1659,7 @@
 					<td><strong> GET /:file </strong></td>
 					<td>
 						<p>Returns a file entity</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1680,7 +1680,7 @@
 					<td><strong> PUT /:file </strong></td>
 					<td>
 						<p>NOT SECURE! Updates a file entity</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1763,7 +1763,7 @@
 					<td><strong> GET /:group/files </strong></td>
 					<td>
 						<p>Returns a list of group files</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1808,7 +1808,7 @@
 					<td><strong> POST /:group/files </strong></td>
 					<td>
 						<p>NOT SECURE! Uploads a new group file</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1885,7 +1885,7 @@
 					<td><strong> GET /:site/files </strong></td>
 					<td>
 						<p>Returns a list of site files</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1930,7 +1930,7 @@
 					<td><strong> GET /:user/files </strong></td>
 					<td>
 						<p>Returns a list of user files</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
@@ -1975,7 +1975,7 @@
 					<td><strong> POST /:user/files </strong></td>
 					<td>
 						<p>NOT SECURE! Uploads a new file</p>
-						<table class="elgg-table mtl mbl">
+						<table>
 							<thead>
 								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
 							</thead>
