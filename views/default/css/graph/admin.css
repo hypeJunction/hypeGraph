@@ -1,0 +1,12 @@
+.ws-methods-form td:first-child, .ws-methods-form th:first-child {
+	width: auto;
+	text-align: center;
+}
+
+.ws-consumer-attribute-label {
+	min-width: 125px;
+	display: inline-block;
+	margin-right: 20px;
+	font-size: 12px;
+}
+

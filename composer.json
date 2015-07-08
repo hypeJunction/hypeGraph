@@ -1,0 +1,29 @@
+{
+	"name": "hypejunction/hypegraph",
+	"type": "elgg-plugin",
+	"description": "Elgg Graph and RPC Web Services",
+	"homepage": "http://hypejunction.com",
+	"keywords": [
+		"elgg", "plugin", "hypeJunction", "graph", "API", "web services"
+	],
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "Ismayil Khayredinov",
+			"email": "info@hypejunction.com"
+		}
+	],
+	"extra": {
+		"installer-name": "hypeGraph"
+	},
+	"require": {
+		"php": ">=5.5",
+		"composer/installers": "1.*"
+	},
+	 "autoload": {
+        "psr-0": {
+            "": "classes/"
+        }
+    }
+}
+
