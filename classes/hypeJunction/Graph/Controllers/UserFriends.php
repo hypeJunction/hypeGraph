@@ -73,6 +73,10 @@ class UserFriends extends Controller {
 			throw new GraphException("User or friend not found", HttpResponse::HTTP_NOT_FOUND);
 		}
 
+		if (!$user->canEdit()) {
+			throw new GraphException("You are not allowed to modify this user's friends list", HttpResponse::HTTP_FORBIDDEN);
+		}
+
 		if ($user->guid == $friend->guid) {
 			throw new GraphException("You are trying to friend yourself", HttpResponse::HTTP_BAD_REQUEST);
 		}
@@ -121,6 +125,10 @@ class UserFriends extends Controller {
 			throw new GraphException("User or friend not found", HttpResponse::HTTP_NOT_FOUND);
 		}
 
+		if (!$user->canEdit()) {
+			throw new GraphException("You are not allowed to modify this user's friends list", HttpResponse::HTTP_FORBIDDEN);
+		}
+		
 		if (!remove_entity_relationship($user->guid, "friend", $friend->guid)) {
 			throw new GraphException("Unable to remove friendship");
 		}
