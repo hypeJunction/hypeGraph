@@ -316,6 +316,16 @@ class Router {
 			);
 			$routes = array_merge($routes, $blog_routes);
 		}
+		if (elgg_is_active_plugin('file')) {
+			$file_routes = array(
+				':file' => Controllers\File::class,
+				':group/files' => elgg_is_active_plugin('groups') ? Controllers\GroupFiles::class : null,
+				':site/files' => Controllers\SiteFiles::class,
+				':user/files' => Controllers\UserFiles::class,
+			);
+			$routes = array_merge($routes, $file_routes);
+		}
+
 		return elgg_trigger_plugin_hook('routes', 'graph', null, array_filter($routes));
 	}
 

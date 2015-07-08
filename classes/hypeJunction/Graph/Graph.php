@@ -49,6 +49,12 @@ class Graph {
 		if (elgg_is_active_plugin('blog')) {
 			$aliases['object']['blog'] = ':blog';
 		}
+		if (elgg_is_active_plugin('file')) {
+			$aliases['object']['file'] = ':file';
+		}
+		if (elgg_is_active_plugin('messages') || elgg_is_active_plugin('hypeInbox')) {
+			$aliases['object']['messages'] = ':message';
+		}
 
 		return elgg_trigger_plugin_hook('aliases', 'graph', null, $aliases);
 	}
@@ -124,6 +130,12 @@ class Graph {
 						$fields[] = 'status';
 						$fields[] = 'comments_on';
 						$fields[] = 'excerpt';
+						break;
+
+					case 'file' :
+						$fields[] = 'simpletype';
+						$fields[] = 'mimetype';
+						$fields[] = 'originalfilename';
 						break;
 				}
 

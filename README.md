@@ -268,6 +268,13 @@ Request above will output something similar to this:
 }
 ```
 
+
+## File Uploads
+
+Exercise caution with allowing file uploads via the Graph. Only allow uploads by trusted
+consumers, otherwise you are opening up a security vulnerability.
+
+
 ## List of endpoints
 
 <table>

@@ -125,6 +125,14 @@ $endpoints = array(
 	'DELETE /:user/friends' => 'Removes a friendship',
 	'GET /:user/profile' => 'Returns user\'s profile',
 	'PUT /:user/profile' => 'Updates user\'s profile',
+	'GET /:file' => 'Returns a file entity',
+	'PUT /:file' => 'NOT SECURE! Updates a file entity',
+	'DELETE /:file' => 'Deletes a file entity',
+	'GET /:group/files' => 'Returns a list of group files',
+	'POST /:group/files' => 'NOT SECURE! Uploads a new group file',
+	'GET /:site/files' => 'Returns a list of site files',
+	'GET /:user/files' => 'Returns a list of user files',
+	'POST /:user/files' => 'NOT SECURE! Uploads a new file',
 );
 
 $params = array(
@@ -154,6 +162,11 @@ $params = array(
 	'graph:param:relationship' => 'Relationship name',
 	'graph:add_friend:friend_uid' => 'UID of a friend to add (defaults to authenticated user)',
 	'graph:remove_friend:friend_uid' => 'UID of a friend to remove (defaults to authenticated user)',
+	'graph:file:filename' => 'Filename (e.g. image.jpg)',
+	'graph:file:contents' => 'File contents as base64 encoded string',
+	'graph:file:mimetype' => 'Mime-type of the file (e.g. image/jpeg)',
+	'graph:file:checksum' => 'MD5 checksum of the original file (used to verify file integrity after decoding)',
+	'graph:param:simpletype' => 'Simpletype',
 	
 );
 
