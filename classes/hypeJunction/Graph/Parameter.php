@@ -57,26 +57,28 @@ class Parameter {
 	public function prepare() {
 		$this->value = get_input($this->name, $this->default);
 
-		if ($this->type == self::TYPE_ENUM) {
-			if ($this->value !== null && !in_array($this->value, $this->enum_values)) {
-				$msg = elgg_echo('Exception:UnsupportedEnumValue', array($this->value, $this->name, implode(', ', $this->enum_values)));
-				throw new GraphException($msg);
-			}
-		} else {
-			// Cast values to specified type
-			if (!settype($this->value, $this->type)) {
-				if (isset($this->default)) {
-					$this->value = $this->default;
-				} else {
-					$msg = elgg_echo('Exception:UnrecognisedTypeCast', array($this->type, $this->name));
+		if ($this->value !== null) {
+			if ($this->type == self::TYPE_ENUM) {
+				if (!in_array($this->value, $this->enum_values)) {
+					$msg = elgg_echo('Exception:UnsupportedEnumValue', array($this->value, $this->name, implode(', ', $this->enum_values)));
 					throw new GraphException($msg);
+				}
+			} else {
+				// Cast values to specified type
+				if (!settype($this->value, $this->type)) {
+					if (isset($this->default)) {
+						$this->value = $this->default;
+					} else {
+						$msg = elgg_echo('Exception:UnrecognisedTypeCast', array($this->type, $this->name));
+						throw new GraphException($msg);
+					}
 				}
 			}
 		}
 
 		// Validate required values
 		if ($this->required) {
-			if (($this->type == Parameter::TYPE_ARRAY && empty($this->value)) || $this->value == '' || $this->value == null) {
+			if (($this->type == Parameter::TYPE_ARRAY && empty($this->value)) || $this->value === '' || $this->value === null) {
 				$msg = elgg_echo('Exception:MissingParameterInMethod', array($this->name));
 				throw new GraphException($msg);
 			}
