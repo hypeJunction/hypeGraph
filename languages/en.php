@@ -25,6 +25,7 @@ $admin = array(
 	'admin:graph' => 'RESTful Graph',
 	'admin:graph:provider' => 'API Provider',
 	'admin:graph:consumers' => 'API Consumers',
+	'admin:graph:endpoints' => 'API Endpoints',
 	'admin:graph:add_consumer' => 'Add new consumer',
 	'admin:graph:consumers:edit' => 'Edit consumer',
 	'admin:graph:consumers:none' => 'You have not created any consumers yet',

@@ -8,8 +8,10 @@
 	<body>
 		<h1>hypeGraph Endpoints</h1>
 		<table>
-			<tbody>
+			<thead>
 				<tr><th>Endpoint</th><th>Description</th></tr>
+			</thead>
+			<tbody>
 				<tr>
 					<td><strong> GET / </strong></td>
 					<td>
@@ -71,7 +73,7 @@
 								<tr>
 									<td>email</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Email address</td>
@@ -201,7 +203,7 @@
 								<tr>
 									<td>action</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Action</td>
@@ -209,7 +211,7 @@
 								<tr>
 									<td>view</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>river/elements/layout</td>
 									<td>&nbsp;</td>
 									<td>Existing view</td>
@@ -217,7 +219,7 @@
 								<tr>
 									<td>subject_uid</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>UID of the subject</td>
@@ -280,7 +282,7 @@
 								<tr>
 									<td>auth_token</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Access Token</td>
@@ -301,10 +303,211 @@
 								<tr>
 									<td>auth_token</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Access Token</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> GET /:user/friends </strong></td>
+					<td>
+						<p>Returns a list of user's friends</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>limit</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>10</td>
+									<td>&nbsp;</td>
+									<td>Number of entries to return (max 50)</td>
+								</tr>
+								<tr>
+									<td>offset</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Offset from the start of the list</td>
+								</tr>
+								<tr>
+									<td>sort</td>
+									<td>array</td>
+									<td>&nbsp;</td>
+									<td>Array</td>
+									<td>&nbsp;</td>
+									<td>Sorting order</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> POST /:user/friends </strong></td>
+					<td>
+						<p>Adds a friendship</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>friend_uid</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>UID of a friend to add (defaults to authenticated user)</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> DELETE /:user/friends </strong></td>
+					<td>
+						<p>Removes a friendship</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>friend_uid</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>UID of a friend to remove (defaults to authenticated user)</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> GET /:user/profile </strong></td>
+					<td>
+						<p>Returns user's profile</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>fields</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>graph:param:fields</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> PUT /:user/profile </strong></td>
+					<td>
+						<p>Updates user's profile</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>access_id</td>
+									<td>integer</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>ID of an access collection</td>
+								</tr>
+								<tr>
+									<td>description</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>About me</td>
+								</tr>
+								<tr>
+									<td>briefdescription</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Brief description</td>
+								</tr>
+								<tr>
+									<td>location</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Location</td>
+								</tr>
+								<tr>
+									<td>interests</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Interests</td>
+								</tr>
+								<tr>
+									<td>skills</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Skills</td>
+								</tr>
+								<tr>
+									<td>contactemail</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Contact email</td>
+								</tr>
+								<tr>
+									<td>phone</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Telephone</td>
+								</tr>
+								<tr>
+									<td>mobile</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Mobile phone</td>
+								</tr>
+								<tr>
+									<td>website</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Website</td>
+								</tr>
+								<tr>
+									<td>twitter</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Twitter username</td>
 								</tr>
 							</tbody>
 						</table>
@@ -399,7 +602,7 @@
 								<tr>
 									<td>action</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Action</td>
@@ -407,7 +610,7 @@
 								<tr>
 									<td>view</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>river/elements/layout</td>
 									<td>&nbsp;</td>
 									<td>Existing view</td>
@@ -458,7 +661,7 @@
 								<tr>
 									<td>comment</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Comment</td>
@@ -522,7 +725,7 @@
 								<tr>
 									<td>comment</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Comment</td>
@@ -768,7 +971,7 @@
 								<tr>
 									<td>relationship</td>
 									<td>enum</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>member</td>
 									<td>member<br />membership_request<br />invited</td>
 									<td>Relationship name</td>
@@ -826,7 +1029,7 @@
 								<tr>
 									<td>name</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Group name</td>
@@ -980,7 +1183,7 @@
 								<tr>
 									<td>name</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Group name</td>
@@ -1252,7 +1455,7 @@
 								<tr>
 									<td>title</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Title</td>
@@ -1260,7 +1463,7 @@
 								<tr>
 									<td>description</td>
 									<td>string</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>Body</td>
@@ -1276,7 +1479,7 @@
 								<tr>
 									<td>status</td>
 									<td>enum</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>published</td>
 									<td>draft<br />published</td>
 									<td>Status</td>
@@ -1284,7 +1487,7 @@
 								<tr>
 									<td>comments_on</td>
 									<td>enum</td>
-									<td>X</td>
+									<td>&times;</td>
 									<td>On</td>
 									<td>On<br />Off</td>
 									<td>Comments</td>
@@ -1383,75 +1586,76 @@
 						</table>
 					</td>
 				</tr>
-			<td><strong> POST /:user/blogs </strong></td>
-			<td>
-				<p>Creates a new blog</p>
-				<table class="elgg-table mtl mbl">
-					<thead>
-						<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>title</td>
-							<td>string</td>
-							<td>X</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>Title</td>
-						</tr>
-						<tr>
-							<td>description</td>
-							<td>string</td>
-							<td>X</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>Body</td>
-						</tr>
-						<tr>
-							<td>excerpt</td>
-							<td>string</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>Excerpt</td>
-						</tr>
-						<tr>
-							<td>status</td>
-							<td>enum</td>
-							<td>X</td>
-							<td>published</td>
-							<td>draft<br />published</td>
-							<td>Status</td>
-						</tr>
-						<tr>
-							<td>comments_on</td>
-							<td>enum</td>
-							<td>X</td>
-							<td>On</td>
-							<td>On<br />Off</td>
-							<td>Comments</td>
-						</tr>
-						<tr>
-							<td>tags</td>
-							<td>string</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>Tags</td>
-						</tr>
-						<tr>
-							<td>access_id</td>
-							<td>integer</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>ID of an access collection</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</tbody>
-</table>
-</body>
+				<tr>
+					<td><strong> POST /:user/blogs </strong></td>
+					<td>
+						<p>Creates a new blog</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>title</td>
+									<td>string</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Title</td>
+								</tr>
+								<tr>
+									<td>description</td>
+									<td>string</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Body</td>
+								</tr>
+								<tr>
+									<td>excerpt</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Excerpt</td>
+								</tr>
+								<tr>
+									<td>status</td>
+									<td>enum</td>
+									<td>&times;</td>
+									<td>published</td>
+									<td>draft<br />published</td>
+									<td>Status</td>
+								</tr>
+								<tr>
+									<td>comments_on</td>
+									<td>enum</td>
+									<td>&times;</td>
+									<td>On</td>
+									<td>On<br />Off</td>
+									<td>Comments</td>
+								</tr>
+								<tr>
+									<td>tags</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Tags</td>
+								</tr>
+								<tr>
+									<td>access_id</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>ID of an access collection</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
 </html>

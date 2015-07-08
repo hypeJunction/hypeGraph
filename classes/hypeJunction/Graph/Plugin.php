@@ -103,6 +103,7 @@ final class Plugin extends \hypeJunction\Plugin {
 
 		elgg_register_admin_menu_item('administer', 'provider', 'graph');
 		elgg_register_admin_menu_item('administer', 'consumers', 'graph');
+		elgg_register_admin_menu_item('administer', 'endpoints', 'graph');
 
 		elgg_register_action('admin/graph/provider/settings', $this->plugin->getPath() . 'actions/graph/provider/settings.php', 'admin');
 		elgg_register_action('admin/graph/consumers/edit', $this->plugin->getPath() . 'actions/graph/consumers/edit.php', 'admin');
