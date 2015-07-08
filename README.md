@@ -320,8 +320,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:site/users]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> POST /:site/users </strong></td>
 					<td>
 						<p>Registers a new user on the site</p>
@@ -398,8 +397,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:site/activity]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:site/activity </strong></td>
 					<td>
 						<p>Returns a list of latest site activity (river)</p>
@@ -452,8 +450,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:site/activity]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> POST /:site/activity </strong></td>
 					<td>
 						<p>Adds a new activity (river) item to the feed</p>
@@ -514,29 +511,25 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:user]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:user </strong></td>
 					<td>
 						<p>Returns a user</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[DELETE /:user]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> DELETE /:user </strong></td>
 					<td>
 						<p>Deletes a user</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:user/token]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> POST /:user/token </strong></td>
 					<td>
 						<p>Create a new access token for the user</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[PUT /:user/token]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> PUT /:user/token </strong></td>
 					<td>
 						<p>Exchanges a short lived access token for a token with a 30-day validity</p>
@@ -557,8 +550,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[DELETE /:user/token]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> DELETE /:user/token </strong></td>
 					<td>
 						<p>Revokes a user token</p>
@@ -579,36 +571,31 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:object]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:object </strong></td>
 					<td>
 						<p>Returns an object</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[DELETE /:object]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> DELETE /:object </strong></td>
 					<td>
 						<p>Deletes an object</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:activity]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:activity </strong></td>
 					<td>
 						<p>Returns a single activity (river) item</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[DELETE /:activity]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> DELETE /:activity </strong></td>
 					<td>
 						<p>Deletes a single activity (river) item</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:user/activity]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:user/activity </strong></td>
 					<td>
 						<p>Returns a list of activity (river) items where a user is either a subject, object or target</p>
@@ -661,8 +648,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:user/activity]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> POST /:user/activity </strong></td>
 					<td>
 						<p>Adds a new activity (river) item with the user as a subject</p>
@@ -715,15 +701,13 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:comment]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:comment </strong></td>
 					<td>
 						<p>Returns a single comment</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[PUT /:comment]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> PUT /:comment </strong></td>
 					<td>
 						<p>Update s a single comment</p>
@@ -744,15 +728,13 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[DELETE /:comment]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> DELETE /:comment </strong></td>
 					<td>
 						<p>Deletes a single comment</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:object/comments]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:object/comments </strong></td>
 					<td>
 						<p>Returns a list of comments made on the object</p>
@@ -789,8 +771,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:object/comments]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> POST /:object/comments </strong></td>
 					<td>
 						<p>Adds a new comment on the object</p>
@@ -811,22 +792,19 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:like]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:like </strong></td>
 					<td>
 						<p>Returns a single like</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[DELETE /:like]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> DELETE /:like </strong></td>
 					<td>
 						<p>Deletes a single like</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:object/likes]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:object/likes </strong></td>
 					<td>
 						<p>Returns a list of object likes</p>
@@ -855,29 +833,25 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:object/likes]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> POST /:object/likes </strong></td>
 					<td>
 						<p>Likes an object on behalf of the authenticated user</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[DELETE /:object/likes]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> DELETE /:object/likes </strong></td>
 					<td>
 						<p>Unlikes an object on behalf of the authenticated user</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:group]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:group </strong></td>
 					<td>
 						<p>Returns a single group</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[PUT /:group]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> PUT /:group </strong></td>
 					<td>
 						<p>Updates a group</p>
@@ -994,15 +968,13 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[DELETE /:group]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> DELETE /:group </strong></td>
 					<td>
 						<p>Deletes a group</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:group/members]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:group/members </strong></td>
 					<td>
 						<p>Returns a list of group members</p>
@@ -1039,15 +1011,13 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:group/members]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> POST /:group/members </strong></td>
 					<td>
 						<p>Adds user as a member of a group (or creates a membership request for closed group)</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[DELETE /:group/members]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> DELETE /:group/members </strong></td>
 					<td>
 						<p>Revokes membership in a group (or deletes membership request or revokes invitation)</p>
@@ -1068,8 +1038,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:site/groups]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:site/groups </strong></td>
 					<td>
 						<p>Returns a list of all groups on the site</p>
@@ -1106,8 +1075,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:site/groups]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> POST /:site/groups </strong></td>
 					<td>
 						<p>Creates a new group</p>
@@ -1224,8 +1192,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:user/groups]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:user/groups </strong></td>
 					<td>
 						<p>Returns a list of all groups created by the user</p>
@@ -1262,8 +1229,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:user/groups]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> POST /:user/groups </strong></td>
 					<td>
 						<p>Creates a new group</p>
@@ -1380,8 +1346,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:user/groups/membership]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:user/groups/membership </strong></td>
 					<td>
 						<p>Returns a list of all groups a user is a member of</p>
@@ -1418,15 +1383,13 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:blog]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:blog </strong></td>
 					<td>
 						<p>Returns a single blog</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[PUT /:blog]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> PUT /:blog </strong></td>
 					<td>
 						<p>Updates a blog post</p>
@@ -1495,15 +1458,13 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[DELETE /:blog]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> DELETE /:blog </strong></td>
 					<td>
 						<p>Deletes a blog post</p>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:group/blogs]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:group/blogs </strong></td>
 					<td>
 						<p>Returns a list of all group blogs</p>
@@ -1540,8 +1501,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:group/blogs]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> POST /:group/blogs </strong></td>
 					<td>
 						<p>Creates a new group blog</p>
@@ -1610,8 +1570,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:site/blogs]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:site/blogs </strong></td>
 					<td>
 						<p>Returns a list of all blogs on the site</p>
@@ -1648,8 +1607,7 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[GET /:user/blogs]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
+				<tr>
 					<td><strong> GET /:user/blogs </strong></td>
 					<td>
 						<p>Returns a list of all blogs by the user</p>
@@ -1686,77 +1644,73 @@ Request above will output something similar to this:
 						</table>
 					</td>
 				</tr>
-				<tr><!--					<td>
-														<input type="checkbox" name="endpoints[POST /:user/blogs]" value="1" class="ws-endpoints-endpoint-enable elgg-input-checkbox">					</td>-->
-					<td><strong> POST /:user/blogs </strong></td>
-					<td>
-						<p>Creates a new blog</p>
-						<table class="elgg-table mtl mbl">
-							<thead>
-								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>title</td>
-									<td>string</td>
-									<td>X</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>Title</td>
-								</tr>
-								<tr>
-									<td>description</td>
-									<td>string</td>
-									<td>X</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>Body</td>
-								</tr>
-								<tr>
-									<td>excerpt</td>
-									<td>string</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>Excerpt</td>
-								</tr>
-								<tr>
-									<td>status</td>
-									<td>enum</td>
-									<td>X</td>
-									<td>published</td>
-									<td>draft<br />published</td>
-									<td>Status</td>
-								</tr>
-								<tr>
-									<td>comments_on</td>
-									<td>enum</td>
-									<td>X</td>
-									<td>On</td>
-									<td>On<br />Off</td>
-									<td>Comments</td>
-								</tr>
-								<tr>
-									<td>tags</td>
-									<td>string</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>Tags</td>
-								</tr>
-								<tr>
-									<td>access_id</td>
-									<td>integer</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-									<td>ID of an access collection</td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-
+			<td><strong> POST /:user/blogs </strong></td>
+			<td>
+				<p>Creates a new blog</p>
+				<table class="elgg-table mtl mbl">
+					<thead>
+						<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>title</td>
+							<td>string</td>
+							<td>X</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>Title</td>
+						</tr>
+						<tr>
+							<td>description</td>
+							<td>string</td>
+							<td>X</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>Body</td>
+						</tr>
+						<tr>
+							<td>excerpt</td>
+							<td>string</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>Excerpt</td>
+						</tr>
+						<tr>
+							<td>status</td>
+							<td>enum</td>
+							<td>X</td>
+							<td>published</td>
+							<td>draft<br />published</td>
+							<td>Status</td>
+						</tr>
+						<tr>
+							<td>comments_on</td>
+							<td>enum</td>
+							<td>X</td>
+							<td>On</td>
+							<td>On<br />Off</td>
+							<td>Comments</td>
+						</tr>
+						<tr>
+							<td>tags</td>
+							<td>string</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>Tags</td>
+						</tr>
+						<tr>
+							<td>access_id</td>
+							<td>integer</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>ID of an access collection</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
