@@ -331,6 +331,14 @@ class Router {
 			);
 			$routes = array_merge($routes, $file_routes);
 		}
+		if (elgg_is_active_plugin('messages') || elgg_is_active_plugin('hypeInbox')) {
+			$file_routes = array(
+				':message' => Controllers\Message::class,
+				':message/replies' => Controllers\MessageReplies::class,
+				':user/messages' => Controllers\UserMessages::class,
+			);
+			$routes = array_merge($routes, $file_routes);
+		}
 
 		return elgg_trigger_plugin_hook('routes', 'graph', null, array_filter($routes));
 	}

@@ -133,6 +133,12 @@ $endpoints = array(
 	'GET /:site/files' => 'Returns a list of site files',
 	'GET /:user/files' => 'Returns a list of user files',
 	'POST /:user/files' => 'NOT SECURE! Uploads a new file',
+	'GET /:message' => 'Returns a single message',
+	'DELETE /:message' => 'Deletes a single message',
+	'GET /:message/replies' => 'Returns a list of replies, or if hypeInbox is enabled - an entire thread this message is belongs to',
+	'POST /:message/replies' => 'Adds a reply to the message',
+	'GET /:user/messages' => 'Returns a list of received or sent messages',
+	'POST /:user/messages' => 'Sends a message to the user on behalf of the authenticated user',
 );
 
 $params = array(
@@ -168,7 +174,9 @@ $params = array(
 	'graph:file:checksum' => 'MD5 checksum of the original file (used to verify file integrity after decoding)',
 	'graph:param:simpletype' => 'Simpletype',
 	'graph:file:raw' => 'If set to true, the response will contain a raw file with appropriate content-type headers. This can be used to download the file.',
-	
+	'graph:param:attachment_uids' => 'UIDs of attachments to make (must be files uploaded via graph with private access level)',
+	'graph:message:box_type' => 'Message box type',
+
 );
 
 add_translation('en', array_merge($api, $admin, $endpoints, $params));

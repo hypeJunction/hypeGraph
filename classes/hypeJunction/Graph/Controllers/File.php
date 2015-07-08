@@ -110,6 +110,7 @@ class File extends Object {
 			$file->container_guid = $container->guid;
 			$file->title = $params->title ? : $params->filename;
 			$file->access_id = ACCESS_PRIVATE;
+			$file->origin = 'graph';
 		}
 
 		$attrs = array('title', 'description', 'access_id');

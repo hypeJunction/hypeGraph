@@ -136,9 +136,24 @@ class Graph {
 						$fields[] = 'simpletype';
 						$fields[] = 'mimetype';
 						$fields[] = 'originalfilename';
+						$fields[] = 'origin';
+						break;
+
+					case 'messages' :
+						foreach (array('owner', 'container', 'tags', 'icon') as $needle) {
+							$key = array_search($needle, $fields);
+							unset($fields[$key]);
+						}
+						$fields[] = 'status';
+						$fields[] = 'sender';
+						$fields[] = 'recipients';
+						if (elgg_is_active_plugin('hypeInbox')) {
+							$fields[] = 'thread_id';
+							$fields[] = 'message_type';
+							$fields[] = 'attachments';
+						}
 						break;
 				}
-
 				break;
 
 			case 'group' :
@@ -525,6 +540,83 @@ class Graph {
 		}
 
 		return (object) $result;
+	}
+
+	/**
+	 * Message export
+	 *
+	 * @param string   $hook   "to:object"
+	 * @param string   $type   "entity"
+	 * @param stdClass $return Export object
+	 * @param array    $params Hook params
+	 * @return stdClass
+	 */
+	public function exportMessage($hook, $type, $return, $params) {
+
+		if (!elgg_in_context('graph')) {
+			return $return;
+		}
+
+		$entity = elgg_extract('entity', $params);
+		if (!$entity instanceof ElggObject || $entity->getSubtype() !== 'messages') {
+			return $return;
+		}
+
+		$allowed = $this->getFields($entity);
+		$fields = get_input('fields', $allowed);
+		if (is_string($fields)) {
+			$fields = string_to_tag_array($fields);
+		}
+
+		foreach ($fields as $key) {
+			switch ($key) {
+
+				case 'status' :
+					$return->status = ($entity->readYet) ? 'read' : 'unread';
+					break;
+
+				case 'sender' :
+					$sender = get_entity($entity->fromId);
+					if ($sender) {
+						$return->sender = $sender->toObject();
+					}
+					break;
+
+				case 'recipients' :
+					$return->recipients = array();
+					$recipients = new \ElggBatch('elgg_get_entities', array(
+						'guids' => $entity->toId,
+						'limit' => 0,
+						'order_by' => 'e.guid',
+					));
+					foreach ($recipients as $user) {
+						$return->recipients[] = $user->toObject();
+					}
+					break;
+
+				case 'attachments' :
+					$return->attachments = array();
+					$attachments = new \ElggBatch('elgg_get_entities_from_relationship', array(
+						'relationship' => 'attached',
+						'relationship_guid' => $this->guid,
+						'inverse_relationship' => false,
+					));
+					foreach ($attachments as $attachment) {
+						$return->attachments[] = $attachment->toObject();
+					}
+					break;
+
+				case 'thread_id' :
+					$return->thread_id = $entity->msgHash;
+					break;
+
+				case 'message_type' :
+					$return->message_type = $entity->msgType;
+					break;
+			}
+		}
+
+		return $return;
 	}
 
 	/**

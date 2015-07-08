@@ -120,13 +120,15 @@ final class Plugin extends \hypeJunction\Plugin {
 		elgg_register_plugin_hook_handler('cron', 'daily', array($this->tokens, 'removeExpiredTokens'));
 
 		// Entity export for graph output
-		elgg_register_plugin_hook_handler('to:object', 'all', array($this->graph, 'exportSite'));
-		elgg_register_plugin_hook_handler('to:object', 'all', array($this->graph, 'exportUser'));
-		elgg_register_plugin_hook_handler('to:object', 'all', array($this->graph, 'exportGroup'));
-		elgg_register_plugin_hook_handler('to:object', 'all', array($this->graph, 'exportObject'));
-		elgg_register_plugin_hook_handler('to:object', 'all', array($this->graph, 'exportRiver'));
-		elgg_register_plugin_hook_handler('to:object', 'all', array($this->graph, 'exportRelationship'));
-		elgg_register_plugin_hook_handler('to:object', 'all', array($this->graph, 'exportExtender'));
+		elgg_register_plugin_hook_handler('to:object', 'entity', array($this->graph, 'exportSite'), 600);
+		elgg_register_plugin_hook_handler('to:object', 'entity', array($this->graph, 'exportUser'), 600);
+		elgg_register_plugin_hook_handler('to:object', 'entity', array($this->graph, 'exportGroup'), 600);
+		elgg_register_plugin_hook_handler('to:object', 'entity', array($this->graph, 'exportObject'), 600);
+		elgg_register_plugin_hook_handler('to:object', 'river_item', array($this->graph, 'exportRiver'), 600);
+		elgg_register_plugin_hook_handler('to:object', 'relationship', array($this->graph, 'exportRelationship'), 600);
+		elgg_register_plugin_hook_handler('to:object', 'all', array($this->graph, 'exportExtender'), 600);
+
+		elgg_register_plugin_hook_handler('to:object', 'entity', array($this->graph, 'exportMessage'), 650);
 
 		// Restrict access to graph endpoints for certain consumers
 		elgg_register_plugin_hook_handler('permissions_check:graph', 'all', array($this->pam, 'checkAccess'));
