@@ -125,7 +125,7 @@ $endpoints = array(
 	'DELETE /:user/friends' => 'Removes a friendship',
 	'GET /:user/profile' => 'Returns user\'s profile',
 	'PUT /:user/profile' => 'Updates user\'s profile',
-	'GET /:file' => 'Returns a file entity',
+	'GET /:file' => 'Returns a file entity or downloads a file',
 	'PUT /:file' => 'NOT SECURE! Updates a file entity',
 	'DELETE /:file' => 'Deletes a file entity',
 	'GET /:group/files' => 'Returns a list of group files',
@@ -167,6 +167,7 @@ $params = array(
 	'graph:file:mimetype' => 'Mime-type of the file (e.g. image/jpeg)',
 	'graph:file:checksum' => 'MD5 checksum of the original file (used to verify file integrity after decoding)',
 	'graph:param:simpletype' => 'Simpletype',
+	'graph:file:raw' => 'If set to true, the response will contain a raw file with appropriate content-type headers. This can be used to download the file.',
 	
 );
 

@@ -10,6 +10,7 @@ use hypeJunction\Graph\HttpRequest;
 use hypeJunction\Graph\HttpResponse;
 use hypeJunction\Graph\Parameter;
 use hypeJunction\Graph\ParameterBag;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class File extends Object {
 
@@ -19,6 +20,11 @@ class File extends Object {
 	public function params($method) {
 
 		switch ($method) {
+			case HttpRequest::METHOD_GET :
+				$params = parent::params($method);
+				$params[] = new Parameter('raw', false, Parameter::TYPE_BOOL, false, null, elgg_echo('graph:file:raw'));
+				return $params;
+
 			case HttpRequest::METHOD_PUT :
 				return array(
 					new HiddenParameter('guid', true, Parameter::TYPE_INT),
@@ -37,6 +43,27 @@ class File extends Object {
 			default :
 				return parent::params($method);
 		}
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get(ParameterBag $params) {
+		if (empty($params->raw)) {
+			return parent::get($params);
+		}
+		
+		$file = get_entity($params->guid);
+		/* @var $file \ElggFile */
+
+		$file->open('read');
+		$response = new HttpResponse($file->grabFile());
+		$d = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $file->originalfilename);
+		$response->headers->set('Content-Disposition', $d);
+		$response->headers->set('Content-Type', $file->getMimeType());
+		$file->close();
+
+		return $response;
 	}
 
 	/**

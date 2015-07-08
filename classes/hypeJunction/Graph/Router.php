@@ -240,6 +240,12 @@ class Router {
 	 * @return void
 	 */
 	public function send($result = null) {
+
+		if ($result instanceof HttpResponse) {
+			$result->send();
+			exit;
+		}
+		
 		// Output the result
 		if (!$result instanceof GenericResult) {
 			$result = new SuccessResult($result);
