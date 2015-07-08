@@ -264,7 +264,7 @@ Request above will output something similar to this:
     ]
   }
 }
-
+```
 
 ## List of endpoints
 
