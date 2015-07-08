@@ -122,6 +122,8 @@ $endpoints = array(
 	'GET /:user/friends' => 'Returns a list of user\'s friends',
 	'POST /:user/friends' => 'Adds a friendship',
 	'DELETE /:user/friends' => 'Removes a friendship',
+	'GET /:user/profile' => 'Returns user\'s profile',
+	'PUT /:user/profile' => 'Updates user\'s profile',
 );
 
 $params = array(

@@ -283,6 +283,7 @@ class Router {
 			':user' => Controllers\User::class,
 			':user/token' => Controllers\AccessToken::class,
 			':user/friends' => Controllers\UserFriends::class,
+			':user/profile' => Controllers\UserProfile::class,
 			// Object
 			':object' => Controllers\Object::class,
 			// River
@@ -315,8 +316,6 @@ class Router {
 			);
 			$routes = array_merge($routes, $blog_routes);
 		}
-
-
 		return elgg_trigger_plugin_hook('routes', 'graph', null, array_filter($routes));
 	}
 
