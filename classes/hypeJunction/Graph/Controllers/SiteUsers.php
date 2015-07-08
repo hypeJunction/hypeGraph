@@ -49,7 +49,7 @@ class SiteUsers extends Controller {
 	 */
 	public function get(ParameterBag $params) {
 		$options = array(
-			'types' => 'group',
+			'types' => 'user',
 			'limit' => $params->limit,
 			'offset' => $params->offset,
 			'count' => true,
