@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<h1>hypeGraph Endpoints</h1>
-		<table>
+		<table class="elgg-table-alt ws-endpoints-form" style="width: 100%;">
 			<thead>
 				<tr><th>Endpoint</th><th>Description</th></tr>
 			</thead>
@@ -1650,6 +1650,399 @@
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 									<td>ID of an access collection</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> GET /:file </strong></td>
+					<td>
+						<p>Returns a file entity</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>raw</td>
+									<td>boolean</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>graph:file:raw</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> PUT /:file </strong></td>
+					<td>
+						<p>NOT SECURE! Updates a file entity</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>title</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Title</td>
+								</tr>
+								<tr>
+									<td>description</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Description</td>
+								</tr>
+								<tr>
+									<td>tags</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Tags</td>
+								</tr>
+								<tr>
+									<td>access_id</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>ID of an access collection</td>
+								</tr>
+								<tr>
+									<td>filename</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Filename (e.g. image.jpg)</td>
+								</tr>
+								<tr>
+									<td>contents</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>File contents as base64 encoded string</td>
+								</tr>
+								<tr>
+									<td>mimetype</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Mime-type of the file (e.g. image/jpeg)</td>
+								</tr>
+								<tr>
+									<td>checksum</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>MD5 checksum of the original file (used to verify file integrity after decoding)</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> DELETE /:file </strong></td>
+					<td>
+						<p>Deletes a file entity</p>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> GET /:group/files </strong></td>
+					<td>
+						<p>Returns a list of group files</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>limit</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>10</td>
+									<td>&nbsp;</td>
+									<td>Number of entries to return (max 50)</td>
+								</tr>
+								<tr>
+									<td>offset</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Offset from the start of the list</td>
+								</tr>
+								<tr>
+									<td>sort</td>
+									<td>array</td>
+									<td>&nbsp;</td>
+									<td>Array</td>
+									<td>&nbsp;</td>
+									<td>Sorting order</td>
+								</tr>
+								<tr>
+									<td>simpletype</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Simpletype</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> POST /:group/files </strong></td>
+					<td>
+						<p>NOT SECURE! Uploads a new group file</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>title</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Title</td>
+								</tr>
+								<tr>
+									<td>description</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Description</td>
+								</tr>
+								<tr>
+									<td>tags</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Tags</td>
+								</tr>
+								<tr>
+									<td>access_id</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>ID of an access collection</td>
+								</tr>
+								<tr>
+									<td>filename</td>
+									<td>string</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Filename (e.g. image.jpg)</td>
+								</tr>
+								<tr>
+									<td>contents</td>
+									<td>string</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>File contents as base64 encoded string</td>
+								</tr>
+								<tr>
+									<td>mimetype</td>
+									<td>string</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Mime-type of the file (e.g. image/jpeg)</td>
+								</tr>
+								<tr>
+									<td>checksum</td>
+									<td>string</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>MD5 checksum of the original file (used to verify file integrity after decoding)</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> GET /:site/files </strong></td>
+					<td>
+						<p>Returns a list of site files</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>limit</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>10</td>
+									<td>&nbsp;</td>
+									<td>Number of entries to return (max 50)</td>
+								</tr>
+								<tr>
+									<td>offset</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Offset from the start of the list</td>
+								</tr>
+								<tr>
+									<td>sort</td>
+									<td>array</td>
+									<td>&nbsp;</td>
+									<td>Array</td>
+									<td>&nbsp;</td>
+									<td>Sorting order</td>
+								</tr>
+								<tr>
+									<td>simpletype</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Simpletype</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> GET /:user/files </strong></td>
+					<td>
+						<p>Returns a list of user files</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>limit</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>10</td>
+									<td>&nbsp;</td>
+									<td>Number of entries to return (max 50)</td>
+								</tr>
+								<tr>
+									<td>offset</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Offset from the start of the list</td>
+								</tr>
+								<tr>
+									<td>sort</td>
+									<td>array</td>
+									<td>&nbsp;</td>
+									<td>Array</td>
+									<td>&nbsp;</td>
+									<td>Sorting order</td>
+								</tr>
+								<tr>
+									<td>simpletype</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Simpletype</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong> POST /:user/files </strong></td>
+					<td>
+						<p>NOT SECURE! Uploads a new file</p>
+						<table class="elgg-table mtl mbl">
+							<thead>
+								<tr><th>Parameter</th><th>Type</th><th>Required</th><th>Default</th><th>Enum</th><th>Description</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>title</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Title</td>
+								</tr>
+								<tr>
+									<td>description</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Description</td>
+								</tr>
+								<tr>
+									<td>tags</td>
+									<td>string</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Tags</td>
+								</tr>
+								<tr>
+									<td>access_id</td>
+									<td>integer</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>ID of an access collection</td>
+								</tr>
+								<tr>
+									<td>filename</td>
+									<td>string</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Filename (e.g. image.jpg)</td>
+								</tr>
+								<tr>
+									<td>contents</td>
+									<td>string</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>File contents as base64 encoded string</td>
+								</tr>
+								<tr>
+									<td>mimetype</td>
+									<td>string</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>Mime-type of the file (e.g. image/jpeg)</td>
+								</tr>
+								<tr>
+									<td>checksum</td>
+									<td>string</td>
+									<td>&times;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>MD5 checksum of the original file (used to verify file integrity after decoding)</td>
 								</tr>
 							</tbody>
 						</table>
