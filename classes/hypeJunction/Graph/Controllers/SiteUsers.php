@@ -52,7 +52,6 @@ class SiteUsers extends Controller {
 			'types' => 'user',
 			'limit' => $params->limit,
 			'offset' => $params->offset,
-			'count' => true,
 			'sort' => $params->sort,
 		);
 		return new BatchResult('elgg_get_entities', $options);
