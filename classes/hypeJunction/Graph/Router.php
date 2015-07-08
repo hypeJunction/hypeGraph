@@ -282,6 +282,7 @@ class Router {
 			// User
 			':user' => Controllers\User::class,
 			':user/token' => Controllers\AccessToken::class,
+			':user/friends' => Controllers\UserFriends::class,
 			// Object
 			':object' => Controllers\Object::class,
 			// River

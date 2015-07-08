@@ -119,6 +119,9 @@ $endpoints = array(
 	'GET /:site/blogs' => 'Returns a list of all blogs on the site',
 	'GET /:user/blogs' => 'Returns a list of all blogs by the user',
 	'POST /:user/blogs' => 'Creates a new blog',
+	'GET /:user/friends' => 'Returns a list of user\'s friends',
+	'POST /:user/friends' => 'Adds a friendship',
+	'DELETE /:user/friends' => 'Removes a friendship',
 );
 
 $params = array(
@@ -146,6 +149,8 @@ $params = array(
 	'graph:param:auth_token' => 'Access Token',
 	'graph:param:comment' => 'Comment',
 	'graph:param:relationship' => 'Relationship name',
+	'graph:add_friend:friend_uid' => 'UID of a friend to add (defaults to authenticated user)',
+	'graph:remove_friend:friend_uid' => 'UID of a friend to remove (defaults to authenticated user)',
 	
 );
 

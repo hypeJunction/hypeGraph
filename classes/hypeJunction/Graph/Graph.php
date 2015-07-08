@@ -42,6 +42,7 @@ class Graph {
 				'member' => ':member',
 				'membership_request' => ':membership_request',
 				'invited' => ':invitation',
+				'friend' => ':friend',
 			),
 		);
 
