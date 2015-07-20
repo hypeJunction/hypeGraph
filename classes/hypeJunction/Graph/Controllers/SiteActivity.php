@@ -34,7 +34,7 @@ class SiteActivity extends Controller {
 					new Parameter('action', true, Parameter::TYPE_STRING),
 					new Parameter('view', true, Parameter::TYPE_STRING, 'river/elements/layout'),
 					new Parameter('subject_uid', true),
-					new Parameter('object_uid', false),
+					new Parameter('object_uid', true),
 					new Parameter('target_uid', false),
 					new Parameter('annotation_uid', false),
 				);
@@ -67,14 +67,14 @@ class SiteActivity extends Controller {
 			throw new GraphException('You are not allowed to create new activity items with this subject', 403);
 		}
 
-		$id = elgg_create_river_item(array(
+		$id = elgg_create_river_item(array_filter(array(
 			'view' => $params->view,
 			'subject_guid' => $this->graph->get($params->subject_uid)->guid ? : ELGG_ENTITIES_ANY_VALUE,
 			'object_guid' => $this->graph->get($params->object_uid)->guid ? : ELGG_ENTITIES_ANY_VALUE,
 			'target_guid' => $this->graph->get($params->target_uid)->guid ? : ELGG_ENTITIES_ANY_VALUE,
 			'action_type' => $params->action,
 			'annotation_id' => $this->graph->get($params->annotation_uid)->id,
-		));
+		)));
 
 		if (!$id) {
 			throw new GraphException('Unable to create a new activity item with such parameters', 400);
