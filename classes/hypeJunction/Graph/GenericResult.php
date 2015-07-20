@@ -90,6 +90,14 @@ abstract class GenericResult {
 	 * @return stdClass
 	 */
 	protected function prepareValue($value = null) {
+		if ($value instanceof ElggBatch) {
+			$return = array('nodes' => array());
+			foreach ($value as $v) {
+				$return['nodes'][] = $this->prepareValue($v);
+			}
+			$value = $return;
+		}
+
 		if (is_callable(array($value, 'toObject'))) {
 			return $value->toObject();
 		} else if (is_array($value)) {
@@ -97,11 +105,23 @@ abstract class GenericResult {
 			foreach ($value as $key => $v) {
 				$return[$key] = $this->prepareValue($v);
 			}
-			return $return;
-		} else if ($value instanceof ElggBatch) {
-			$return = array('nodes' => array());
-			foreach ($value as $v) {
-				$return['nodes'][] = $this->prepareValue($v);
+			if (isset($return['nodes'])) {
+				if (!isset($return['total'])) {
+					$return['total'] = count($return['nodes']);
+				}
+				if (!isset($return['offset'])) {
+					$return['offset'] = 0;
+				}
+				if (!isset($return['limit'])) {
+					$return['limit'] = 0;
+				}
+				$nodes = $return['nodes'];
+				$return['nodes'] = array();
+				$i = $return['offset'];
+				foreach ($nodes as $node) {
+					$i++;
+					$return['nodes']["$i"] = $node;
+				}
 			}
 			return $return;
 		} else if ($value instanceof BatchResult) {
