@@ -402,7 +402,7 @@ Retrieve a list of all resource endpoints available through the Graph API
             }
         }
 
-### Retrieve a single node [GET /{site_uid}?fields]
+### Retrieve a single node [GET /{site_uid}?fields={fields}]
 
 Retrieve site node by its *uid*
 
@@ -677,7 +677,7 @@ Retrieve site node by its *uid*
 
 
 
-### Create a new node [POST /{site_uid}/activity?action,view,subject_uid,object_uid,target_uid,annotation_uid,fields]
+### Create a new node [POST /{site_uid}/activity?action={action}&view={view}&subject_uid={subject_uid}&object_uid={object_uid}&target_uid={target_uid}&annotation_uid={annotation_uid}&fields={fields}]
 
 Adds a new activity (river) item to the site feed
 
