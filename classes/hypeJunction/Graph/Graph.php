@@ -687,14 +687,6 @@ class Graph {
 					}
 					break;
 
-				case 'banned' :
-					$result[$key] = $entity->isBanned();
-					break;
-
-				case 'admin' :
-					$result[$key] = $entity->isAdmin();
-					break;
-
 				case 'owner' :
 					$owner = $entity->getOwnerEntity();
 					$result[$key] = ($owner) ? $owner->toObject() : null;
@@ -735,7 +727,6 @@ class Graph {
 					break;
 
 				case 'access' :
-
 					$result[$key] = array(
 						'id' => $entity->access_id,
 						'label' => get_readable_access_level($entity->access_id),
