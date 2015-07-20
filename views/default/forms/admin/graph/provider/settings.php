@@ -5,6 +5,7 @@ if (!$plugin) {
 }
 
 $plugin_settings = $plugin->getAllSettings();
+$values = array_keys(array_filter($plugin_settings));
 ?>
 
 <div>
@@ -13,7 +14,7 @@ $plugin_settings = $plugin->getAllSettings();
 	echo elgg_view('input/checkboxes', array(
 		'name' => 'api_auth',
 		'default' => false,
-		'value' => array_filter(array_keys($plugin_settings)),
+		'value' => $values,
 		'options' => array(
 			elgg_echo('graph:provider:auth_api_key') => 'auth_api_key',
 			elgg_echo('graph:provider:auth_hmac') => 'auth_hmac',
@@ -29,7 +30,7 @@ $plugin_settings = $plugin->getAllSettings();
 	echo elgg_view('input/checkboxes', array(
 		'name' => 'user_auth',
 		'default' => false,
-		'value' => array_filter(array_keys($plugin_settings)),
+		'value' => $values,
 		'options' => array(
 			//elgg_echo('graph:provider:auth_userpass') => 'auth_userpass',
 			elgg_echo('graph:provider:auth_usertoken') => 'auth_usertoken',
