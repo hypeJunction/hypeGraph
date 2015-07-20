@@ -140,8 +140,15 @@ class PAM {
 			'password' => get_input('password'),
 			'auth_token' => get_input('auth_token'),
 		));
-
+		
 		if ($user_pam_result === true) {
+			if (!elgg_is_logged_in()) {
+				// userpass PAM does not automatically login the user
+				$user = get_user_by_username(get_input('username'));
+				if ($user) {
+					login($user);
+				}
+			}
 			$this->session->user(elgg_get_logged_in_user_entity());
 		} else {
 			$message = $this->pam_user->getFailureMessage();
@@ -357,4 +364,5 @@ class PAM {
 
 		return $return;
 	}
+
 }
