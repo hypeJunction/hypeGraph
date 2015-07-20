@@ -358,7 +358,11 @@ class PAM {
 		$request_type = $this->request->getMethod();
 		$request = "{$request_type} /{$route}";
 
-		if (!in_array($request, (array) $consumer->endpoints)) {
+		$ia = elgg_set_ignore_access(true);
+		$endpoints = (array) $consumer->endpoints;
+		elgg_set_ignore_access($ia);
+
+		if (!in_array($request, $endpoints)) {
 			return false;
 		}
 
