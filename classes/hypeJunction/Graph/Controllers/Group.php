@@ -70,7 +70,7 @@ class Group extends Controller {
 	 * {@inheritdoc}
 	 */
 	public function get(ParameterBag $params) {
-		return get_entity($params->guid);
+		return array('nodes' => array(get_entity($params->guid)));
 	}
 
 	/**
