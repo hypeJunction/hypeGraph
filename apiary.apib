@@ -402,7 +402,7 @@ Retrieve a list of all resource endpoints available through the Graph API
             }
         }
 
-### Retrieve a single node [GET /{site_uid}?fields={fields}]
+### Retrieve a single node [GET /{site_uid}{?fields}]
 
 Retrieve site node by its *uid*
 
@@ -677,21 +677,21 @@ Retrieve site node by its *uid*
 
 
 
-### Create a new node [POST /{site_uid}/activity?action={action}&view={view}&subject_uid={subject_uid}&object_uid={object_uid}&target_uid={target_uid}&annotation_uid={annotation_uid}&fields={fields}]
+### Create a new node [POST /{site_uid}/activity{?action,view,subject_uid,object_uid,target_uid,annotation_uid,fields}]
 
 Adds a new activity (river) item to the site feed
 
 + Parameters
 
-    + site_uid:`site` (int, required) - site UID or ``site``
-    + action:`comment` (string, required) - Action type
-    + view:`path/to/my/river/view` (string, optional) - Activity view
+    + site_uid:`site` (string, required) - site UID or ``site``
+    + action:`graph:test` (string, required) - Action type
+    + view (string, optional) - Activity view
         + Default: `Activity/elements/layout`
-    + subject_uid:`ue3` (string, required) - UID of the subject entity
-    + object_uid:`oe87` (string, optional) - UID of the object entity
-    + target_uid:`ge25` (string, optional) - UID of the target entity
-    + annotation_uid:`an45` (string, optional) - UID of the annotation
-    + fields:`uid,action` (string, optional) - Comma-separated list of fields to include in the output
+    + subject_uid:`ue44` (string, required) - UID of the subject entity
+    + object_uid:`oe788` (string, required) - UID of the object entity
+    + target_uid (string, optional) - UID of the target entity
+    + annotation_uid (string, optional) - UID of the annotation
+    + fields:`uid,action,subject,object,target` (string, optional) - Comma-separated list of fields to include in the output
 
 + Response 200
 
@@ -706,12 +706,12 @@ Adds a new activity (river) item to the site feed
     [403][]
     
 
-### Retrieve a single node [GET /{river_uid}?fields]
+### Retrieve a single node [GET /{river_uid}{?fields}]
 
 Retrieve an activity (river) item by its *uid*
 
 + Parameters
-    + river_uid:`rv25` (string, required) - UID of the river item
+    + river_uid:`rv724` (string, required) - UID of the river item
     + fields:`uid,subject,object,target,action` (string, optional) - Comma-separated list of fields to include in the output
 
 + Response 200
@@ -732,7 +732,7 @@ Retrieve an activity (river) item by its *uid*
 Delete a single node by its *uid*
 
 + Parameters
-    + river_uid:`rv25` (string,required) - UID of the river item
+    + river_uid:`rv723` (string,required) - UID of the river item
 
 + Response 200
 
@@ -753,20 +753,20 @@ Delete a single node by its *uid*
 
 ### Activity Lists [/{uid}/activity]
 
-### List site activity [GET /{site_uid}/activity?fields,limit,offset,types,subtypes,action_types]
+### List site activity [GET /{site_uid}/activity{?fields,limit,offset,types,subtypes,action_types}]
 
 Retrieve a list of site activity nodes filtered by *type*, *subtype*, *action*
 
 + Parameters
 
-    + site_uid (int, required) - Site UID, or ```site```
-    + fields:`uid,action` (string, optional) - Comma-separated list of fields to include in the output
-    + limit:`20` (number, optional) - number of activities to list
+    + site_uid:`site` (string, required) - Site UID, or ```site```
+    + fields:`uid,action,subject,object,target` (string, optional) - Comma-separated list of fields to include in the output
+    + limit:`10` (number, optional) - number of activities to list
         + Default: `10`
-    + offset:`20` (number, optional) - offset from the list start
-    + types:`[object]` (array[string], optional) - constrain by entity types
-    + subtypes:`[blog,bookmarks]` (array[string], optional) - constrain by entity subtypes
-    + action_types:`[comment,like]` (array[string], optional) - constrain by action types
+    + offset:`0` (number, optional) - offset from the list start
+    + types (array[string], optional) - constrain by entity types
+    + subtypes (array[string], optional) - constrain by entity subtypes
+    + action_types (array[string], optional) - constrain by action types
 
 
 + Response 200
@@ -819,7 +819,7 @@ Retrieve a list of site activity nodes filtered by *type*, *subtype*, *action*
             }
         }
 
-### Retrieve a single node [GET /{user_uid}?fields]
+### Retrieve a single node [GET /{user_uid}{?fields}]
 
 Retrieve a user node by its *uid*
 
@@ -862,16 +862,16 @@ Delete a user node by its *uid*. **Note** users can not delete themselves.
 
 ### User Lists [/{site_uid}/users]
 
-### List users [GET /{site_uid}/users?limit,offset,sort]
+### List users [GET /{site_uid}/users{?limit,offset,sort}]
 
 Retrieve a list of site users
 
 + Parameters
 
-    + limit(int,optional) - Number of nodes to return
-    + offset(int,optional) - Offset from the start
-    + sort(array,optional) - Sorting options
-        + Default: `['time_created':'DESC']`
+    + limit (int,optional) - Number of nodes to return
+    + offset (int,optional) - Offset from the start
+    + sort (array,optional) - Sorting options
+        + Default: `{?sort['time_created]='DESC'}`
 
 + Response 200
 
@@ -976,13 +976,13 @@ Retrieve a list of site users
             }
         }
 
-### Retrieve a single node [GET /{group_uid}?fields]
+### Retrieve a single node [GET /{group_uid}{?fields}]
 
 Retrieve a single group node by its *uid*
 
 + Parameters
     + group_uid:`ge8356` (string,required) - Group UID
-    + fields:`uid,membership,group_acl` (string, optional) - Comma-separated list of fields to include in the output
+    + fields:`uid,name,membership,group_acl` (string, optional) - Comma-separated list of fields to include in the output
 
 + Response 200
 
