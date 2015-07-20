@@ -862,16 +862,17 @@ Delete a user node by its *uid*. **Note** users can not delete themselves.
 
 ### User Lists [/{site_uid}/users]
 
-### List users [GET /{site_uid}/users{?limit,offset,sort}]
+### List users [GET /{site_uid}/users?sort%5Balpha%5D=ASC{&limit,offset,fields}]
 
 Retrieve a list of site users
 
 + Parameters
-
-    + limit (int,optional) - Number of nodes to return
-    + offset (int,optional) - Offset from the start
-    + sort (array,optional) - Sorting options
-        + Default: `{?sort['time_created]='DESC'}`
+    
+    + site_uid:`site` (string, required) - Site UID or ```site```
+    + limit:`10` (int, optional) - Number of nodes to return
+    + offset:`0` (int, optional) - Offset from the start
+    + sort (array, optional) - Sorting options, an array of field => direction pairs. Defaults to time_created => DESC
+    + fields: `uid,name` - Comma-separated list of fields to include in the output
 
 + Response 200
 
