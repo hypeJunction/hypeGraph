@@ -408,7 +408,7 @@ Retrieve site node by its *uid*
 
 + Parameters
     + site_uid:`site` (string, required) - Site UID or ```site``` keyword
-    + fields:`uid,walled_garden` (string, optional) - Comma-separated list of fields to include in the export
+    + fields:`uid,name,description,url,walled_garden` (string, optional) - Comma-separated list of fields to include in the export
 
 + Response 200
 
@@ -764,9 +764,9 @@ Retrieve a list of site activity nodes filtered by *type*, *subtype*, *action*
     + limit:`10` (number, optional) - number of activities to list
         + Default: `10`
     + offset:`0` (number, optional) - offset from the list start
-    + types (array[string], optional) - constrain by entity types
-    + subtypes (array[string], optional) - constrain by entity subtypes
-    + action_types (array[string], optional) - constrain by action types
+    + types:`object` (array[string], optional) - constrain by entity types
+    + subtypes:`blog` (array[string], optional) - constrain by entity subtypes
+    + action_types:`create` (array[string], optional) - constrain by action types
 
 
 + Response 200
