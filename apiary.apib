@@ -4,9 +4,13 @@ FORMAT: 1A
 
 Graph provides RESTful API access to Elgg resources.
 
-## Group API Root [/]
+## Group Root
 
-### Retrieve a list of API resources [GET]
+### Graph Root [/]
+
+### List all endpoints [GET /]
+
+Retrieve a list of all resource endpoints available through the Graph API
 
 + Response 200 (application/json)
 
@@ -50,32 +54,58 @@ Graph provides RESTful API access to Elgg resources.
             ]
         }
 
-+ Response 403 (application/json)
++ Response 403
+
+    [403][]
+
+
+### 400 [/400]
+
++ Model (application/json)
 
         {
-            "result": null,
-            "status": 403,
-            "message": "You do not have access to the requested endpoint"
+            "status": 400,
+            "message": "Bad request - Action can not be completed with given parameters"
+            "result": null
         }
 
 
-## Group Site
+### 403 [/403]
 
-Resources related to site entity.
-
-## Site Entity [/{site_uid}]
-
-Resources related to the site entity.
-{site_uid} can be replaced with a magic keyword 'site'
-
-### Retrieve site details [GET]
-
-+ Response 200 (application/json)
++ Model (application/json)
 
         {
+            "status": 403,
+            "message": "Permission denied - You do not have sufficient privileges to access this endpoint or you are trying to modify an entity that you do not have acess to"
+            "result": null
+        }
+
+### 404 [/404]
+
++ Model (application/json)
+
+        {
+            "status": 404,
+            "message": "Not found - Node does not exist or you do not have permissions to access it"
+            "result": null
+        }
+
+
+### Group Site
+
+### Site Node [/{site_uid}]
+
++ Model (application/json)
+
+        {
+            "status": 200,
+            "message": "OK"
             "result": {
-                "nodes": [
-                    {
+                "total": 1,
+                "limit": 0,
+                "offset": 0,
+                "nodes": {
+                    "1": {
                         "type": "site",
                         "subtype": "",
                         "uid": "se1",
@@ -90,605 +120,602 @@ Resources related to the site entity.
                         "time_created": "2014-11-14T03:46:59-08:00",
                         "enabled": "yes"
                     }
-                ]
-            },
+                }
+            }
+        }
+
+### Retrieve a single node [GET /{site_uid}?fields]
+
+Retrieve site node by its *uid*
+
++ Parameters
+    + site_uid:`site` (string, required) - Site UID or ```site``` keyword
+    + fields:`uid,walled_garden` (string, optional) - Comma-separated list of fields to include in the export
+
++ Response 200
+
+    [Site Node][]
+
++ Response 403
+
+    [403][]
+
++ Response 404
+
+    [404][]
+
+
+
+
+
+
+
+
+### Group Activity
+
+### Activity Node [/{river_uid}]
+
++ Model (application/json)
+
+        {
             "status": 200,
             "message": "OK",
+            "result": {
+                "total": 1,
+                "limit": 0,
+                "offset": 0,
+                "nodes": {
+                    "1": {
+                        "type": "river",
+                        "subtype": "item",
+                        "uid": "rv280",
+                        "action": "stream:comment",
+                        "subject": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue58",
+                            "name": "Devon Ratke",
+                            "username": "rodriguez.adolphus",
+                            "briefdescription": "Centralized full-range service-desk",
+                            "banned": false,
+                            "validated": "1",
+                            "admin": false,
+                            "url": "http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
+                            "icon": {
+                                "topbar": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
+                                "tiny": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
+                                "small": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
+                                "medium": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
+                                "large": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
+                                "master": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
+                            },
+                            "time_created": "2014-11-14T06:39:47-08:00",
+                            "enabled": "yes"
+                        },
+                        "object": {
+                            "type": "object",
+                            "subtype": "comment",
+                            "uid": "oe1300",
+                            "title": null,
+                            "description": "Comment 10",
+                            "url": "http:\/\/ambercal.dev\/stream\/comments\/859\/1300#elgg-object-1300",
+                            "icon": {
+                                "topbar": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
+                                "tiny": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
+                                "small": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
+                                "medium": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
+                                "large": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
+                                "master": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
+                            },
+                            "owner": {
+                                "type": "user",
+                                "subtype": "",
+                                "uid": "ue58",
+                                "name": "Devon Ratke",
+                                "username": "rodriguez.adolphus",
+                                "briefdescription": "Centralized full-range service-desk",
+                                "banned": false,
+                                "validated": "1",
+                                "admin": false,
+                                "url": "http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
+                                "icon": {
+                                    "topbar": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
+                                    "tiny": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
+                                    "small": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
+                                    "medium": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
+                                    "large": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
+                                    "master": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
+                                },
+                                "time_created": "2014-11-14T06:39:47-08:00",
+                                "enabled": "yes"
+                            },
+                            "container": {
+                                "type": "object",
+                                "subtype": "blog",
+                                "uid": "oe859",
+                                "title": "Blog 21",
+                                "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget aliquet mi. Sed pulvinar lectus vel suscipit faucibus. Mauris id metus augue. Ut faucibus lectus non mattis egestas. Nulla ullamcorper pulvinar purus, at faucibus quam porttitor sit amet. Donec consectetur, nulla eget fringilla dapibus, velit diam euismod enim, ut tincidunt lectus eros eget magna. Mauris laoreet risus dolor, in imperdiet dolor tincidunt et. Ut nulla nibh, condimentum in diam vel, volutpat accumsan justo. Proin interdum mattis ex quis consequat. Proin dignissim, dolor vel faucibus sagittis, diam tellus mattis felis, eget blandit dui arcu eu nisl. Mauris sodales iaculis lacinia. Nam rutrum nisi ante, a scelerisque nunc imperdiet a. Praesent rhoncus pretium malesuada. Proin id aliquam sem. Phasellus malesuada arcu justo, nec cursus lorem lacinia vel. Phasellus congue vestibulum justo, sed egestas orci malesuada a. Nam mollis nisl id ligula imperdiet, vitae mollis tellus aliquam. Donec venenatis, eros nec ullamcorper commodo, est lacus ornare dolor, eu congue massa quam eu nisl. Aliquam quis purus ac diam elementum bibendum. Vestibulum dolor enim, laoreet eget orci sed, venenatis aliquet leo. Donec eleifend diam eu odio placerat semper. Morbi a purus nisi. Sed sit amet placerat lacus. Pellentesque fermentum magna quis felis accumsan condimentum. Duis varius et velit ut elementum. Cras rhoncus volutpat rhoncus. Pellentesque porttitor, arcu vitae pharetra luctus, sapien elit rhoncus neque, eget mollis tellus lacus nec lacus. Donec imperdiet a quam quis pellentesque. Maecenas in viverra nisl. Pellentesque tempus elit sed justo ultrices commodo.<\/p>",
+                                "url": "http:\/\/ambercal.dev\/blog\/view\/859\/blog-21",
+                                "icon": {
+                                    "topbar": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/topbar.png",
+                                    "tiny": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/tiny.png",
+                                    "small": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/small.png",
+                                    "medium": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/medium.png",
+                                    "large": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/large.png",
+                                    "master": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/master.png"
+                                },
+                                "owner": {
+                                    "type": "user",
+                                    "subtype": "",
+                                    "uid": "ue58",
+                                    "name": "Devon Ratke",
+                                    "username": "rodriguez.adolphus",
+                                    "briefdescription": "Centralized full-range service-desk",
+                                    "banned": false,
+                                    "validated": "1",
+                                    "admin": false,
+                                    "url": "http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
+                                    "icon": {
+                                        "topbar": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
+                                        "tiny": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
+                                        "small": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
+                                        "medium": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
+                                        "large": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
+                                        "master": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
+                                    },
+                                    "time_created": "2014-11-14T06:39:47-08:00",
+                                    "enabled": "yes"
+                                },
+                                "container": {
+                                    "type": "user",
+                                    "subtype": "",
+                                    "uid": "ue58",
+                                    "name": "Devon Ratke",
+                                    "username": "rodriguez.adolphus",
+                                    "briefdescription": "Centralized full-range service-desk",
+                                    "banned": false,
+                                    "validated": "1",
+                                    "admin": false,
+                                    "url": "http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
+                                    "icon": {
+                                        "topbar": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
+                                        "tiny": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
+                                        "small": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
+                                        "medium": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
+                                        "large": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
+                                        "master": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
+                                    },
+                                    "time_created": "2014-11-14T06:39:47-08:00",
+                                    "enabled": "yes"
+                                },
+                                "access": {
+                                    "id": 1,
+                                    "label": "Logged in users"
+                                },
+                                "time_created": "2014-12-13T05:58:58-08:00",
+                                "enabled": "yes",
+                                "tags": [
+                                    "tag 85",
+                                    "tag 2"
+                                ],
+                                "status": "published",
+                                "comments_on": "On",
+                                "excerpt": ""
+                            },
+                            "access": {
+                                "id": 1,
+                                "label": "Logged in users"
+                            },
+                            "time_created": "2014-12-24T08:22:56-08:00",
+                            "enabled": "yes",
+                            "tags": [
+                            ]
+                        },
+                        "target": {
+                            "type": "object",
+                            "subtype": "blog",
+                            "uid": "oe859",
+                            "title": "Blog 21",
+                            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget aliquet mi. Sed pulvinar lectus vel suscipit faucibus. Mauris id metus augue. Ut faucibus lectus non mattis egestas. Nulla ullamcorper pulvinar purus, at faucibus quam porttitor sit amet. Donec consectetur, nulla eget fringilla dapibus, velit diam euismod enim, ut tincidunt lectus eros eget magna. Mauris laoreet risus dolor, in imperdiet dolor tincidunt et. Ut nulla nibh, condimentum in diam vel, volutpat accumsan justo. Proin interdum mattis ex quis consequat. Proin dignissim, dolor vel faucibus sagittis, diam tellus mattis felis, eget blandit dui arcu eu nisl. Mauris sodales iaculis lacinia. Nam rutrum nisi ante, a scelerisque nunc imperdiet a. Praesent rhoncus pretium malesuada. Proin id aliquam sem. Phasellus malesuada arcu justo, nec cursus lorem lacinia vel. Phasellus congue vestibulum justo, sed egestas orci malesuada a. Nam mollis nisl id ligula imperdiet, vitae mollis tellus aliquam. Donec venenatis, eros nec ullamcorper commodo, est lacus ornare dolor, eu congue massa quam eu nisl. Aliquam quis purus ac diam elementum bibendum. Vestibulum dolor enim, laoreet eget orci sed, venenatis aliquet leo. Donec eleifend diam eu odio placerat semper. Morbi a purus nisi. Sed sit amet placerat lacus. Pellentesque fermentum magna quis felis accumsan condimentum. Duis varius et velit ut elementum. Cras rhoncus volutpat rhoncus. Pellentesque porttitor, arcu vitae pharetra luctus, sapien elit rhoncus neque, eget mollis tellus lacus nec lacus. Donec imperdiet a quam quis pellentesque. Maecenas in viverra nisl. Pellentesque tempus elit sed justo ultrices commodo.<\/p>",
+                            "url": "http:\/\/ambercal.dev\/blog\/view\/859\/blog-21",
+                            "icon": {
+                                "topbar": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/topbar.png",
+                                "tiny": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/tiny.png",
+                                "small": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/small.png",
+                                "medium": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/medium.png",
+                                "large": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/large.png",
+                                "master": "http:\/\/ambercal.dev\/_graphics\/icons\/default\/master.png"
+                            },
+                            "owner": {
+                                "type": "user",
+                                "subtype": "",
+                                "uid": "ue58",
+                                "name": "Devon Ratke",
+                                "username": "rodriguez.adolphus",
+                                "briefdescription": "Centralized full-range service-desk",
+                                "banned": false,
+                                "validated": "1",
+                                "admin": false,
+                                "url": "http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
+                                "icon": {
+                                    "topbar": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
+                                    "tiny": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
+                                    "small": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
+                                    "medium": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
+                                    "large": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
+                                    "master": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
+                                },
+                                "time_created": "2014-11-14T06:39:47-08:00",
+                                "enabled": "yes"
+                            },
+                            "container": {
+                                "type": "user",
+                                "subtype": "",
+                                "uid": "ue58",
+                                "name": "Devon Ratke",
+                                "username": "rodriguez.adolphus",
+                                "briefdescription": "Centralized full-range service-desk",
+                                "banned": false,
+                                "validated": "1",
+                                "admin": false,
+                                "url": "http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
+                                "icon": {
+                                    "topbar": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
+                                    "tiny": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
+                                    "small": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
+                                    "medium": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
+                                    "large": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
+                                    "master": "http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
+                                },
+                                "time_created": "2014-11-14T06:39:47-08:00",
+                                "enabled": "yes"
+                            },
+                            "access": {
+                                "id": 1,
+                                "label": "Logged in users"
+                            },
+                            "time_created": "2014-12-13T05:58:58-08:00",
+                            "enabled": "yes",
+                            "tags": [
+                                "tag 85",
+                                "tag 2"
+                            ],
+                            "status": "published",
+                            "comments_on": "On",
+                            "excerpt": ""
+                        },
+                        "annotation": 0,
+                        "access": {
+                            "id": 1,
+                            "label": "Logged in users"
+                        },
+                        "time_created": "2014-12-24T08:22:56-08:00",
+                        "enabled": "yes"
+                    }
+                }
+            }
         }
 
-+ Response 403 (application/json)
 
-        {
-            "result": null,
-            "status": 403,
-            "message": "You do not have access to the requested endpoint"
-        }
 
-+ Response 404 (application/json)
 
-        {
-            "result": null,
-            "status": 404,
-            "message": "Node with id site_uid not found"
-        }
+### Create a new node [POST /{site_uid}/activity?action,view,subject_uid,object_uid,target_uid,annotation_uid,fields]
 
-## All Site Activity [/{site_uid}/activity?fields,limit,offset,types,subtypes,action_types]
-
-### Retrieve all site activity [GET]
-
-Returns a list of latest site activity (river)
+Adds a new activity (river) item to the site feed
 
 + Parameters
 
-    + site_uid (int, required) - Site UID
-    + fields (string, optional) - comma separated list of fields to return
-    + limit (number, optional) - number of activities to list
-        + Default: `10`
-    + offset (number, optional) - offset from the list start
-    + types (array[string], optional) - constrain by entity types
-    + subtypes (array[string], optional) - constrain by entity subtypes
-    + action_types (array[string], optional) - constrain by action types
+    + site_uid:`site` (int, required) - site UID or ``site``
+    + action:`comment` (string, required) - Action type
+    + view:`path/to/my/river/view` (string, optional) - Activity view
+        + Default: `Activity/elements/layout`
+    + subject_uid:`ue3` (string, required) - UID of the subject entity
+    + object_uid:`oe87` (string, optional) - UID of the object entity
+    + target_uid:`ge25` (string, optional) - UID of the target entity
+    + annotation_uid:`an45` (string, optional) - UID of the annotation
+    + fields:`uid,action` (string, optional) - Comma-separated list of fields to include in the output
 
-+ Response 200 (application/json)
++ Response 200
 
-        {
-            "result":{
-                "total":381,
-                "limit":2,
-                "offset":105,
-                "nodes":[
-                    {
-                        "type":"river",
-                        "subtype":"item",
-                        "uid":"rv280",
-                        "action":"stream:comment",
-                        "subject":{
-                            "type":"user",
-                            "subtype":"",
-                            "uid":"ue58",
-                            "name":"Devon Ratke",
-                            "username":"rodriguez.adolphus",
-                            "briefdescription":"Centralized full-range service-desk",
-                            "banned":false,
-                            "validated":"1",
-                            "admin":false,
-                            "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                            "icon":{
-                                "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                            },
-                            "time_created":"2014-11-14T06:39:47-08:00",
-                            "enabled":"yes"
-                        },
-                        "object":{
-                            "type":"object",
-                            "subtype":"comment",
-                            "uid":"oe1300",
-                            "title":null,
-                            "description":"Comment 10",
-                            "url":"http:\/\/ambercal.dev\/stream\/comments\/859\/1300#elgg-object-1300",
-                            "icon":{
-                                "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                            },
-                            "owner":{
-                                "type":"user",
-                                "subtype":"",
-                                "uid":"ue58",
-                                "name":"Devon Ratke",
-                                "username":"rodriguez.adolphus",
-                                "briefdescription":"Centralized full-range service-desk",
-                                "banned":false,
-                                "validated":"1",
-                                "admin":false,
-                                "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                                "icon":{
-                                    "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                    "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                    "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                    "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                    "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                    "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                                },
-                                "time_created":"2014-11-14T06:39:47-08:00",
-                                "enabled":"yes"
-                            },
-                            "container":{
-                                "type":"object",
-                                "subtype":"blog",
-                                "uid":"oe859",
-                                "title":"Blog 21",
-                                "description":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget aliquet mi. Sed pulvinar lectus vel suscipit faucibus. Mauris id metus augue. Ut faucibus lectus non mattis egestas. Nulla ullamcorper pulvinar purus, at faucibus quam porttitor sit amet. Donec consectetur, nulla eget fringilla dapibus, velit diam euismod enim, ut tincidunt lectus eros eget magna. Mauris laoreet risus dolor, in imperdiet dolor tincidunt et. Ut nulla nibh, condimentum in diam vel, volutpat accumsan justo. Proin interdum mattis ex quis consequat. Proin dignissim, dolor vel faucibus sagittis, diam tellus mattis felis, eget blandit dui arcu eu nisl. Mauris sodales iaculis lacinia. Nam rutrum nisi ante, a scelerisque nunc imperdiet a. Praesent rhoncus pretium malesuada. Proin id aliquam sem. Phasellus malesuada arcu justo, nec cursus lorem lacinia vel. Phasellus congue vestibulum justo, sed egestas orci malesuada a. Nam mollis nisl id ligula imperdiet, vitae mollis tellus aliquam. Donec venenatis, eros nec ullamcorper commodo, est lacus ornare dolor, eu congue massa quam eu nisl. Aliquam quis purus ac diam elementum bibendum. Vestibulum dolor enim, laoreet eget orci sed, venenatis aliquet leo. Donec eleifend diam eu odio placerat semper. Morbi a purus nisi. Sed sit amet placerat lacus. Pellentesque fermentum magna quis felis accumsan condimentum. Duis varius et velit ut elementum. Cras rhoncus volutpat rhoncus. Pellentesque porttitor, arcu vitae pharetra luctus, sapien elit rhoncus neque, eget mollis tellus lacus nec lacus. Donec imperdiet a quam quis pellentesque. Maecenas in viverra nisl. Pellentesque tempus elit sed justo ultrices commodo.<\/p>",
-                                "url":"http:\/\/ambercal.dev\/blog\/view\/859\/blog-21",
-                                "icon":{
-                                    "topbar":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/topbar.png",
-                                    "tiny":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/tiny.png",
-                                    "small":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/small.png",
-                                    "medium":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/medium.png",
-                                    "large":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/large.png",
-                                    "master":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/master.png"
-                                },
-                                "owner":{
-                                    "type":"user",
-                                    "subtype":"",
-                                    "uid":"ue58",
-                                    "name":"Devon Ratke",
-                                    "username":"rodriguez.adolphus",
-                                    "briefdescription":"Centralized full-range service-desk",
-                                    "banned":false,
-                                    "validated":"1",
-                                    "admin":false,
-                                    "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                                    "icon":{
-                                        "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                        "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                        "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                        "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                        "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                        "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                                    },
-                                    "time_created":"2014-11-14T06:39:47-08:00",
-                                    "enabled":"yes"
-                                },
-                                "container":{
-                                    "type":"user",
-                                    "subtype":"",
-                                    "uid":"ue58",
-                                    "name":"Devon Ratke",
-                                    "username":"rodriguez.adolphus",
-                                    "briefdescription":"Centralized full-range service-desk",
-                                    "banned":false,
-                                    "validated":"1",
-                                    "admin":false,
-                                    "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                                    "icon":{
-                                        "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                        "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                        "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                        "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                        "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                        "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                                    },
-                                    "time_created":"2014-11-14T06:39:47-08:00",
-                                    "enabled":"yes"
-                                },
-                                "access":{
-                                    "id":1,
-                                    "label":"Logged in users"
-                                },
-                                "time_created":"2014-12-13T05:58:58-08:00",
-                                "enabled":"yes",
-                                "tags":[
-                                    "tag 85",
-                                    "tag 2"
-                                ],
-                                "status":"published",
-                                "comments_on":"On",
-                                "excerpt":""
-                            },
-                            "access":{
-                                "id":1,
-                                "label":"Logged in users"
-                            },
-                            "time_created":"2014-12-24T08:22:56-08:00",
-                            "enabled":"yes",
-                            "tags":[
+    [Activity Node][]
 
-                            ]
-                        },
-                        "target":{
-                            "type":"object",
-                            "subtype":"blog",
-                            "uid":"oe859",
-                            "title":"Blog 21",
-                            "description":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget aliquet mi. Sed pulvinar lectus vel suscipit faucibus. Mauris id metus augue. Ut faucibus lectus non mattis egestas. Nulla ullamcorper pulvinar purus, at faucibus quam porttitor sit amet. Donec consectetur, nulla eget fringilla dapibus, velit diam euismod enim, ut tincidunt lectus eros eget magna. Mauris laoreet risus dolor, in imperdiet dolor tincidunt et. Ut nulla nibh, condimentum in diam vel, volutpat accumsan justo. Proin interdum mattis ex quis consequat. Proin dignissim, dolor vel faucibus sagittis, diam tellus mattis felis, eget blandit dui arcu eu nisl. Mauris sodales iaculis lacinia. Nam rutrum nisi ante, a scelerisque nunc imperdiet a. Praesent rhoncus pretium malesuada. Proin id aliquam sem. Phasellus malesuada arcu justo, nec cursus lorem lacinia vel. Phasellus congue vestibulum justo, sed egestas orci malesuada a. Nam mollis nisl id ligula imperdiet, vitae mollis tellus aliquam. Donec venenatis, eros nec ullamcorper commodo, est lacus ornare dolor, eu congue massa quam eu nisl. Aliquam quis purus ac diam elementum bibendum. Vestibulum dolor enim, laoreet eget orci sed, venenatis aliquet leo. Donec eleifend diam eu odio placerat semper. Morbi a purus nisi. Sed sit amet placerat lacus. Pellentesque fermentum magna quis felis accumsan condimentum. Duis varius et velit ut elementum. Cras rhoncus volutpat rhoncus. Pellentesque porttitor, arcu vitae pharetra luctus, sapien elit rhoncus neque, eget mollis tellus lacus nec lacus. Donec imperdiet a quam quis pellentesque. Maecenas in viverra nisl. Pellentesque tempus elit sed justo ultrices commodo.<\/p>",
-                            "url":"http:\/\/ambercal.dev\/blog\/view\/859\/blog-21",
-                            "icon":{
-                                "topbar":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/topbar.png",
-                                "tiny":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/tiny.png",
-                                "small":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/small.png",
-                                "medium":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/medium.png",
-                                "large":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/large.png",
-                                "master":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/master.png"
-                            },
-                            "owner":{
-                                "type":"user",
-                                "subtype":"",
-                                "uid":"ue58",
-                                "name":"Devon Ratke",
-                                "username":"rodriguez.adolphus",
-                                "briefdescription":"Centralized full-range service-desk",
-                                "banned":false,
-                                "validated":"1",
-                                "admin":false,
-                                "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                                "icon":{
-                                    "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                    "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                    "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                    "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                    "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                    "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                                },
-                                "time_created":"2014-11-14T06:39:47-08:00",
-                                "enabled":"yes"
-                            },
-                            "container":{
-                                "type":"user",
-                                "subtype":"",
-                                "uid":"ue58",
-                                "name":"Devon Ratke",
-                                "username":"rodriguez.adolphus",
-                                "briefdescription":"Centralized full-range service-desk",
-                                "banned":false,
-                                "validated":"1",
-                                "admin":false,
-                                "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                                "icon":{
-                                    "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                    "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                    "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                    "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                    "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                    "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                                },
-                                "time_created":"2014-11-14T06:39:47-08:00",
-                                "enabled":"yes"
-                            },
-                            "access":{
-                                "id":1,
-                                "label":"Logged in users"
-                            },
-                            "time_created":"2014-12-13T05:58:58-08:00",
-                            "enabled":"yes",
-                            "tags":[
-                                "tag 85",
-                                "tag 2"
-                            ],
-                            "status":"published",
-                            "comments_on":"On",
-                            "excerpt":""
-                        },
-                        "annotation":0,
-                        "access":{
-                            "id":1,
-                            "label":"Logged in users"
-                        },
-                        "time_created":"2014-12-24T08:22:56-08:00",
-                        "enabled":"yes"
-                    },
-                    {
-                        "type":"river",
-                        "subtype":"item",
-                        "uid":"rv279",
-                        "action":"stream:comment",
-                        "subject":{
-                            "type":"user",
-                            "subtype":"",
-                            "uid":"ue58",
-                            "name":"Devon Ratke",
-                            "username":"rodriguez.adolphus",
-                            "briefdescription":"Centralized full-range service-desk",
-                            "banned":false,
-                            "validated":"1",
-                            "admin":false,
-                            "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                            "icon":{
-                                "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                            },
-                            "time_created":"2014-11-14T06:39:47-08:00",
-                            "enabled":"yes"
-                        },
-                        "object":{
-                            "type":"object",
-                            "subtype":"comment",
-                            "uid":"oe1299",
-                            "title":null,
-                            "description":"Comment 9",
-                            "url":"http:\/\/ambercal.dev\/stream\/comments\/859\/1299#elgg-object-1299",
-                            "icon":{
-                                "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                            },
-                            "owner":{
-                                "type":"user",
-                                "subtype":"",
-                                "uid":"ue58",
-                                "name":"Devon Ratke",
-                                "username":"rodriguez.adolphus",
-                                "briefdescription":"Centralized full-range service-desk",
-                                "banned":false,
-                                "validated":"1",
-                                "admin":false,
-                                "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                                "icon":{
-                                    "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                    "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                    "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                    "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                    "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                    "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                                },
-                                "time_created":"2014-11-14T06:39:47-08:00",
-                                "enabled":"yes"
-                            },
-                            "container":{
-                                "type":"object",
-                                "subtype":"blog",
-                                "uid":"oe859",
-                                "title":"Blog 21",
-                                "description":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget aliquet mi. Sed pulvinar lectus vel suscipit faucibus. Mauris id metus augue. Ut faucibus lectus non mattis egestas. Nulla ullamcorper pulvinar purus, at faucibus quam porttitor sit amet. Donec consectetur, nulla eget fringilla dapibus, velit diam euismod enim, ut tincidunt lectus eros eget magna. Mauris laoreet risus dolor, in imperdiet dolor tincidunt et. Ut nulla nibh, condimentum in diam vel, volutpat accumsan justo. Proin interdum mattis ex quis consequat. Proin dignissim, dolor vel faucibus sagittis, diam tellus mattis felis, eget blandit dui arcu eu nisl. Mauris sodales iaculis lacinia. Nam rutrum nisi ante, a scelerisque nunc imperdiet a. Praesent rhoncus pretium malesuada. Proin id aliquam sem. Phasellus malesuada arcu justo, nec cursus lorem lacinia vel. Phasellus congue vestibulum justo, sed egestas orci malesuada a. Nam mollis nisl id ligula imperdiet, vitae mollis tellus aliquam. Donec venenatis, eros nec ullamcorper commodo, est lacus ornare dolor, eu congue massa quam eu nisl. Aliquam quis purus ac diam elementum bibendum. Vestibulum dolor enim, laoreet eget orci sed, venenatis aliquet leo. Donec eleifend diam eu odio placerat semper. Morbi a purus nisi. Sed sit amet placerat lacus. Pellentesque fermentum magna quis felis accumsan condimentum. Duis varius et velit ut elementum. Cras rhoncus volutpat rhoncus. Pellentesque porttitor, arcu vitae pharetra luctus, sapien elit rhoncus neque, eget mollis tellus lacus nec lacus. Donec imperdiet a quam quis pellentesque. Maecenas in viverra nisl. Pellentesque tempus elit sed justo ultrices commodo.<\/p>",
-                                "url":"http:\/\/ambercal.dev\/blog\/view\/859\/blog-21",
-                                "icon":{
-                                    "topbar":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/topbar.png",
-                                    "tiny":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/tiny.png",
-                                    "small":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/small.png",
-                                    "medium":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/medium.png",
-                                    "large":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/large.png",
-                                    "master":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/master.png"
-                                },
-                                "owner":{
-                                    "type":"user",
-                                    "subtype":"",
-                                    "uid":"ue58",
-                                    "name":"Devon Ratke",
-                                    "username":"rodriguez.adolphus",
-                                    "briefdescription":"Centralized full-range service-desk",
-                                    "banned":false,
-                                    "validated":"1",
-                                    "admin":false,
-                                    "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                                    "icon":{
-                                        "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                        "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                        "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                        "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                        "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                        "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                                    },
-                                    "time_created":"2014-11-14T06:39:47-08:00",
-                                    "enabled":"yes"
-                                },
-                                "container":{
-                                    "type":"user",
-                                    "subtype":"",
-                                    "uid":"ue58",
-                                    "name":"Devon Ratke",
-                                    "username":"rodriguez.adolphus",
-                                    "briefdescription":"Centralized full-range service-desk",
-                                    "banned":false,
-                                    "validated":"1",
-                                    "admin":false,
-                                    "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                                    "icon":{
-                                        "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                        "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                        "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                        "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                        "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                        "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                                    },
-                                    "time_created":"2014-11-14T06:39:47-08:00",
-                                    "enabled":"yes"
-                                },
-                                "access":{
-                                    "id":1,
-                                    "label":"Logged in users"
-                                },
-                                "time_created":"2014-12-13T05:58:58-08:00",
-                                "enabled":"yes",
-                                "tags":[
-                                    "tag 85",
-                                    "tag 2"
-                                ],
-                                "status":"published",
-                                "comments_on":"On",
-                                "excerpt":""
-                            },
-                            "access":{
-                                "id":1,
-                                "label":"Logged in users"
-                            },
-                            "time_created":"2014-12-24T08:22:34-08:00",
-                            "enabled":"yes",
-                            "tags":[
++ Response 400
 
-                            ]
-                        },
-                        "target":{
-                            "type":"object",
-                            "subtype":"blog",
-                            "uid":"oe859",
-                            "title":"Blog 21",
-                            "description":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget aliquet mi. Sed pulvinar lectus vel suscipit faucibus. Mauris id metus augue. Ut faucibus lectus non mattis egestas. Nulla ullamcorper pulvinar purus, at faucibus quam porttitor sit amet. Donec consectetur, nulla eget fringilla dapibus, velit diam euismod enim, ut tincidunt lectus eros eget magna. Mauris laoreet risus dolor, in imperdiet dolor tincidunt et. Ut nulla nibh, condimentum in diam vel, volutpat accumsan justo. Proin interdum mattis ex quis consequat. Proin dignissim, dolor vel faucibus sagittis, diam tellus mattis felis, eget blandit dui arcu eu nisl. Mauris sodales iaculis lacinia. Nam rutrum nisi ante, a scelerisque nunc imperdiet a. Praesent rhoncus pretium malesuada. Proin id aliquam sem. Phasellus malesuada arcu justo, nec cursus lorem lacinia vel. Phasellus congue vestibulum justo, sed egestas orci malesuada a. Nam mollis nisl id ligula imperdiet, vitae mollis tellus aliquam. Donec venenatis, eros nec ullamcorper commodo, est lacus ornare dolor, eu congue massa quam eu nisl. Aliquam quis purus ac diam elementum bibendum. Vestibulum dolor enim, laoreet eget orci sed, venenatis aliquet leo. Donec eleifend diam eu odio placerat semper. Morbi a purus nisi. Sed sit amet placerat lacus. Pellentesque fermentum magna quis felis accumsan condimentum. Duis varius et velit ut elementum. Cras rhoncus volutpat rhoncus. Pellentesque porttitor, arcu vitae pharetra luctus, sapien elit rhoncus neque, eget mollis tellus lacus nec lacus. Donec imperdiet a quam quis pellentesque. Maecenas in viverra nisl. Pellentesque tempus elit sed justo ultrices commodo.<\/p>",
-                            "url":"http:\/\/ambercal.dev\/blog\/view\/859\/blog-21",
-                            "icon":{
-                                "topbar":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/topbar.png",
-                                "tiny":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/tiny.png",
-                                "small":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/small.png",
-                                "medium":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/medium.png",
-                                "large":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/large.png",
-                                "master":"http:\/\/ambercal.dev\/_graphics\/icons\/default\/master.png"
-                            },
-                            "owner":{
-                                "type":"user",
-                                "subtype":"",
-                                "uid":"ue58",
-                                "name":"Devon Ratke",
-                                "username":"rodriguez.adolphus",
-                                "briefdescription":"Centralized full-range service-desk",
-                                "banned":false,
-                                "validated":"1",
-                                "admin":false,
-                                "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                                "icon":{
-                                    "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                    "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                    "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                    "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                    "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                    "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                                },
-                                "time_created":"2014-11-14T06:39:47-08:00",
-                                "enabled":"yes"
-                            },
-                            "container":{
-                                "type":"user",
-                                "subtype":"",
-                                "uid":"ue58",
-                                "name":"Devon Ratke",
-                                "username":"rodriguez.adolphus",
-                                "briefdescription":"Centralized full-range service-desk",
-                                "banned":false,
-                                "validated":"1",
-                                "admin":false,
-                                "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
-                                "icon":{
-                                    "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                    "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                    "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                    "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                    "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                    "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                                },
-                                "time_created":"2014-11-14T06:39:47-08:00",
-                                "enabled":"yes"
-                            },
-                            "access":{
-                                "id":1,
-                                "label":"Logged in users"
-                            },
-                            "time_created":"2014-12-13T05:58:58-08:00",
-                            "enabled":"yes",
-                            "tags":[
-                                "tag 85",
-                                "tag 2"
-                            ],
-                            "status":"published",
-                            "comments_on":"On",
-                            "excerpt":""
-                        },
-                        "annotation":0,
-                        "access":{
-                            "id":1,
-                            "label":"Logged in users"
-                        },
-                        "time_created":"2014-12-24T08:22:34-08:00",
-                        "enabled":"yes"
-                    }
-                ]
-            },
-            "status":200,
-            "message":"OK"
-        }
+    [400][]
+
++ Response 403
+
+    [403][]
     
-## Activity Item [{site_uid}/activity?action,view,subject_uid,object_uid,target_uid,annotation_uid]
 
-### Create new activity item [POST]
+### Retrieve a single node [GET /{river_uid}?fields]
 
-Posts Adds a new activity (river) item to the feed
+Retrieve an activity (river) item by its *uid*
+
++ Parameters
+    + river_uid:`rv25` (string, required) - UID of the river item
+    + fields:`uid,subject,object,target,action` (string, optional) - Comma-separated list of fields to include in the output
+
++ Response 200
+
+    [Activity Node][]
+
++ Response 403
+
+    [403][]
+
++ Response 404
+
+    [404][]
+
+
+### Delete a single node [DELETE /{river_uid}]
+
+Delete a single node by its *uid*
+
++ Parameters
+    + river_uid:`rv25` (string,required) - UID of the river item
+
++ Response 200
+
+        {
+            "status": 200,
+            "message": "OK",
+            "result": true
+        }
+
++ Response 403
+
+    [403][]
+
++ Response 404
+
+    [404][]
+
+
+### Activity Lists [/{uid}/activity]
+
+### List site activity [GET /{site_uid}/activity?fields,limit,offset,types,subtypes,action_types]
+
+Retrieve a list of site activity nodes filtered by *type*, *subtype*, *action*
 
 + Parameters
 
-    + site_uid (int, required) - site UID
-    + action (string, required) - action type
-    + view (string, optional) - river view
-        + Default: `river/elements/layout`
-    + subject_uid (string, required) - UID of the subject entity
-    + object_uid (string, optional) - UID of the object entity
-    + target_uid (string, optional) - UID of the target entity
-    + annotation_uid (string, optional) - UID of the annotation
+    + site_uid (int, required) - Site UID, or ```site```
+    + fields:`uid,action` (string, optional) - Comma-separated list of fields to include in the output
+    + limit:`20` (number, optional) - number of activities to list
+        + Default: `10`
+    + offset:`20` (number, optional) - offset from the list start
+    + types:`[object]` (array[string], optional) - constrain by entity types
+    + subtypes:`[blog,bookmarks]` (array[string], optional) - constrain by entity subtypes
+    + action_types:`[comment,like]` (array[string], optional) - constrain by action types
 
 
-+ Response 200 (application/json)
++ Response 200
+
+    [Activity Node][]
+
+
+
+
+
+
+
+## Group Users
+
+### User Node [/{user_uid}]
+
++ Model (application/json)
 
         {
-            "result":{
-                "nodes":[
-                    {
-                        "type":"river",
-                        "subtype":"item",
-                        "uid":"rv393",
-                        "action":"messageboard",
-                        "subject":{
-                            "type":"user",
-                            "subtype":"",
-                            "uid":"ue58",
-                            "name":"Devon Ratke",
-                            "username":"rodriguez.adolphus",
-                            "briefdescription":"Centralized full-range service-desk",
-                            "banned":false,
-                            "validated":"1",
-                            "admin":false,
-                            "url":"http://ambercal.dev/profile/rodriguez.adolphus",
-                            "icon":{
-                                "topbar":"http://ambercal.dev/mod/profile/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
-                                "tiny":"http://ambercal.dev/mod/profile/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
-                                "small":"http://ambercal.dev/mod/profile/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
-                                "medium":"http://ambercal.dev/mod/profile/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
-                                "large":"http://ambercal.dev/mod/profile/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
-                                "master":"http://ambercal.dev/mod/profile/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
-                            },
-                            "time_created":"2014-11-14T06:39:47-08:00",
-                            "enabled":"yes"
+            "status": 200,
+            "message": "OK"
+            "result": {
+                "total": 1,
+                "limit": 0,
+                "offset": 0,
+                "nodes": {
+                    "1": {
+                        "type":"user",
+                        "subtype":"",
+                        "uid":"ue58",
+                        "name":"Devon Ratke",
+                        "username":"rodriguez.adolphus",
+                        "briefdescription":"Centralized full-range service-desk",
+                        "banned":false,
+                        "validated":"1",
+                        "admin":false,
+                        "url":"http:\/\/ambercal.dev\/profile\/rodriguez.adolphus",
+                        "icon":{
+                            "topbar":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=topbar",
+                            "tiny":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=tiny",
+                            "small":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=small",
+                            "medium":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=medium",
+                            "large":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=large",
+                            "master":"http:\/\/ambercal.dev\/mod\/profile\/icondirect.php?lastcache=1420624467&joindate=1415975987&guid=58&size=master"
                         },
-                        "object":{
-                            "type":"object",
-                            "subtype":"widget",
-                            "uid":"oe43",
-                            "url":"http://ambercal.dev/",
-                            "time_created":"2014-11-14T03:47:26-08:00",
-                            "enabled":"yes",
-                            "access":{
-                                "id":0,
-                                "label":"Private"
-                            }
-                        },
-                        "target":null,
-                        "annotation":0,
-                        "access":{
-                            "id":0,
-                            "label":"Private"
-                        },
-                        "time_created":"2015-07-20T06:30:13-07:00",
+                        "time_created":"2014-11-14T06:39:47-08:00",
                         "enabled":"yes"
                     }
-                ]
-            },
-            "status":200,
-            "message":"OK"
+                }
+            }
         }
 
-+ Response 400 (application/json)
+### Retrieve a single node [GET /{user_uid}?fields]
+
+Retrieve a user node by its *uid*
+
++ Parameters
+    + user_uid:`ue896` (string,required) - User UID or ```me``` keyword
+    + fields:`uid,username,admin` - Comma-separated list of fields to include in the output
+
++ Response 200
+
+    [User Node][]
+
++ Response 403
+
+    [403][]
+
++ Response 404
+
+    [404][]
+
+
+### Delete a single node [DELETE /{user_uid}]
+
+Delete a user node by its *uid*. **Note** users can not delete themselves.
+
++ Parameters
+    + user_uid:`ue896` (string,required) - User UID or ```me``` keyword
+
++ Response 200
+
+    [User Node][]
+
++ Response 403
+
+    [403][]
+
++ Response 404
+
+    [404][]
+
+
+### User Lists [/{site_uid}/users]
+
+### List users [GET /{site_uid}/users?limit,offset,sort]
+
+Retrieve a list of site users
+
++ Parameters
+
+    + limit(int,optional) - Number of nodes to return
+    + offset(int,optional) - Offset from the start
+    + sort(array,optional) - Sorting options
+        + Default: `['time_created':'DESC']`
+
++ Response 200
+
+    [User Node][]
+    
+    
+
+
+## Group Groups
+
+### Group Node [/{group_uid}]
+
++ Model (application/json)
 
         {
-            "result": null,
-            "status": 400,
-            "message": "Unable to create a new activity item with such parameters"
+            "result": {
+                "status": 200,
+                "message": "OK",
+                "total": 1,
+                "offset": 0,
+                "limit": 0,
+                "nodes": {
+                    "1": {
+                        "type": "group",
+                        "subtype": "",
+                        "uid": "ge7170",
+                        "name": "Qui ex et tempore architecto et.",
+                        "url": "https://hackathon.dev/groups/profile/7170/qui-ex-et-tempore-architecto-et",
+                        "icon": {
+                            "topbar": "https://hackathon.dev/groupicon/7170/topbar/1436194703.jpg",
+                            "tiny": "https://hackathon.dev/groupicon/7170/tiny/1436194703.jpg",
+                            "small": "https://hackathon.dev/groupicon/7170/small/1436194703.jpg",
+                            "medium": "https://hackathon.dev/groupicon/7170/medium/1436194703.jpg",
+                            "large": "https://hackathon.dev/groupicon/7170/large/1436194703.jpg",
+                            "master": "https://hackathon.dev/groupicon/7170/master/1436194703.jpg"
+                        },
+                        "briefdescription": "envisioneer interactive systems",
+                        "owner": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue53",
+                            "name": "Dr. Chauncey Dach I",
+                            "username": "ceasar.moen",
+                            "briefdescription": "Profit-focused neutral ability",
+                            "banned": false,
+                            "validated": "1",
+                            "admin": false,
+                            "url": "https://hackathon.dev/profile/ceasar.moen",
+                            "icon": {
+                                "topbar": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=topbar",
+                                "tiny": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=tiny",
+                                "small": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=small",
+                                "medium": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=medium",
+                                "large": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=large",
+                                "master": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=master"
+                            },
+                            "time_created": "2015-06-27T05:39:37-07:00",
+                            "enabled": "yes"
+                        },
+                        "container": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue53",
+                            "name": "Dr. Chauncey Dach I",
+                            "username": "ceasar.moen",
+                            "briefdescription": "Profit-focused neutral ability",
+                            "banned": false,
+                            "validated": "1",
+                            "admin": false,
+                            "url": "https://hackathon.dev/profile/ceasar.moen",
+                            "icon": {
+                                "topbar": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=topbar",
+                                "tiny": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=tiny",
+                                "small": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=small",
+                                "medium": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=medium",
+                                "large": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=large",
+                                "master": "https://hackathon.dev/mod/profile/icondirect.php?lastcache=1435408780&joindate=1435408777&guid=53&size=master"
+                            },
+                            "time_created": "2015-06-27T05:39:37-07:00",
+                            "enabled": "yes"
+                        },
+                        "content_access_mode": {
+                            "id": "unrestricted",
+                            "label": "Unrestricted - Access depends on content-level settings"
+                        },
+                        "membership": {
+                            "id": 2,
+                            "label": "Open - Any user may join"
+                        },
+                        "access": {
+                            "id": 1024,
+                            "label": "Group: Qui ex et tempore architecto et."
+                        },
+                        "group_acl": {
+                            "id": 1024,
+                            "label": "Group: Qui ex et tempore architecto et."
+                        },
+                        "time_created": "2015-07-06T07:58:22-07:00",
+                        "enabled": "yes"
+                    }
+                }
+            }
         }
 
-+ Response 403 (application/json)
+### Retrieve a single node [GET /{group_uid}?fields]
 
-        {
-            "result": null,
-            "status": 403,
-            "message": "You are not allowed to create new activity items with this subject"
-        }
+Retrieve a single group node by its *uid*
+
++ Parameters
+    + group_uid:`ge8356` (string,required) - Group UID
+    + fields:`uid,membership,group_acl` (string, optional) - Comma-separated list of fields to include in the output
+
++ Response 200
+
+    [Group Node][]
+
++ Response 403
+
+    [403][]
+
++ Response 404
+
+    [404][]
+
 
