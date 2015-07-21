@@ -32,7 +32,7 @@ class BatchResult {
 		$result = new stdClass;
 
 		$this->options['count'] = true;
-		$result->total = call_user_func($this->getter, $this->options);
+		$result->total = (int) call_user_func($this->getter, $this->options);
 		unset($this->options['count']);
 
 		$result->limit = elgg_extract('limit', $this->options, elgg_get_config('default_limit'));
@@ -40,11 +40,13 @@ class BatchResult {
 
 		$batch = new ElggBatch($this->getter, $this->options);
 		$result->nodes = array();
+		$i = $result->offset;
 		foreach ($batch as $entity) {
+			$i++;
 			if (is_callable(array($entity, 'toObject'))) {
-				$result->nodes[] = $entity->toObject();
+				$result->nodes["$i"] = $entity->toObject();
 			} else {
-				$result->nodes[] = $entity;
+				$result->nodes["$i"] = $entity;
 			}
 		}
 
