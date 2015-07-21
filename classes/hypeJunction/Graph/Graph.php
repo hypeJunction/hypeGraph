@@ -316,7 +316,7 @@ class Graph {
 		}
 
 		$allowed = $this->getFields($entity);
-		$fields = get_input('fields', $allowed);
+		$fields = get_input('fields') ? : $allowed;
 		if (is_string($fields)) {
 			$fields = string_to_tag_array($fields);
 		}
@@ -388,7 +388,7 @@ class Graph {
 		}
 
 		$allowed = $this->getFields($entity);
-		$fields = get_input('fields', $allowed);
+		$fields = get_input('fields') ? : $allowed;
 		if (is_string($fields)) {
 			$fields = string_to_tag_array($fields);
 		}
@@ -469,7 +469,7 @@ class Graph {
 		}
 
 		$allowed = $this->getFields($entity);
-		$fields = get_input('fields', $allowed);
+		$fields = get_input('fields') ? : $allowed;
 		if (is_string($fields)) {
 			$fields = string_to_tag_array($fields);
 		}
@@ -563,7 +563,7 @@ class Graph {
 		}
 
 		$allowed = $this->getFields($entity);
-		$fields = get_input('fields', $allowed);
+		$fields = get_input('fields') ? : $allowed;
 		if (is_string($fields)) {
 			$fields = string_to_tag_array($fields);
 		}
@@ -640,7 +640,7 @@ class Graph {
 		}
 
 		$allowed = $this->getFields($entity);
-		$fields = get_input('fields', $allowed);
+		$fields = get_input('fields') ? : $allowed;
 		if (is_string($fields)) {
 			$fields = string_to_tag_array($fields);
 		}
@@ -758,7 +758,7 @@ class Graph {
 		}
 
 		$allowed = $this->getFields($entity);
-		$fields = get_input('fields', $allowed);
+		$fields = get_input('fields') ? : $allowed;
 		if (is_string($fields)) {
 			$fields = string_to_tag_array($fields);
 		}
@@ -853,7 +853,7 @@ class Graph {
 		}
 
 		$allowed = $this->getFields($entity);
-		$fields = get_input('fields', $allowed);
+		$fields = get_input('fields') ? : $allowed;
 		if (is_string($fields)) {
 			$fields = string_to_tag_array($fields);
 		}
@@ -932,7 +932,7 @@ class Graph {
 		}
 
 		$allowed = $this->getFields($entity);
-		$fields = get_input('fields', $allowed);
+		$fields = get_input('fields') ? : $allowed;
 		if (is_string($fields)) {
 			$fields = string_to_tag_array($fields);
 		}
