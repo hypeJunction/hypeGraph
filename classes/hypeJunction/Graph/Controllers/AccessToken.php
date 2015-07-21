@@ -51,7 +51,7 @@ class AccessToken extends Controller {
 		if (!$user || !$user->canEdit()) {
 			throw new GraphException("You are not allowed to manage this user's tokens", 403);
 		}
-		$token = hypeGraph()->tokens->get($this->params->token);
+		$token = hypeGraph()->tokens->get($this->params->auth_token);
 		if (!$token || !$token->validate(elgg_get_site_entity())) {
 			throw new GraphException("Token not found", 404);
 		}
