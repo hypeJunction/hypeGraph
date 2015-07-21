@@ -62,7 +62,7 @@ class ObjectComments extends Controller {
 		$user = elgg_get_logged_in_user_entity();
 		$object = get_entity($params->guid);
 
-		if (!$object || !$object->canComment()) {
+		if (!$object || !$object->canWriteToContainer(0, 'object', 'comment')) {
 			throw new GraphException("You are not allowed to comment on this object", 403);
 		}
 
