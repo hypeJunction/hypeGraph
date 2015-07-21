@@ -1678,4 +1678,53 @@ Delete a single node by its *uid*. Only available to admin users.
 + Response 404
 
     [404][]
+   
+
+### Post a comment [POST /{object_uid}/comments{?comment,fields}]
     
+Post a comment on a object
+
++ Parameters
+    + object_uid:`oe788` (string, required) - Comment UID
+    + comment:`some <a>html</a>` (string, required) - Comment
+    + fields:`uid,description,owner,container` (string, optional) - Comma-separated list of fields to include in the output
+    
++ Response 200
+
+    [Comment][]
+    
++ Response 403
+
+    [403][]
+
++ Response 404
+
+    [404][]
+    
+
+### Comment List [/{object_uid}/comments]
+
+### List object comments [GET /{object_uid}/comments?sort%5Btime_created%5D=DESC{&limit,offset,fields}]
+
+Retrieve a list of site users
+
++ Parameters
+    
+    + object_uid:`oe788` (string, required) - Object UID
+    + limit:`10` (int, optional) - Number of nodes to return
+    + offset:`0` (int, optional) - Offset from the start
+    + sort (array, optional) - Sorting options, an array of field => direction pairs. Defaults to time_created => DESC
+    + fields: `uid,description,time_created` - Comma-separated list of fields to include in the output
+
+    
++ Response 200
+
+    [Comment][]
+    
++ Response 403
+
+    [403][]
+
++ Response 404
+
+    [404][]
