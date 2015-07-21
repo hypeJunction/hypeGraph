@@ -1728,3 +1728,41 @@ Retrieve a list of site users
 + Response 404
 
     [404][]
+    
+    
+
+## Group Likes
+
+### Like [/{like_uid}]
+
++ Model (application/json)
+
+        {
+            "status": 200,
+            "message: "OK",
+            "result": {}
+        }
+
+    
+### Retrieve a like [GET /{like_uid}]
+
+Retrieve a like annotation node by its *uid*
+
++ Parameters
+    + like_uid:`an174` (string, required) - Annotation UID
+    
++ Response 200
+    
+    [Like][]
+
++ Response 404
+
+    [404][]
+    
+
+
+    
+
+
+
+
