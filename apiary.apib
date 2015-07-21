@@ -394,7 +394,73 @@ Retrieve a list of all resource endpoints available through the Graph API
             "result": null
         }
         
+### Relationship Node [/{rel_uid}]
 
++ Model (application/json)
+
+        {
+            "status": 200,
+            "message": "OK",
+            "result": {
+                "total": 1,
+                "limit": 0,
+                "offset": 0,
+                "nodes": {
+                    "1": {
+                        "type": "relationship",
+                        "subtype": "friend",
+                        "uid": "rl724",
+                        "subject": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue44",
+                            "name": "API User 1",
+                            "username": "api.user.1",
+                            "briefdescription": null,
+                            "banned": false,
+                            "validated": null,
+                            "admin": false,
+                            "url": "http://graph.hypejunction.com/profile/api.user.1",
+                            "icon": {
+                                "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                            },
+                            "time_created": "2015-07-20T22:18:47+02:00",
+                            "enabled": "yes"
+                        },
+                        "object": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue45",
+                            "name": "API User 2",
+                            "username": "api.user.2",
+                            "briefdescription": null,
+                            "banned": false,
+                            "validated": null,
+                            "admin": false,
+                            "url": "http://graph.hypejunction.com/profile/api.user.2",
+                            "icon": {
+                                "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                            },
+                            "time_created": "2015-07-20T22:19:24+02:00",
+                            "enabled": "yes"
+                        },
+                        "time_created": "2015-07-21T17:58:40+02:00"
+                    }
+                }
+            }
+        }
+        
+        
 ### Group Access Tokens
 
 ### Access Token [/{user_uid}/token]
@@ -410,6 +476,7 @@ Retrieve a list of all resource endpoints available through the Graph API
                 "user": {
                     "uid": "ue87"
                 }
+            }
         }
 
 
@@ -1024,8 +1091,84 @@ Retrieve a list of site users
     [User Node][]
     
     
+### User Friends [/{user_uid}/friends]
+
+### List user's friends [GET /{user_uid}/friends?sort%5Balpha%5D=ASC{&limit,offset,fields}]
+
+List all users added as friends by user node
+
++ Parameters
+    
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + limit:`10` (int, optional) - Number of nodes to return
+    + offset:`0` (int, optional) - Offset from the start
+    + sort (array, optional) - Sorting options, an array of field => direction pairs. Defaults to time_created => DESC
+    + fields: `uid,name` - Comma-separated list of fields to include in the output
+    
++ Response 200
+
+    [User Node][]
+    
++ Response 404
+
+    [404][]
+    
+    
+### Add a friend [POST /{user_uid}/friends{?friend_uid}]
+
+Add a user to friends list
+Response will contain multiple nodes, include friend relationship node, inverse friend relationship, and river node.
+
++ Parameters
+    
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + friend_uid:`ue45` (string, required) - User UID to friend
+
++ Response 200
+    
+    [Relationship Node][]
+    
++ Response 400
+
+    [400][]
+    
++ Response 403
+
+    [403][]
+    
++ Response 500
+
+    [500][]
+    
+
+### Remove a friend [DELETE /{user_uid}/friends{?friend_uid}]
+
+Remove a user from a friends list
+Response will contain multiple nodes, including friend relationship node and inverse friend relationship node
+
++ Parameters
+    
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + friend_uid:`ue45` (string, required) - User UID to friend
+
++ Response 200
+    
+    [Relationship Node][]
+    
++ Response 400
+
+    [400][]
+    
++ Response 403
+
+    [403][]
+    
++ Response 500
+ 
+    [500][]
 
 
+    
 ## Group Groups
 
 ### Group Node [/{group_uid}]
