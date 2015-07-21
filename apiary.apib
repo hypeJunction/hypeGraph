@@ -1041,8 +1041,6 @@ Delete a user node by its *uid*. **Note** users can not delete themselves.
     [404][]
 
 
-
-
 ### Register a new user [POST /{site_uid}/users{?email,username,password,name,language,notify,friend_uid,invitecode}]
 
 Register a new user. Email validation is required if uservalidationbyemail plugin is enabled. 
@@ -1070,7 +1068,90 @@ To bypass email validation, use ```'validate_registration','graph'``` hook.
 
     [403][]
     
+
+### User Profile [/{user_uid}/profile]
+
++ Model (application/json)
+
+        {
+            "status": 200,
+            "message": "OK",
+            "result": {
+                "uid": "ue58",
+                "name": "Esteban Kerluke IV",
+                "username": "stephan43",
+                "phone": "(782)067-7668x53487",
+                "mobile": "1-048-697-3677",
+                "website": "http://www.gutkowski.com/",
+                "twitter": "@voluptatibus",
+                "description": "Et nihil amet sequi aut inventore maxime. Maxime rerum consequatur soluta odio nam earum rerum ut. Id reiciendis aliquam sit et ut ab.",
+                "briefdescription": "Optimized multi-state hardware",
+                "location": "Gaetanofort, Guadeloupe",
+                "interests": [
+                    "qui",
+                    "at",
+                    "sit",
+                    "soluta",
+                    "qui",
+                    "ut",
+                    "vel",
+                    "enim",
+                    "earum"
+                ],
+                "skills": [
+                    "eveniet",
+                    "temporibus",
+                    "veritatis",
+                    "dolor",
+                    "aut",
+                    "tenetur",
+                    "velit",
+                    "tempora"
+                ],
+                "contactemail": "schuppe.myrtice@bogisich.biz",
+                "custom_profile_type": null
+            }
+        }
+
+        
+### Retrieve user profile [GET /{user_uid}/profile{?fields}]
+
+Retrieve profile fields of a given user
+
++ Parameters
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + fields (string, optional) - Comma-separated list of profile fields to include in the output
+
++ Response 200
+
+    [User Profile][]
     
++ Response 404
+
+    [404][]
+    
+
+### Retrieve user profile [PUT /{user_uid}/profile{?access_id}]
+
+Update profile fields of a given user. The list of fields that can be updated via Graph vary depending on the
+site configuration. Only fields in ```'profile_fields'``` Elgg config will be updated.
+
++ Parameters
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + access_id (int, required) - ACL for the updated profile metadata
+
++ Response 200
+
+    [User Profile][]
+
++ Response 403
+
+    [403][]
+    
++ Response 404
+
+    [404][]
+
 
 ### User Lists [/{site_uid}/users]
 
