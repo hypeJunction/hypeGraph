@@ -51,7 +51,7 @@ class UserProfile extends Controller {
 		}
 
 		$profile_fields = (array) elgg_get_config('profile_fields');
-		$access_id = $params->access_id !== null ? : get_default_access($owner);
+		$access_id = $params->access_id !== null ? $params->access_id : get_default_access($owner);
 
 		$input = array();
 		foreach ($profile_fields as $field => $valuetype) {
