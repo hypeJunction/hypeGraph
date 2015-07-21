@@ -394,7 +394,73 @@ Retrieve a list of all resource endpoints available through the Graph API
             "result": null
         }
         
+### Relationship Node [/{rel_uid}]
 
++ Model (application/json)
+
+        {
+            "status": 200,
+            "message": "OK",
+            "result": {
+                "total": 1,
+                "limit": 0,
+                "offset": 0,
+                "nodes": {
+                    "1": {
+                        "type": "relationship",
+                        "subtype": "friend",
+                        "uid": "rl724",
+                        "subject": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue44",
+                            "name": "API User 1",
+                            "username": "api.user.1",
+                            "briefdescription": null,
+                            "banned": false,
+                            "validated": null,
+                            "admin": false,
+                            "url": "http://graph.hypejunction.com/profile/api.user.1",
+                            "icon": {
+                                "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                            },
+                            "time_created": "2015-07-20T22:18:47+02:00",
+                            "enabled": "yes"
+                        },
+                        "object": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue45",
+                            "name": "API User 2",
+                            "username": "api.user.2",
+                            "briefdescription": null,
+                            "banned": false,
+                            "validated": null,
+                            "admin": false,
+                            "url": "http://graph.hypejunction.com/profile/api.user.2",
+                            "icon": {
+                                "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                            },
+                            "time_created": "2015-07-20T22:19:24+02:00",
+                            "enabled": "yes"
+                        },
+                        "time_created": "2015-07-21T17:58:40+02:00"
+                    }
+                }
+            }
+        }
+        
+        
 ### Group Access Tokens
 
 ### Access Token [/{user_uid}/token]
@@ -410,6 +476,7 @@ Retrieve a list of all resource endpoints available through the Graph API
                 "user": {
                     "uid": "ue87"
                 }
+            }
         }
 
 
@@ -543,9 +610,9 @@ Retrieve site node by its *uid*
 
 
 
-### Group Activity
+### Group Activity Feeds
 
-### Activity Node [/{river_uid}]
+### Activity Feed [/{river_uid}]
 
 + Model (application/json)
 
@@ -791,7 +858,7 @@ Retrieve site node by its *uid*
 
 
 
-### Create a new node [POST /{site_uid}/activity{?action,view,subject_uid,object_uid,target_uid,annotation_uid,fields}]
+### Add activity to site feed [POST /{site_uid}/activity{?action,view,subject_uid,object_uid,target_uid,annotation_uid,fields}]
 
 Adds a new activity (river) item to the site feed
 
@@ -800,7 +867,7 @@ Adds a new activity (river) item to the site feed
     + site_uid:`site` (string, required) - site UID or ``site``
     + action:`graph:test` (string, required) - Action type
     + view (string, optional) - Activity view
-        + Default: `Activity/elements/layout`
+        + Default: `river/elements/layout`
     + subject_uid:`ue44` (string, required) - UID of the subject entity
     + object_uid:`oe788` (string, required) - UID of the object entity
     + target_uid (string, optional) - UID of the target entity
@@ -809,7 +876,7 @@ Adds a new activity (river) item to the site feed
 
 + Response 200
 
-    [Activity Node][]
+    [Activity Feed][]
 
 + Response 400
 
@@ -820,7 +887,35 @@ Adds a new activity (river) item to the site feed
     [403][]
     
 
-### Retrieve a single node [GET /{river_uid}{?fields}]
+### Add activity to user feed [POST /{user_uid}/activity{?action,view,object_uid,target_uid,annotation_uid,fields}]
+
+Adds a new activity (river) item to the site feed
+
++ Parameters
+
+    + user_uid:`me` (string, required) - User UID or ``me``
+    + action:`graph:test` (string, required) - Action type
+    + view (string, optional) - Activity view
+        + Default: `river/elements/layout`
+    + object_uid:`oe788` (string, required) - UID of the object entity
+    + target_uid (string, optional) - UID of the target entity
+    + annotation_uid (string, optional) - UID of the annotation
+    + fields:`uid,action,subject,object,target` (string, optional) - Comma-separated list of fields to include in the output
+
++ Response 200
+
+    [Activity Feed][]
+
++ Response 400
+
+    [400][]
+
++ Response 403
+
+    [403][]
+    
+
+### Retrieve an activity [GET /{river_uid}{?fields}]
 
 Retrieve an activity (river) item by its *uid*
 
@@ -830,7 +925,7 @@ Retrieve an activity (river) item by its *uid*
 
 + Response 200
 
-    [Activity Node][]
+    [Activity Feed][]
 
 + Response 403
 
@@ -841,9 +936,9 @@ Retrieve an activity (river) item by its *uid*
     [404][]
 
 
-### Delete a single node [DELETE /{river_uid}]
+### Delete an activity item [DELETE /{river_uid}]
 
-Delete a single node by its *uid*
+Delete a single node by its *uid*. Only available to admin users.
 
 + Parameters
     + river_uid:`rv723` (string,required) - UID of the river item
@@ -865,11 +960,11 @@ Delete a single node by its *uid*
     [404][]
 
 
-### Activity Lists [/{uid}/activity]
+### Feeds [/{uid}/activity]
 
-### List site activity [GET /{site_uid}/activity{?fields,limit,offset,types,subtypes,action_types}]
+### Retrieve site feed [GET /{site_uid}/activity{?fields,limit,offset,types,subtypes,action_types}]
 
-Retrieve a list of site activity nodes filtered by *type*, *subtype*, *action*
+Retrieve a list of site activities filtered by *type*, *subtype*, *action*
 
 + Parameters
 
@@ -885,9 +980,32 @@ Retrieve a list of site activity nodes filtered by *type*, *subtype*, *action*
 
 + Response 200
 
-    [Activity Node][]
+    [Activity Feed][]
+
++ Response 400
+
+    [400][]
 
 
+### Retrieve user feed [GET /{user_uid}/activity{?fields,limit,offset,types,subtypes,action_types}]
+
+Retrieve a list of user activities filtered by *type*, *subtype*, *action*
+
++ Parameters
+
+    + user_uid:`me` (string, required) - User UID, or ```me```
+    + fields:`uid,action,subject,object,target` (string, optional) - Comma-separated list of fields to include in the output
+    + limit:`10` (number, optional) - number of activities to list
+        + Default: `10`
+    + offset:`0` (number, optional) - offset from the list start
+    + types:`object` (array[string], optional) - constrain by entity types
+    + subtypes:`blog` (array[string], optional) - constrain by entity subtypes
+    + action_types:`create` (array[string], optional) - constrain by action types
+
+
++ Response 200
+
+    [Activity Feed][]
 
 
 
@@ -974,8 +1092,6 @@ Delete a user node by its *uid*. **Note** users can not delete themselves.
     [404][]
 
 
-
-
 ### Register a new user [POST /{site_uid}/users{?email,username,password,name,language,notify,friend_uid,invitecode}]
 
 Register a new user. Email validation is required if uservalidationbyemail plugin is enabled. 
@@ -1003,7 +1119,90 @@ To bypass email validation, use ```'validate_registration','graph'``` hook.
 
     [403][]
     
+
+### User Profile [/{user_uid}/profile]
+
++ Model (application/json)
+
+        {
+            "status": 200,
+            "message": "OK",
+            "result": {
+                "uid": "ue58",
+                "name": "Esteban Kerluke IV",
+                "username": "stephan43",
+                "phone": "(782)067-7668x53487",
+                "mobile": "1-048-697-3677",
+                "website": "http://www.gutkowski.com/",
+                "twitter": "@voluptatibus",
+                "description": "Et nihil amet sequi aut inventore maxime. Maxime rerum consequatur soluta odio nam earum rerum ut. Id reiciendis aliquam sit et ut ab.",
+                "briefdescription": "Optimized multi-state hardware",
+                "location": "Gaetanofort, Guadeloupe",
+                "interests": [
+                    "qui",
+                    "at",
+                    "sit",
+                    "soluta",
+                    "qui",
+                    "ut",
+                    "vel",
+                    "enim",
+                    "earum"
+                ],
+                "skills": [
+                    "eveniet",
+                    "temporibus",
+                    "veritatis",
+                    "dolor",
+                    "aut",
+                    "tenetur",
+                    "velit",
+                    "tempora"
+                ],
+                "contactemail": "schuppe.myrtice@bogisich.biz",
+                "custom_profile_type": null
+            }
+        }
+
+        
+### Retrieve user profile [GET /{user_uid}/profile{?fields}]
+
+Retrieve profile fields of a given user
+
++ Parameters
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + fields (string, optional) - Comma-separated list of profile fields to include in the output
+
++ Response 200
+
+    [User Profile][]
     
++ Response 404
+
+    [404][]
+    
+
+### Update user profile [PUT /{user_uid}/profile{?access_id}]
+
+Update profile fields of a given user. The list of fields that can be updated via Graph vary depending on the
+site configuration. Only fields in ```'profile_fields'``` Elgg config will be updated.
+
++ Parameters
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + access_id (int, required) - ACL for the updated profile metadata
+
++ Response 200
+
+    [User Profile][]
+
++ Response 403
+
+    [403][]
+    
++ Response 404
+
+    [404][]
+
 
 ### User Lists [/{site_uid}/users]
 
@@ -1024,8 +1223,85 @@ Retrieve a list of site users
     [User Node][]
     
     
+### User Friends [/{user_uid}/friends]
+
+### List user's friends [GET /{user_uid}/friends?sort%5Balpha%5D=ASC{&limit,offset,fields}]
+
+List all users added as friends by user node
+
++ Parameters
+    
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + limit:`10` (int, optional) - Number of nodes to return
+    + offset:`0` (int, optional) - Offset from the start
+    + sort (array, optional) - Sorting options, an array of field => direction pairs. Defaults to time_created => DESC
+    + fields: `uid,name` - Comma-separated list of fields to include in the output
+    
++ Response 200
+
+    [User Node][]
+    
++ Response 404
+
+    [404][]
+    
+    
+### Add a friend [POST /{user_uid}/friends{?friend_uid}]
+
+Add a user to friends list
+Response will contain multiple nodes, include friend relationship node, inverse friend relationship, and river node.
+
++ Parameters
+    
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + friend_uid:`ue45` (string, required) - User UID to friend
+
++ Response 200
+    
+    [Relationship Node][]
+    
++ Response 400
+
+    [400][]
+    
++ Response 403
+
+    [403][]
+    
++ Response 500
+
+    [500][]
+    
+
+### Remove a friend [DELETE /{user_uid}/friends{?friend_uid}]
+
+Remove a user from a friends list
+Response will contain multiple nodes, including friend relationship node and inverse friend relationship node
+
++ Parameters
+    
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + friend_uid:`ue45` (string, required) - User UID to friend
+
++ Response 200
+    
+    [Relationship Node][]
+    
++ Response 400
+
+    [400][]
+    
++ Response 403
+
+    [403][]
+    
++ Response 500
+ 
+    [500][]
 
 
+
+    
 ## Group Groups
 
 ### Group Node [/{group_uid}]
