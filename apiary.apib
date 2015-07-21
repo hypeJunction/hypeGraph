@@ -1962,6 +1962,8 @@ Delete a like annotation node by its *uid*
 
 ### Like an object [POST /{object_uid}/likes]
 
+Like an object
+
 + Parameters
     + object_uid:`oe788` (string, required) - Object UID to like
 
@@ -1977,7 +1979,7 @@ Delete a like annotation node by its *uid*
     
 ### Unlike an object [DELETE /{object_uid}/likes]
 
-Delete a like annotation node by its *uid*
+Unlike an object
 
 + Parameters
     + object_uid:`oe788` (string, required) - Object UID to unlike
@@ -2001,11 +2003,12 @@ Delete a like annotation node by its *uid*
 
 ### List object likes [GET /{object_uid}/likes{?limit,offset}]
 
+List all likes on an object
+
 + Parameters
     + object_uid:`oe788` (string, required) - Object UID
     + limit:`10` (int, optional) - Number of nodes to list
     + offset:`0` (int, optional) - Offset from list start
-    
     
 + Response 200
 
