@@ -75,6 +75,7 @@ class AccessToken extends Controller {
 			'token' => $token->token,
 			'expires' => date(DATE_ATOM, $token->expires),
 			'user' => $user,
+			'site_uid' => "se$token->site_guid",
 		);
 	}
 
@@ -95,6 +96,7 @@ class AccessToken extends Controller {
 			'token' => $token->token,
 			'expires' => date(DATE_ATOM, $token->expires),
 			'user' => $user,
+			'site_uid' => "se$token->site_guid",
 		);
 	}
 
