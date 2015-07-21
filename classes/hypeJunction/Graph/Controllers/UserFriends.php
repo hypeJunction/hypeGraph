@@ -31,13 +31,13 @@ class UserFriends extends Controller {
 			case HttpRequest::METHOD_POST :
 				return array(
 					new HiddenParameter('guid', true, Parameter::TYPE_INT),
-					new Parameter('friend_uid', false, Parameter::TYPE_INT, null, null, elgg_echo('graph:add_friend:friend_uid')),
+					new Parameter('friend_uid', true, Parameter::TYPE_STRING, null, null, elgg_echo('graph:add_friend:friend_uid')),
 				);
 
 			case HttpRequest::METHOD_DELETE :
 				return array(
 					new HiddenParameter('guid', true, Parameter::TYPE_INT),
-					new Parameter('friend_uid', false, Parameter::TYPE_INT, null, null, elgg_echo('graph:remove_friend:friend_uid')),
+					new Parameter('friend_uid', true, Parameter::TYPE_STRING, null, null, elgg_echo('graph:remove_friend:friend_uid')),
 				);
 
 			default :
@@ -67,7 +67,7 @@ class UserFriends extends Controller {
 	public function post(ParameterBag $params) {
 
 		$user = get_entity($params->guid);
-		$friend = $params->friend_uid ? $this->graph->get($params->friend_uid) : elgg_get_logged_in_user_entity();
+		$friend = $params->friend_uid ? $this->graph->get($params->friend_uid) : null;
 
 		if (!$user instanceof ElggUser || !$friend instanceof ElggUser) {
 			throw new GraphException("User or friend not found", HttpResponse::HTTP_NOT_FOUND);
