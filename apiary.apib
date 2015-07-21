@@ -1,22 +1,23 @@
 FORMAT: 1A
 HOST: http://graph.hypejunction.com/services/api/graph
 
-# Graph
+# hypeGraph
 
 ## About
 
-RESTful API Graph and Web Services for Elgg
+RESTful API Graph and Web Services for Elgg by hypeJunction.
+
 
 ### Features
 
-* RESTful Secure Graph Access
+* RESTful secure graph access
 * Admin interface for managing API consumers
-* Granular access controls for API resource on per-consumer basis
+* Granular access controls for API resources on per-consumer basis
 
 ### Requirements
 
 * Requires PHP 5.5
-* Requires hypeApps plugin
+* Requires hypeApps (https://github.com/hypeJunction/hypeApps)
 
 ### Acknowledgements
 
@@ -34,16 +35,18 @@ sponsoring various elements of the plugin.
 
 You can configure which authentication methods are allowed on your site.
 
-Note that calling Graph endpoints will terminate current user session
-and use registered PAM handlers to reauthenticate. In order to test web services
-through a browser, or to access Graph endpoints via JS, drop ```/services/api```
-from your Endpoint URLs.
+**Note** that calling Graph endpoints will terminate current user sessions.
+Graph endpoints can be accessed directly by JS clients and browser via ```/graph``` (instead of 
+```/services/api/graph```) pagehandler with CSRF (Elgg action) tokens.
+
+Whatever API authentication methods you choose, make sure that the graph endpoints **are served over HTTPs**.
 
 ### API Authentication
 
 #### API Key
 
-You can authenticate your API requests with an API key. Make sure to have HTTPs enabled!
+You can authenticate your API requests with an API key. API key can be supplied as an ```api_key``` URI query
+parameter, or as an ```X-Elgg-Apikey``` request header.
 
 #### HMAC Signature
 
@@ -55,55 +58,59 @@ API requests can also be signed with HMAC using API secret. See the code for imp
 #### Username and password
 
 Though highly discouraged, you can add username and password to each request to authenticate the user.
-This is handled by the core userpass PAM.
+This authentication method is handled by the core userpass PAM.
 
 #### Access Token
 
-You can acquire a user token at the ```POST /me/token``` endpoint. You will need to provider username and password,
-and will receive a token in response. The tokens are valid for 60 minutes.
-You can use ```POST `/:user/token``` endpoint to acquire a token to perform actions on behalf of a user you can manage (```canEdit()``` required).
-So, as an authenticated admin, you can get an access token for any user in the system, and perform actions on their behalf.
+You can acquire a user token at the ```POST /me/token``` endpoint. You will need to provide a username and password
+pair in order to receive a token in response. The tokens are valid for 60 minutes.
+
+You can use ```POST `/:user/token``` endpoint to acquire a token to perform actions on behalf of a user 
+that you can manage (```ElggUser::canEdit()``` permission is required). As an authenticated admin user, 
+you can get an access token for any user in the system, and perform actions on their behalf.
 
 You can exchange a user token for long-living one (30 days), using ```PUT /:user/token``` endpoint.
 
 #### API Consumer username and password
 
-You can set up your API Consumer with usernames and passwords, which they can use to authenticate as the user, who owns the API Consumer entity.
-This is helpful in cases, where you don't want to pass around actual user credentials (and inconveniencing users with frequent password resets).
+You can set up your API Consumers with custom usernames and passwords, which they can use to authenticate as 
+the user, who owns the API Consumer entity. This is helpful, when you don't want to pass around actual 
+user credentials (and inconvenience users with frequent password resets).
 
 
 ## Endpoints
 
 To access the graph you can use one of the following endpoints:
 
-Using an API client:
-*```https://{{site-url}}/services/api/graph/{{node}}/{{edge}}?api_key={{api-key}}```*,
-
-Using Elgg action tokens (e.g. with ```elgg.action()``` JS method):
-*```https://{{site-url}}/graph/{{node}}/{{edge}}```*,
+* Using an API client: ```https://{{site-url}}/services/api/graph/{{node}}/{{edge}}?api_key={{api-key}}```,
+* Using a JS client: ```https://{{site-url}}/graph/{{node}}/{{edge}}?__elgg_ts={{elgg_ts}}&__elgg_token={{elgg_token}}```,
 
 where
  - ```{{site-url}}``` is your Elgg site URL
  - ```{{node}}``` is an ID of a node, e.g. uid of a resource
  - ```{{edge}}``` is the edge of a node, e.g. friends
  - ```{{api-key}}``` is the API key assigned to your client
+ - ```{{elgg_ts}}``` and ```{{elgg_token}} are CSRF token elements
 
 Unlike RPC services, you can not pass ```{{format}}```.
-Use HTTP Accept header to specify the Content-Type you would like to consume, e.g.
+Use HTTP ```Accept``` header to specify the ```Content-Type``` you would like to consume, e.g.
 
 ```Accept: application/json```
+
 
 ## Nodes and Edges
 
 Routes are represented with nodes and edges, where as a node is an Elgg entity,
-annotation, or river item, and an edge is an alias for a subset of resources.
+metadata, annotation, river item, or relationship, and an edge is an alias for a subset of resources.
 
 For example, ```POST /me/activity``` route allows the consumer to create a new
-river time for a currently authenticated user, while ```GET /ge25/members```
+river item on behalf of the currently authenticated user, while ```GET /ge25/members```
 retrieves a list of members in a group.
 
-Note that the graph does not encourage the use of ```guid```s, instead it uses ```uid```s,
-which are strings comprising of a prefix and a numeric id. UIDs are mapped as follows:
+Note that the graph does not encourage the use of Elgg ```guid```s, instead it uses ```uid```s,
+which are strings comprising of a prefix and a numeric id. 
+
+UIDs are mapped as follows:
 
 * ```ElggUser``` node uid is prefixed with ```ue```, e.g. ```ue2521```
 * ```ElggObject``` node uid is prefixed with ```oe```, e.g. ```oe2758```
@@ -114,18 +121,18 @@ which are strings comprising of a prefix and a numeric id. UIDs are mapped as fo
 * ```ElggMetadata``` node uid is prefixed with ```md```, e.g. ```md74839```
 * ```ElggRelationship``` node uid is prefixed with ```rl```, e.g. ```rl4657```
 
-Integer UIDs fallback to entity guids. Usernames can also be used as UIDs, e.g.
-for a logged in user with username ```UserWithUsername``` and guid ```2521```
+Integer UIDs fallback to entity guids. Usernames can also be used as UIDs, 
+e.g. for a logged in user with username ```UserWithUsername``` and guid ```2521```
 the following are identical calls:
 
-   * /me/friends
-   * /ue2521/friends
-   * /2521/friends
-   * /UserWithUsername/friends
+   * `/me/friends`
+   * `/ue2521/friends`
+   * `/2521/friends`
+   * `/UserWithUsername/friends`
 
-You can map your routes to ```\hypeJunction\Graph\ControllerInterface``` controllers.
+You can map your routes to controllers that implement ```\hypeJunction\Graph\ControllerInterface``` interface.
 
-To see a full list of routes, visit API Endpoints section in admin area.
+To see a full list of routes, visit *API Endpoints* section in the site's admin area.
 
 Entity types need to be exposed explicitly by providing an alias.
 
@@ -144,22 +151,21 @@ Entity types need to be exposed explicitly by providing an alias.
         });
 ```
 
-Your controllers should the define the parameters expected and the business logic
-for each HTTP request method.
+Your controllers should define the parameters expected and the business logic for each HTTP request method.
 
 
 ## Response
 
 ### Format
 
-Responses will be sent with appropriate HTTP headers and will be in the following format:
+Responses will be sent with an appropriate HTTP header and will contain a body in the following format:
 
 ```json
        {
            'status': 200,
            'message': 'OK',
            'result' : {
-                'key' => 'value'
+                'key': 'value'
             }
         }
 ```
@@ -167,27 +173,37 @@ Responses will be sent with appropriate HTTP headers and will be in the followin
 ```json
         {
             'status': 404,
-            'message': 'Requested resources was not found',
+            'message': 'Requested resource was not found',
             'result' : [],
             'log': []
         }
 ```
 
-
 To receive information about runtime errors, you can add ```?debug=true``` to your request.
-This will add a ```log``` array to the response.
+This will add a ```log``` object to the response.
 
 For initial testing and debugging, you can enable debug mode in plugin settings.
 This will add additional data to the response, such as request and query parameters,
 currently logged in user and API consumer, exception trace etc.
+
+### Error Codes
+
+Graph may return one of the following error codes:
+
+* ```400 Bad Request``` - Request does not contain required information, or provided data does not allow to successfully process data
+* ```401 Unauthorized``` - Provided API and/or User Authentication credentials are invalid
+* ```403 Forbidden``` - Authenticated API consumer and/or user are not allowed to the access the endpoint, or they lack priviliges to modify entities
+* ```404 Not Found``` - Endpoint does not exist and/or entity does not exist or node's ACL does not allow it to be accessed by the authenticated user
+* ```405 Method Not Allowed``` - Endpoint can not be accessed using given HTTP request method
+* ```500 Internal Server Error``` - Something went completely wrong on the server
 
 
 ### Resource export fields
 
 You have full control over what fields are exported for any given resource type (in any particular consumer context or user context).
 
-* ```'fields','graph'``` plugin hook handler can be used to define allowed fields
-This hook receives ```'node'``` parameter, which can be either an entity or annotation or metadata
+* ```'fields','graph'``` plugin hook handler can be used to define exportable fields
+This hook receives ```'node'``` parameter, which can be either an entity, annotation, metadata, relationship or river item
 
 * ```'to:object',$type``` plugin hook can be used to filter the output of a given resource
 This is a core hook, triggered by ```ElggEntity::toObject()```, so make sure you sniff the context before overriding the output
@@ -198,8 +214,8 @@ This hook received ```GenericResult``` instance as the return value.
 * To prevent access to a certain node or an endpoint, you can use ```'permissions_check:graph',$route``` hook, which receives
 a node as a parameter.
 
-## Magic
 
+## Magic
 
 ### Magic nodes
 
@@ -226,13 +242,13 @@ Results can be sorted by ```alpha``` (alphabetically according to name/title) or
         $url = $test->buildGraphUrl('/site/groups');
         $result = $test->get($url, array(
             'sort' => array(
-            'alpha' => 'ASC',
-            'time_created' => 'DESC',
-        ),
-        'fields' => 'uid,name',
-        'limit' => 5,
-        'offset' => 15,
-    ));
+                'alpha' => 'ASC',
+                'time_created' => 'DESC',
+            ),
+            'fields' => 'uid,name',
+            'limit' => 5,
+            'offset' => 15,
+        ));
 
 ```
 
@@ -241,37 +257,37 @@ Results can be sorted by ```alpha``` (alphabetically according to name/title) or
 Request above will output something similar to this:
 
 ```json
-{
-  "status": 200,
-  "message": "OK"
-  "result": {
-    "total": 69,
-    "limit": 5,
-    "offset": 15,
-    "nodes": [
-      {
-        "uid": "ge7210",
-        "name": "Enim voluptatem nisi veniam deserunt et."
-      },
-      {
-        "uid": "ge7199",
-        "name": "Eos qui minima aperiam."
-      },
-      {
-        "uid": "ge7202",
-        "name": "Eos quidem dolorem cum voluptas quis quo."
-      },
-      {
-        "uid": "ge7208",
-        "name": "Et qui iste quo molestiae sit veritatis."
-      },
-      {
-        "uid": "ge7204",
-        "name": "Explicabo ullam saepe debitis qui."
-      }
-    ]
-  }
-}
+        {
+          "status": 200,
+          "message": "OK"
+          "result": {
+            "total": 69,
+            "limit": 5,
+            "offset": 15,
+            "nodes": {
+              "16": {
+                "uid": "ge7210",
+                "name": "Enim voluptatem nisi veniam deserunt et."
+              },
+              "17": {
+                "uid": "ge7199",
+                "name": "Eos qui minima aperiam."
+              },
+              "18": {
+                "uid": "ge7202",
+                "name": "Eos quidem dolorem cum voluptas quis quo."
+              },
+              "19": {
+                "uid": "ge7208",
+                "name": "Et qui iste quo molestiae sit veritatis."
+              },
+              "20": {
+                "uid": "ge7204",
+                "name": "Explicabo ullam saepe debitis qui."
+              }
+            }
+          }
+        }
 ```
 
 
@@ -367,6 +383,104 @@ Retrieve a list of all resource endpoints available through the Graph API
             "message": "Not found - Node does not exist or you do not have permissions to access it"
             "result": null
         }
+
+### 500 [/500]
+
++ Model (application/json)
+
+        {
+            "status": 500,
+            "message": "Internal Server Error"
+            "result": null
+        }
+        
+
+### Group Access Tokens
+
+### Access Token [/{user_uid}/token]
+
++ Model (application/json)
+
+        {
+            "status": 200,
+            "message": "OK",
+            "result": {
+                "token": "42349f20b1ced62333b218a92d3465a2",
+                "expires": "2015-07-21T04:34:31-07:00",
+                "user": {
+                    "uid": "ue87"
+                }
+        }
+
+
+### Create a new token [POST /{user_uid}/token{?username,password}]
+
+Create a new user access token
+
++ Parameters
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + username (string,optional) - Username of the token requestor
+    + password (string,optional) - Password of the token requestor
+    
++ Response 200
+
+    [Access Token][]
+    
++ Response 403
+
+    [403][]
+    
++ Response 500
+
+    [500][]
+
+
+### Exchange a token [PUT /{user_uid}/token{?auth_token}]
+
+Exchange a short-living token for a long-living one
+
++ Parameters
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + auth_token (string, required) - Token to delete
+    
++ Response 200
+
+    [Access Token][]
+    
++ Response 403
+
+    [403][]
+    
++ Response 500
+
+    [500][]
+    
+
+### Delete a token [DELETE /{user_uid}/token{?auth_token}]
+
+Delete a token
+
++ Parameters
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + auth_token (string, required) - Token to delete
+    
++ Response 200 (application/json)
+
+        {
+           "status": 200,
+           "message": "OK",
+           "result": true
+        }
+    
++ Response 403
+
+    [403][]
+    
++ Response 500
+
+    [500][]
+    
+    
 
 
 ### Group Site
@@ -859,6 +973,37 @@ Delete a user node by its *uid*. **Note** users can not delete themselves.
 
     [404][]
 
+
+
+
+### Register a new user [POST /{site_uid}/users{?email,username,password,name,language,notify,friend_uid,invitecode}]
+
+Register a new user. Email validation is required if uservalidationbyemail plugin is enabled. 
+To allow registration via Grpah if site registration is disabled, use ```'allow_registration','graph'``` hook.
+To bypass email validation, use ```'validate_registration','graph'``` hook.
+
++ Parameters
+    + site_uid:`site` (string, required) - Site UID or ```site```
+    + email (string, required) - Email address
+    + username (string, optional) - Username, autogenerated if left empty
+    + password (string, optional) - Password, autogenerated if left empty
+    + name (string, optional) - Display name, autogenerated if left empty
+    + language:`en` (string, optional) - Language code
+        + Default: `en`
+    + notify: `true` (bool, optional) - Send an email with user credentials
+        + Defualt: `true`
+    + friend_uid (string, optional) - UID of the user who issued the invitecode
+    + invitecode (string, optional) - Invitation code generated by the inviting friend
+    
++ Response 200
+    
+    [User Node][]
+
++ Response 403
+
+    [403][]
+    
+    
 
 ### User Lists [/{site_uid}/users]
 
