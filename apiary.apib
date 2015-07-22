@@ -1303,7 +1303,7 @@ List of parameters is incomplete, as it may vary depending on your configuration
     + description (string, optional) - Group description
     + membership (int, optional) - Group membership permission level
     + vis (int, optional) - Group visibility ACL
-    + content_access_mode (enum<string>, optional) - content access mode
+    + content_access_mode (enum[string], optional) - content access mode
         + Members
             + `unrestricted`
             + `members only`
@@ -1325,7 +1325,7 @@ List of parameters is incomplete, as it may vary depending on your configuration
     + description (string, optional) - Group description
     + membership (int, optional) - Group membership permission level
     + vis (int, optional) - Group visibility ACL
-    + content_access_mode (enum<string>, optional) - content access mode
+    + content_access_mode (enum[string], optional) - content access mode
         + Members
             + `unrestricted`
             + `members only`
@@ -1423,7 +1423,7 @@ Revokes membership in a group (or deletes membership request or revokes invitati
 Returns multiple relationship nodes for `member`,`invited`,`membership_request` relationship types
 
 + Parameters
-    + relationship:`member` (enum<string>, required) - Type of relationship to revoke
+    + relationship:`member` (enum[string], required) - Type of relationship to revoke
         + Members
             + `member`
             + `invited`
