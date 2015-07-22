@@ -1,12 +1,17 @@
 FORMAT: 1A
 HOST: http://graph.hypejunction.com/services/api/graph
 
+
 # hypeGraph
+
+
+
+
+
 
 ## About
 
 RESTful API Graph and Web Services for Elgg by hypeJunction.
-
 
 ### Features
 
@@ -31,12 +36,16 @@ incorporated, so thanks.
 * Thanks go to PlayAtMe, Bodyology School of Massage, and Ambercase, for partially
 sponsoring various elements of the plugin.
 
+
+
+
+
 ## Authentication
 
 You can configure which authentication methods are allowed on your site.
 
 **Note** that calling Graph endpoints will terminate current user sessions.
-Graph endpoints can be accessed directly by JS clients and browser via ```/graph``` (instead of 
+Graph endpoints can be accessed directly by JS clients and browser via ```/graph``` (instead of
 ```/services/api/graph```) pagehandler with CSRF (Elgg action) tokens.
 
 Whatever API authentication methods you choose, make sure that the graph endpoints **are served over HTTPs**.
@@ -52,7 +61,6 @@ parameter, or as an ```X-Elgg-Apikey``` request header.
 
 API requests can also be signed with HMAC using API secret. See the code for implementation details.
 
-
 ### User Authentication
 
 #### Username and password
@@ -65,17 +73,20 @@ This authentication method is handled by the core userpass PAM.
 You can acquire a user token at the ```POST /me/token``` endpoint. You will need to provide a username and password
 pair in order to receive a token in response. The tokens are valid for 60 minutes.
 
-You can use ```POST `/:user/token``` endpoint to acquire a token to perform actions on behalf of a user 
-that you can manage (```ElggUser::canEdit()``` permission is required). As an authenticated admin user, 
+You can use ```POST `/:user/token``` endpoint to acquire a token to perform actions on behalf of a user
+that you can manage (```ElggUser::canEdit()``` permission is required). As an authenticated admin user,
 you can get an access token for any user in the system, and perform actions on their behalf.
 
 You can exchange a user token for long-living one (30 days), using ```PUT /:user/token``` endpoint.
 
 #### API Consumer username and password
 
-You can set up your API Consumers with custom usernames and passwords, which they can use to authenticate as 
-the user, who owns the API Consumer entity. This is helpful, when you don't want to pass around actual 
+You can set up your API Consumers with custom usernames and passwords, which they can use to authenticate as
+the user, who owns the API Consumer entity. This is helpful, when you don't want to pass around actual
 user credentials (and inconvenience users with frequent password resets).
+
+
+
 
 
 ## Endpoints
@@ -98,6 +109,9 @@ Use HTTP ```Accept``` header to specify the ```Content-Type``` you would like to
 ```Accept: application/json```
 
 
+
+
+
 ## Nodes and Edges
 
 Routes are represented with nodes and edges, where as a node is an Elgg entity,
@@ -108,7 +122,7 @@ river item on behalf of the currently authenticated user, while ```GET /ge25/mem
 retrieves a list of members in a group.
 
 Note that the graph does not encourage the use of Elgg ```guid```s, instead it uses ```uid```s,
-which are strings comprising of a prefix and a numeric id. 
+which are strings comprising of a prefix and a numeric id.
 
 UIDs are mapped as follows:
 
@@ -121,7 +135,7 @@ UIDs are mapped as follows:
 * ```ElggMetadata``` node uid is prefixed with ```md```, e.g. ```md74839```
 * ```ElggRelationship``` node uid is prefixed with ```rl```, e.g. ```rl4657```
 
-Integer UIDs fallback to entity guids. Usernames can also be used as UIDs, 
+Integer UIDs fallback to entity guids. Usernames can also be used as UIDs,
 e.g. for a logged in user with username ```UserWithUsername``` and guid ```2521```
 the following are identical calls:
 
@@ -152,6 +166,10 @@ Entity types need to be exposed explicitly by providing an alias.
 ```
 
 Your controllers should define the parameters expected and the business logic for each HTTP request method.
+
+
+
+
 
 
 ## Response
@@ -215,6 +233,9 @@ This hook received ```GenericResult``` instance as the return value.
 a node as a parameter.
 
 
+
+
+
 ## Magic
 
 ### Magic nodes
@@ -227,6 +248,9 @@ a node as a parameter.
 
 * ```?debug=true``` will append a log of runtime errors to the response
 * ```?fields=uid,name,owner``` will constrain resource export to only those fields. If fields are not defined as allowed for that resource type, they will return ```null```
+
+
+
 
 
 ## Batch Results
@@ -291,6 +315,9 @@ Request above will output something similar to this:
 ```
 
 
+
+
+
 ## File Uploads
 
 Exercise caution with allowing file uploads via the Graph. Only allow uploads by trusted
@@ -298,7 +325,83 @@ consumers, otherwise you are opening up a security vulnerability.
 
 
 
+
+
 ## Group Root
+
+### 200 [/{_200}]
+
++ Model (application/json)
+
+        {
+            "status": 200,
+            "message": "OK"
+            "result": true
+        }
+
+### 400 [/{_400}]
+
++ Model (application/json)
+
+        {
+            "status": 400,
+            "message": "Bad request - Action can not be completed with given parameters"
+            "result": null
+        }
+
+### 401 [/{_401}]
+
++ Model (application/json)
+
+        {
+            "status": 401,
+            "message": "Unauthorized - API or User authenticated failed"
+            "result": null
+        }
+
+### 403 [/{_403}]
+
++ Model (application/json)
+
+        {
+            "status": 403,
+            "message": "Forbidden - You do not have sufficient privileges to access this endpoint or you are trying to modify an entity that you do not have acess to"
+            "result": null
+        }
+
+### 404 [/{_404}]
+
++ Model (application/json)
+
+        {
+            "status": 404,
+            "message": "Not found - Node does not exist or you do not have permissions to access it"
+            "result": null
+        }
+
+### 405 [/{_405}]
+
++ Model (application/json)
+
+        {
+            "status": 405,
+            "message": "Method not allowed - Endpoint can not be requested with this HTTP method"
+            "result": null
+        }
+
+### 500 [/{_500}]
+
++ Model (application/json)
+
+        {
+            "status": 500,
+            "message": "Internal Server Error"
+            "result": null
+        }
+
+
+
+
 
 ### Graph Root [/]
 
@@ -348,120 +451,32 @@ Retrieve a list of all resource endpoints available through the Graph API
             ]
         }
 
-+ Response 403
++ Response 400
+    [400][]
 
++ Response 401
+    [401][]
+
++ Response 403
     [403][]
 
++ Response 404
+    [404][]
 
-### 400 [/400]
++ Response 405
+    [405][]
 
-+ Model (application/json)
-
-        {
-            "status": 400,
-            "message": "Bad request - Action can not be completed with given parameters"
-            "result": null
-        }
++ Response 500
+    [404][]
 
 
-### 403 [/403]
 
-+ Model (application/json)
 
-        {
-            "status": 403,
-            "message": "Permission denied - You do not have sufficient privileges to access this endpoint or you are trying to modify an entity that you do not have acess to"
-            "result": null
-        }
 
-### 404 [/404]
 
-+ Model (application/json)
-
-        {
-            "status": 404,
-            "message": "Not found - Node does not exist or you do not have permissions to access it"
-            "result": null
-        }
-
-### 500 [/500]
-
-+ Model (application/json)
-
-        {
-            "status": 500,
-            "message": "Internal Server Error"
-            "result": null
-        }
-        
-### Relationship Node [/{rel_uid}]
-
-+ Model (application/json)
-
-        {
-            "status": 200,
-            "message": "OK",
-            "result": {
-                "total": 1,
-                "limit": 0,
-                "offset": 0,
-                "nodes": {
-                    "1": {
-                        "type": "relationship",
-                        "subtype": "friend",
-                        "uid": "rl724",
-                        "subject": {
-                            "type": "user",
-                            "subtype": "",
-                            "uid": "ue44",
-                            "name": "API User 1",
-                            "username": "api.user.1",
-                            "briefdescription": null,
-                            "banned": false,
-                            "validated": null,
-                            "admin": false,
-                            "url": "http://graph.hypejunction.com/profile/api.user.1",
-                            "icon": {
-                                "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
-                                "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
-                                "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
-                                "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
-                                "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
-                                "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
-                            },
-                            "time_created": "2015-07-20T22:18:47+02:00",
-                            "enabled": "yes"
-                        },
-                        "object": {
-                            "type": "user",
-                            "subtype": "",
-                            "uid": "ue45",
-                            "name": "API User 2",
-                            "username": "api.user.2",
-                            "briefdescription": null,
-                            "banned": false,
-                            "validated": null,
-                            "admin": false,
-                            "url": "http://graph.hypejunction.com/profile/api.user.2",
-                            "icon": {
-                                "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
-                                "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
-                                "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
-                                "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
-                                "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
-                                "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
-                            },
-                            "time_created": "2015-07-20T22:19:24+02:00",
-                            "enabled": "yes"
-                        },
-                        "time_created": "2015-07-21T17:58:40+02:00"
-                    }
-                }
-            }
-        }
-        
-        
 ### Group Access Tokens
+
+
 
 ### Access Token [/{user_uid}/token]
 
@@ -480,26 +495,19 @@ Retrieve a list of all resource endpoints available through the Graph API
         }
 
 
+
 ### Create a new token [POST /{user_uid}/token{?username,password}]
 
 Create a new user access token
 
 + Parameters
     + user_uid:`me` (string, required) - User UID or ```me```
-    + username (string,optional) - Username of the token requestor
-    + password (string,optional) - Password of the token requestor
-    
+    + username (string, optional) - Username of the token requestor
+    + password (string, optional) - Password of the token requestor
+
 + Response 200
-
     [Access Token][]
-    
-+ Response 403
 
-    [403][]
-    
-+ Response 500
-
-    [500][]
 
 
 ### Exchange a token [PUT /{user_uid}/token{?auth_token}]
@@ -509,19 +517,11 @@ Exchange a short-living token for a long-living one
 + Parameters
     + user_uid:`me` (string, required) - User UID or ```me```
     + auth_token (string, required) - Token to delete
-    
+
 + Response 200
-
     [Access Token][]
-    
-+ Response 403
 
-    [403][]
-    
-+ Response 500
 
-    [500][]
-    
 
 ### Delete a token [DELETE /{user_uid}/token{?auth_token}]
 
@@ -530,27 +530,17 @@ Delete a token
 + Parameters
     + user_uid:`me` (string, required) - User UID or ```me```
     + auth_token (string, required) - Token to delete
-    
-+ Response 200 (application/json)
 
-        {
-           "status": 200,
-           "message": "OK",
-           "result": true
-        }
-    
-+ Response 403
++ Response 200
+    [200][]
 
-    [403][]
-    
-+ Response 500
 
-    [500][]
-    
-    
+
 
 
 ### Group Site
+
+
 
 ### Site Node [/{site_uid}]
 
@@ -583,30 +573,18 @@ Delete a token
             }
         }
 
-### Retrieve a single node [GET /{site_uid}{?fields}]
 
-Retrieve site node by its *uid*
+
+### Retrieve a site node [GET /{site_uid}{?fields}]
+
+Retrieve a site node by its *uid*
 
 + Parameters
     + site_uid:`site` (string, required) - Site UID or ```site``` keyword
     + fields:`uid,name,description,url,walled_garden` (string, optional) - Comma-separated list of fields to include in the export
 
 + Response 200
-
     [Site Node][]
-
-+ Response 403
-
-    [403][]
-
-+ Response 404
-
-    [404][]
-
-
-
-
-
 
 
 
@@ -857,6 +835,32 @@ Retrieve site node by its *uid*
 
 
 
+### Retrieve an activity [GET /{river_uid}{?fields}]
+
+Retrieve an activity (river) item by its *uid*
+
++ Parameters
+    + river_uid:`rv724` (string, required) - UID of the river item
+    + fields:`uid,subject,object,target,action` (string, optional) - Comma-separated list of fields to include in the output
+
++ Response 200
+    [Activity Feed][]
+
+
+
+### Delete an activity item [DELETE /{river_uid}]
+
+Delete a single node by its *uid*. Only available to admin users.
+
++ Parameters
+    + river_uid:`rv723` (string, required) - UID of the river item
+
++ Response 200
+    [200][]
+
+
+
+### Feeds [/{uid}/activity]
 
 ### Add activity to site feed [POST /{site_uid}/activity{?action,view,subject_uid,object_uid,target_uid,annotation_uid,fields}]
 
@@ -875,17 +879,9 @@ Adds a new activity (river) item to the site feed
     + fields:`uid,action,subject,object,target` (string, optional) - Comma-separated list of fields to include in the output
 
 + Response 200
-
     [Activity Feed][]
 
-+ Response 400
 
-    [400][]
-
-+ Response 403
-
-    [403][]
-    
 
 ### Add activity to user feed [POST /{user_uid}/activity{?action,view,object_uid,target_uid,annotation_uid,fields}]
 
@@ -903,64 +899,9 @@ Adds a new activity (river) item to the site feed
     + fields:`uid,action,subject,object,target` (string, optional) - Comma-separated list of fields to include in the output
 
 + Response 200
-
     [Activity Feed][]
 
-+ Response 400
 
-    [400][]
-
-+ Response 403
-
-    [403][]
-    
-
-### Retrieve an activity [GET /{river_uid}{?fields}]
-
-Retrieve an activity (river) item by its *uid*
-
-+ Parameters
-    + river_uid:`rv724` (string, required) - UID of the river item
-    + fields:`uid,subject,object,target,action` (string, optional) - Comma-separated list of fields to include in the output
-
-+ Response 200
-
-    [Activity Feed][]
-
-+ Response 403
-
-    [403][]
-
-+ Response 404
-
-    [404][]
-
-
-### Delete an activity item [DELETE /{river_uid}]
-
-Delete a single node by its *uid*. Only available to admin users.
-
-+ Parameters
-    + river_uid:`rv723` (string,required) - UID of the river item
-
-+ Response 200
-
-        {
-            "status": 200,
-            "message": "OK",
-            "result": true
-        }
-
-+ Response 403
-
-    [403][]
-
-+ Response 404
-
-    [404][]
-
-
-### Feeds [/{uid}/activity]
 
 ### Retrieve site feed [GET /{site_uid}/activity{?fields,limit,offset,types,subtypes,action_types}]
 
@@ -979,12 +920,8 @@ Retrieve a list of site activities filtered by *type*, *subtype*, *action*
 
 
 + Response 200
-
     [Activity Feed][]
 
-+ Response 400
-
-    [400][]
 
 
 ### Retrieve user feed [GET /{user_uid}/activity{?fields,limit,offset,types,subtypes,action_types}]
@@ -1002,9 +939,7 @@ Retrieve a list of user activities filtered by *type*, *subtype*, *action*
     + subtypes:`blog` (array[string], optional) - constrain by entity subtypes
     + action_types:`create` (array[string], optional) - constrain by action types
 
-
 + Response 200
-
     [Activity Feed][]
 
 
@@ -1012,6 +947,8 @@ Retrieve a list of user activities filtered by *type*, *subtype*, *action*
 
 
 ## Group Users
+
+
 
 ### User Node [/{user_uid}]
 
@@ -1051,50 +988,36 @@ Retrieve a list of user activities filtered by *type*, *subtype*, *action*
             }
         }
 
-### Retrieve a single node [GET /{user_uid}{?fields}]
+
+
+### Retrieve a user [GET /{user_uid}{?fields}]
 
 Retrieve a user node by its *uid*
 
 + Parameters
-    + user_uid:`me` (string,required) - User UID or ```me``` keyword
+    + user_uid:`me` (string, required) - User UID or ```me``` keyword
     + fields:`uid,username,admin` - Comma-separated list of fields to include in the output
 
 + Response 200
-
     [User Node][]
 
-+ Response 403
-
-    [403][]
-
-+ Response 404
-
-    [404][]
 
 
-### Delete a single node [DELETE /{user_uid}]
+### Delete a user [DELETE /{user_uid}]
 
 Delete a user node by its *uid*. **Note** users can not delete themselves.
 
 + Parameters
-    + user_uid:`me` (string,required) - User UID or ```me``` keyword
+    + user_uid:`me` (string, required) - User UID or ```me``` keyword
 
 + Response 200
+    [200][]
 
-    [User Node][]
-
-+ Response 403
-
-    [403][]
-
-+ Response 404
-
-    [404][]
 
 
 ### Register a new user [POST /{site_uid}/users{?email,username,password,name,language,notify,friend_uid,invitecode}]
 
-Register a new user. Email validation is required if uservalidationbyemail plugin is enabled. 
+Register a new user. Email validation is required if uservalidationbyemail plugin is enabled.
 To allow registration via Grpah if site registration is disabled, use ```'allow_registration','graph'``` hook.
 To bypass email validation, use ```'validate_registration','graph'``` hook.
 
@@ -1110,15 +1033,11 @@ To bypass email validation, use ```'validate_registration','graph'``` hook.
         + Defualt: `true`
     + friend_uid (string, optional) - UID of the user who issued the invitecode
     + invitecode (string, optional) - Invitation code generated by the inviting friend
-    
+
 + Response 200
-    
     [User Node][]
 
-+ Response 403
 
-    [403][]
-    
 
 ### User Profile [/{user_uid}/profile]
 
@@ -1164,7 +1083,8 @@ To bypass email validation, use ```'validate_registration','graph'``` hook.
             }
         }
 
-        
+
+
 ### Retrieve user profile [GET /{user_uid}/profile{?fields}]
 
 Retrieve profile fields of a given user
@@ -1174,13 +1094,9 @@ Retrieve profile fields of a given user
     + fields (string, optional) - Comma-separated list of profile fields to include in the output
 
 + Response 200
-
     [User Profile][]
-    
-+ Response 404
 
-    [404][]
-    
+
 
 ### Update user profile [PUT /{user_uid}/profile{?access_id}]
 
@@ -1192,26 +1108,19 @@ site configuration. Only fields in ```'profile_fields'``` Elgg config will be up
     + access_id (int, required) - ACL for the updated profile metadata
 
 + Response 200
-
     [User Profile][]
 
-+ Response 403
-
-    [403][]
-    
-+ Response 404
-
-    [404][]
 
 
 ### User Lists [/{site_uid}/users]
+
+
 
 ### List users [GET /{site_uid}/users?sort%5Balpha%5D=ASC{&limit,offset,fields}]
 
 Retrieve a list of site users
 
 + Parameters
-    
     + site_uid:`site` (string, required) - Site UID or ```site```
     + limit:`10` (int, optional) - Number of nodes to return
     + offset:`0` (int, optional) - Offset from the start
@@ -1219,59 +1128,44 @@ Retrieve a list of site users
     + fields: `uid,name` - Comma-separated list of fields to include in the output
 
 + Response 200
-
     [User Node][]
-    
-    
+
+
+
 ### User Friends [/{user_uid}/friends]
+
+
 
 ### List user's friends [GET /{user_uid}/friends?sort%5Balpha%5D=ASC{&limit,offset,fields}]
 
 List all users added as friends by user node
 
 + Parameters
-    
     + user_uid:`me` (string, required) - User UID or ```me```
     + limit:`10` (int, optional) - Number of nodes to return
     + offset:`0` (int, optional) - Offset from the start
     + sort (array, optional) - Sorting options, an array of field => direction pairs. Defaults to time_created => DESC
     + fields: `uid,name` - Comma-separated list of fields to include in the output
-    
+
 + Response 200
-
     [User Node][]
-    
-+ Response 404
 
-    [404][]
-    
-    
+
+
 ### Add a friend [POST /{user_uid}/friends{?friend_uid}]
 
 Add a user to friends list
 Response will contain multiple nodes, include friend relationship node, inverse friend relationship, and river node.
 
 + Parameters
-    
+
     + user_uid:`me` (string, required) - User UID or ```me```
     + friend_uid:`ue45` (string, required) - User UID to friend
 
 + Response 200
-    
     [Relationship Node][]
-    
-+ Response 400
 
-    [400][]
-    
-+ Response 403
 
-    [403][]
-    
-+ Response 500
-
-    [500][]
-    
 
 ### Remove a friend [DELETE /{user_uid}/friends{?friend_uid}]
 
@@ -1279,30 +1173,20 @@ Remove a user from a friends list
 Response will contain multiple nodes, including friend relationship node and inverse friend relationship node
 
 + Parameters
-    
+
     + user_uid:`me` (string, required) - User UID or ```me```
     + friend_uid:`ue45` (string, required) - User UID to friend
 
 + Response 200
-    
     [Relationship Node][]
-    
-+ Response 400
-
-    [400][]
-    
-+ Response 403
-
-    [403][]
-    
-+ Response 500
- 
-    [500][]
 
 
 
-    
+
+
 ## Group Groups
+
+
 
 ### Group Node [/{group_uid}]
 
@@ -1398,33 +1282,179 @@ Response will contain multiple nodes, including friend relationship node and inv
             }
         }
 
-### Retrieve a single node [GET /{group_uid}{?fields}]
+
+
+### Retrieve a group [GET /{group_uid}{?fields}]
 
 Retrieve a single group node by its *uid*
 
 + Parameters
-    + group_uid:`ge8356` (string,required) - Group UID
+    + group_uid:`ge101` (string, required) - Group UID
     + fields:`uid,name,membership,group_acl` (string, optional) - Comma-separated list of fields to include in the output
 
 + Response 200
-
     [Group Node][]
 
-+ Response 403
 
-    [403][]
+### Create a group [POST /{site_uid}/groups{?name,membership,vis,content_access_mode,description,fields}]
 
-+ Response 404
+Create a new group
+List of parameters is incomplete, as it may vary depending on your configuration.
 
-    [404][]
++ Parameters
+    + site_uid:`site` (string, required) - Site UID
+    + name (string, required) - Group name
+    + description (string, optional) - Group description
+    + membership (int, optional) - Group membership permission level
+    + vis (int, optional) - Group visibility ACL
+    + content_access_mode (enum<string>, optional) - content access mode
+        + Members
+            + `unrestricted`
+            + `members only`
+    + fields:`uid,name,membership,group_acl` (string, optional) - Comma-separated list of fields to include in the output
+
++ Response 200
+    [Group Node][]
 
 
 
-## Group Objects
+### Edit a group [PUT /{group_uid}{?name,membership,vis,content_access_mode,description,fields}]
+
+Edit a group node by its *uid*
+List of parameters is incomplete, as it may vary depending on your configuration.
+
++ Parameters
+    + group_uid:`ge101` (string, required) - Group UID
+    + name (string, optional) - Group name
+    + description (string, optional) - Group description
+    + membership (int, optional) - Group membership permission level
+    + vis (int, optional) - Group visibility ACL
+    + content_access_mode (enum<string>, optional) - content access mode
+        + Members
+            + `unrestricted`
+            + `members only`
+    + fields:`uid,name,membership,group_acl` (string, optional) - Comma-separated list of fields to include in the output
+
++ Response 200
+    [Group Node][]
+
+
+
+### Delete a group [DELETE /{group_uid}]
+
+Delete a group node by its *uid*.
+
++ Parameters
+    + group_uid:`ge101` (string, required) - Group UID
+
++ Response 200
+    [User Node][]
+
+
+
+### Group Lists [/{container_uid}/groups]
+
+
+
+### List site groups [GET /{site_uid}/groups?sort%5Balpha%5D=ASC{&limit,offset,fields}]
+
+List all groups on the site
+
++ Parameters
+    + site_uid:`site` (string, required) - Site UID or ```site```
+    + limit:`10` (int, optional) - Number of nodes to return
+    + offset:`0` (int, optional) - Offset from the start
+    + sort (array, optional) - Sorting options, an array of field => direction pairs. Defaults to time_created => DESC
+    + fields: `uid,name` - Comma-separated list of fields to include in the output
+
++ Response 200
+    [Group Node][]
+
+
+
+### List owned groups [GET /{user_uid}/groups?sort%5Balpha%5D=ASC{&limit,offset,fields}]
+
+List all groups owned by the user
+
++ Parameters
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + limit:`10` (int, optional) - Number of nodes to return
+    + offset:`0` (int, optional) - Offset from the start
+    + sort (array, optional) - Sorting options, an array of field => direction pairs. Defaults to time_created => DESC
+    + fields: `uid,name` - Comma-separated list of fields to include in the output
+
++ Response 200
+    [Group Node][]
+
+
+
+### Membership [/{group_uid}/members]
+
+
+
+### Retrieve group members [GET /{group_uid}/members?sort%5Balpha%5D=ASC{&limit,offset,fields}]
+
+List all users added as friends by user node
+
++ Parameters
+    + group_uid:`ge101` (string, required) - Group UID
+    + limit:`10` (int, optional) - Number of nodes to return
+    + offset:`0` (int, optional) - Offset from the start
+    + sort (array, optional) - Sorting options, an array of field => direction pairs. Defaults to time_created => DESC
+    + fields: `uid,name` - Comma-separated list of fields to include in the output
+
++ Response 200
+    [User Node][]
+
+
+
+### Add group member [POST /{group_uid}/members]
+
+Adds user as a member of a group (or creates a membership request for closed group). 
+Returns multiple relationship nodes for `member`,`invited`,`membership_request` relationship types
+
++ Response 200
+    [Relationship Node][]
+
+
+
+### Revoke membership [DELETE /{group_uid}/members{?relationship}]
+
+Revokes membership in a group (or deletes membership request or revokes invitation).
+Returns multiple relationship nodes for `member`,`invited`,`membership_request` relationship types
+
++ Parameters
+    + relationship:`member` (enum<string>, required) - Type of relationship to revoke
+        + Members
+            + `member`
+            + `invited`
+            + `membership_request`
+            
++ Response 200
+    [Relationship Node][]
+
+
+
+### List user's group membership [GET /{user_uid}/groups/membership?sort%5Balpha%5D=ASC{&limit,offset,fields}]
+
+List all groups a user is a member of
+
++ Parameters
+    + user_uid:`me` (string, required) - User UID or ```me```
+    + limit:`10` (int, optional) - Number of nodes to return
+    + offset:`0` (int, optional) - Offset from the start
+    + sort (array, optional) - Sorting options, an array of field => direction pairs. Defaults to time_created => DESC
+    + fields: `uid,name` - Comma-separated list of fields to include in the output
+
++ Response 200
+    [Group Node][]
+
 
 
 
 ## Group Comments
+
+
 
 ### Comment [/{comment_uid}]
 
@@ -1621,6 +1651,7 @@ Retrieve a single group node by its *uid*
         }
 
 
+
 ### Retrieve a comment [GET /{comment_uid}{?fields}]
 
 Retrieve a comment by its *uid*
@@ -1628,14 +1659,11 @@ Retrieve a comment by its *uid*
 + Parameters
     + comment_uid:`oe790` (string, required) - Comment UID
     + fields:`uid,description,owner,container` (string, optional) - Comma-separated list of fields to include in the output
-    
+
 + Response 200
 
     [Comment][]
-    
-+ Response 404
-    
-    [404][]
+
 
 
 ### Edit a single comment [PUT /{comment_uid}{?comment,fields}]
@@ -1646,14 +1674,11 @@ Update a comment by its *uid*
     + comment_uid:`oe790` (string, required) - Comment UID
     + comment (string, required) - New comment text
     + fields:`uid,description,owner,container` (string, optional) - Comma-separated list of fields to include in the output
-    
+
 + Response 200
 
     [Comment][]
-    
-+ Response 404
-    
-    [404][]
+
 
 
 ### Delete a comment [DELETE /{comment_uid}]
@@ -1661,7 +1686,7 @@ Update a comment by its *uid*
 Delete a single node by its *uid*. Only available to admin users.
 
 + Parameters
-    + comment_uid:`oe790` (string,required) - Comment UID
+    + comment_uid:`oe790` (string, required) - Comment UID
 
 + Response 200
 
@@ -1671,67 +1696,51 @@ Delete a single node by its *uid*. Only available to admin users.
             "result": true
         }
 
-+ Response 403
 
-    [403][]
-
-+ Response 404
-
-    [404][]
-   
 
 ### Post a comment [POST /{object_uid}/comments{?comment,fields}]
-    
+
 Post a comment on a object
 
 + Parameters
     + object_uid:`oe788` (string, required) - Comment UID
     + comment:`some <a>html</a>` (string, required) - Comment
     + fields:`uid,description,owner,container` (string, optional) - Comma-separated list of fields to include in the output
-    
+
 + Response 200
 
     [Comment][]
-    
-+ Response 403
 
-    [403][]
 
-+ Response 404
-
-    [404][]
-    
 
 ### Comment List [/{object_uid}/comments]
+
+
 
 ### List object comments [GET /{object_uid}/comments?sort%5Btime_created%5D=DESC{&limit,offset,fields}]
 
 Retrieve a list of site users
 
 + Parameters
-    
+
     + object_uid:`oe788` (string, required) - Object UID
     + limit:`10` (int, optional) - Number of nodes to return
     + offset:`0` (int, optional) - Offset from the start
     + sort (array, optional) - Sorting options, an array of field => direction pairs. Defaults to time_created => DESC
     + fields: `uid,description,time_created` - Comma-separated list of fields to include in the output
 
-    
+
 + Response 200
 
     [Comment][]
-    
-+ Response 403
 
-    [403][]
 
-+ Response 404
 
-    [404][]
-    
-    
 
-## Group Likes
+
+## Group Annotations
+
+
 
 ### Like [/{like_uid}]
 
@@ -1916,22 +1925,19 @@ Retrieve a list of site users
             "message": "OK"
         }
 
-    
+
+
 ### Retrieve a like [GET /{like_uid}]
 
 Retrieve a like annotation node by its *uid*
 
 + Parameters
     + like_uid:`an174` (string, required) - Annotation UID
-    
+
 + Response 200
-    
+
     [Like][]
 
-+ Response 404
-
-    [404][]
-    
 
 
 ### Delete a like [DELETE /{like_uid}]
@@ -1940,7 +1946,7 @@ Delete a like annotation node by its *uid*
 
 + Parameters
     + like_uid:`an174` (string, required) - Annotation UID
-    
+
 + Response 200
 
         {
@@ -1949,16 +1955,11 @@ Delete a like annotation node by its *uid*
             "result": true
         }
 
-+ Response 403
 
-    [403][]
-
-+ Response 404
-
-    [404][]
-    
 
 ### Object Likes [/{object_uid}/likes]
+
+
 
 ### Like an object [POST /{object_uid}/likes]
 
@@ -1970,20 +1971,16 @@ Like an object
 + Response 200
 
     [Like][]
-    
-+ Response 400
 
-    [400][]
-    
-    
-    
+
+
 ### Unlike an object [DELETE /{object_uid}/likes]
 
 Unlike an object
 
 + Parameters
     + object_uid:`oe788` (string, required) - Object UID to unlike
-    
+
 + Response 200
 
         {
@@ -1992,13 +1989,6 @@ Unlike an object
             "result": true
         }
 
-+ Response 403
-
-    [403][]
-
-+ Response 404
-
-    [404][]
 
 
 ### List object likes [GET /{object_uid}/likes{?limit,offset}]
@@ -2009,19 +1999,92 @@ List all likes on an object
     + object_uid:`oe788` (string, required) - Object UID
     + limit:`10` (int, optional) - Number of nodes to list
     + offset:`0` (int, optional) - Offset from list start
-    
+
 + Response 200
 
     [Like][]
 
-+ Response 403
 
-    [403][]
-    
-+ Response 404
 
-    [404][]
+
+
+## Group Relationships
+
+
+
+### Relationship Node [/{rel_uid}]
+
++ Model (application/json)
+
+        {
+            "status": 200,
+            "message": "OK",
+            "result": {
+                "total": 1,
+                "limit": 0,
+                "offset": 0,
+                "nodes": {
+                    "1": {
+                        "type": "relationship",
+                        "subtype": "friend",
+                        "uid": "rl724",
+                        "subject": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue44",
+                            "name": "API User 1",
+                            "username": "api.user.1",
+                            "briefdescription": null,
+                            "banned": false,
+                            "validated": null,
+                            "admin": false,
+                            "url": "http://graph.hypejunction.com/profile/api.user.1",
+                            "icon": {
+                                "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                            },
+                            "time_created": "2015-07-20T22:18:47+02:00",
+                            "enabled": "yes"
+                        },
+                        "object": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue45",
+                            "name": "API User 2",
+                            "username": "api.user.2",
+                            "briefdescription": null,
+                            "banned": false,
+                            "validated": null,
+                            "admin": false,
+                            "url": "http://graph.hypejunction.com/profile/api.user.2",
+                            "icon": {
+                                "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                            },
+                            "time_created": "2015-07-20T22:19:24+02:00",
+                            "enabled": "yes"
+                        },
+                        "time_created": "2015-07-21T17:58:40+02:00"
+                    }
+                }
+            }
+        }
+
+
+
+### Retrieve a relationship [GET /{rel_uid}]
+
++ Parameters 
+    + rel_uid (string, optional) - relaitonship UID
     
-    
-    
++ Response 200
+    [Relationship Node][]
 
