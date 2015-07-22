@@ -2,11 +2,13 @@
 
 namespace hypeJunction\Graph\Controllers;
 
+use ElggRelationship;
 use hypeJunction\Graph\BatchResult;
 use hypeJunction\Graph\Controller;
 use hypeJunction\Graph\GraphException;
 use hypeJunction\Graph\HiddenParameter;
 use hypeJunction\Graph\HttpRequest;
+use hypeJunction\Graph\HttpResponse;
 use hypeJunction\Graph\Parameter;
 use hypeJunction\Graph\ParameterBag;
 
@@ -136,6 +138,10 @@ class GroupMembers extends Controller {
 			case 'membership_request' :
 				$relationship = check_entity_relationship($user->guid, 'membership_request', $group->guid);
 				break;
+		}
+
+		if (!$relationship instanceof ElggRelationship) {
+			throw new GraphException("Relationship does not exist", HttpResponse::HTTP_NOT_FOUND);
 		}
 
 		$relationship->delete();
