@@ -1866,7 +1866,7 @@ Retrieve raw file contents
 
 
 
-### Edit a filet [PUT /{file_uid}{?title,description,tags,access_id,filename,contents,mimetype,checksum}]
+### Edit a file [PUT /{file_uid}{?title,description,tags,access_id,filename,contents,mimetype,checksum}]
 
 Updates a file
 
@@ -1948,6 +1948,337 @@ List all site, user or group files
 + Model (application/json)
 
         {
+            "result": {
+                "nodes": {
+                    "1": {
+                        "type": "object",
+                        "subtype": "messages",
+                        "uid": "oe804",
+                        "title": "hypeInbox Group Message",
+                        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque orci, sollicitudin quis consectetur eget, faucibus a velit. Praesent iaculis risus lobortis felis accumsan, sed sagittis arcu convallis. Aliquam fermentum, enim vitae vestibulum porta, orci metus commodo felis, sed interdum justo sapien sed augue. In porta efficitur volutpat. Mauris quis efficitur nulla, ut venenatis mi. Aliquam volutpat bibendum sapien in maximus. In aliquet scelerisque mauris in maximus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras lacinia neque a urna tristique, eu aliquam mauris rhoncus.\r\n\r\nInteger sed tellus neque. Vestibulum accumsan rutrum dui, sit amet ultrices velit dictum eget. Nam eu mollis felis. Proin vitae urna erat. Nulla pretium tellus non ipsum imperdiet vestibulum eget sed ante. Aliquam sodales aliquam mollis. Proin in vulputate purus, nec mollis nulla. Pellentesque quis justo pulvinar, posuere mi et, tempus tortor. Aenean id consequat dui. Sed fermentum tincidunt diam, ut dictum enim posuere ac. Phasellus eu lorem bibendum magna maximus consectetur. Vivamus dolor sem, tristique sit amet vestibulum quis, porttitor et nulla. Phasellus nunc tortor, iaculis at mattis ac, sodales a nunc. Nulla facilisi. Integer ut eros eget tellus bibendum ultricies quis et lectus.\r\n\r\nNulla aliquet lectus non magna lobortis, quis tempus eros elementum. Integer venenatis a est vitae venenatis. Donec vulputate libero a dolor molestie, vel egestas odio dignissim. Pellentesque felis nulla, vulputate sed rutrum bibendum, feugiat ut felis. Praesent lacinia, neque non tincidunt cursus, massa risus accumsan diam, vitae facilisis sem elit sed dolor. Nam scelerisque pretium pulvinar. Vivamus dignissim leo et ipsum commodo, non lobortis metus auctor. Proin suscipit tortor quis aliquam aliquet.\r\n\r\nSuspendisse viverra, nibh et maximus accumsan, turpis augue tincidunt elit, ornare feugiat leo mauris eget magna. Ut nunc sapien, posuere eu ante sed, mattis pulvinar orci. Phasellus tempor tortor lacus. Nulla facilisi. Nullam fringilla velit vel dolor maximus, ut posuere mi mattis. Curabitur auctor velit in malesuada ullamcorper. Nunc dictum ac ante non molestie. Pellentesque sed libero eu justo auctor dictum. Ut dignissim pharetra eros. Pellentesque et leo vitae quam viverra varius. Nulla sagittis sagittis dolor non elementum. Pellentesque et luctus diam.",
+                        "url": "http://graph.hypejunction.com/messages/read/804/hypeinbox-group-message#elgg-object-804",
+                        "access": {
+                            "id": 0,
+                            "label": "Private"
+                        },
+                        "time_created": "2015-07-22T13:48:57+02:00",
+                        "enabled": "yes",
+                        "status": "read",
+                        "sender": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue44",
+                            "name": "API User 1",
+                            "username": "api.user.1",
+                            "briefdescription": null,
+                            "banned": false,
+                            "validated": null,
+                            "admin": false,
+                            "url": "http://graph.hypejunction.com/profile/api.user.1",
+                            "icon": {
+                                "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                            },
+                            "time_created": "2015-07-20T22:18:47+02:00",
+                            "enabled": "yes"
+                        },
+                        "recipients": [
+                            {
+                                "type": "user",
+                                "subtype": "",
+                                "uid": "ue51",
+                                "name": "Demetris O'Hara",
+                                "username": "susanna.stiedemann",
+                                "briefdescription": "Synergistic directional application",
+                                "banned": false,
+                                "validated": "1",
+                                "admin": false,
+                                "url": "http://graph.hypejunction.com/profile/susanna.stiedemann",
+                                "icon": {
+                                    "topbar": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424774&joindate=1437424770&guid=51&size=topbar",
+                                    "tiny": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424774&joindate=1437424770&guid=51&size=tiny",
+                                    "small": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424774&joindate=1437424770&guid=51&size=small",
+                                    "medium": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424774&joindate=1437424770&guid=51&size=medium",
+                                    "large": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424774&joindate=1437424770&guid=51&size=large",
+                                    "master": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424774&joindate=1437424770&guid=51&size=master"
+                                },
+                                "time_created": "2015-07-20T22:39:30+02:00",
+                                "enabled": "yes"
+                            },
+                            {
+                                "type": "user",
+                                "subtype": "",
+                                "uid": "ue60",
+                                "name": "Braulio Ratke",
+                                "username": "wdicki",
+                                "briefdescription": "Balanced 4thgeneration hierarchy",
+                                "banned": false,
+                                "validated": "1",
+                                "admin": false,
+                                "url": "http://graph.hypejunction.com/profile/wdicki",
+                                "icon": {
+                                    "topbar": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424785&joindate=1437424771&guid=60&size=topbar",
+                                    "tiny": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424785&joindate=1437424771&guid=60&size=tiny",
+                                    "small": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424785&joindate=1437424771&guid=60&size=small",
+                                    "medium": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424785&joindate=1437424771&guid=60&size=medium",
+                                    "large": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424785&joindate=1437424771&guid=60&size=large",
+                                    "master": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424785&joindate=1437424771&guid=60&size=master"
+                                },
+                                "time_created": "2015-07-20T22:39:31+02:00",
+                                "enabled": "yes"
+                            },
+                            {
+                                "type": "user",
+                                "subtype": "",
+                                "uid": "ue65",
+                                "name": "Alfonzo Hackett",
+                                "username": "huels.pablo",
+                                "briefdescription": "Integrated 24hour emulation",
+                                "banned": false,
+                                "validated": "1",
+                                "admin": false,
+                                "url": "http://graph.hypejunction.com/profile/huels.pablo",
+                                "icon": {
+                                    "topbar": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424790&joindate=1437424771&guid=65&size=topbar",
+                                    "tiny": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424790&joindate=1437424771&guid=65&size=tiny",
+                                    "small": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424790&joindate=1437424771&guid=65&size=small",
+                                    "medium": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424790&joindate=1437424771&guid=65&size=medium",
+                                    "large": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424790&joindate=1437424771&guid=65&size=large",
+                                    "master": "http://graph.hypejunction.com/mod/profile/icondirect.php?lastcache=1437424790&joindate=1437424771&guid=65&size=master"
+                                },
+                                "time_created": "2015-07-20T22:39:31+02:00",
+                                "enabled": "yes"
+                            }
+                        ],
+                        "thread_id": "50cea9ffe35116f57d4589b65aedb30353ced393",
+                        "message_type": "__private",
+                        "attachments": [
+                            {
+                                "type": "object",
+                                "subtype": "file",
+                                "uid": "oe803",
+                                "title": "file000615586116.jpg",
+                                "description": null,
+                                "url": "http://graph.hypejunction.com/file/view/803/file000615586116jpg",
+                                "icon": {
+                                    "topbar": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=803&size=topbar&icontime=1437565733",
+                                    "tiny": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=803&size=tiny&icontime=1437565733",
+                                    "small": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=803&size=small&icontime=1437565733",
+                                    "medium": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=803&size=medium&icontime=1437565733",
+                                    "large": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=803&size=large&icontime=1437565733",
+                                    "master": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=803&size=master&icontime=1437565733"
+                                },
+                                "owner": {
+                                    "type": "user",
+                                    "subtype": "",
+                                    "uid": "ue44",
+                                    "name": "API User 1",
+                                    "username": "api.user.1",
+                                    "briefdescription": null,
+                                    "banned": false,
+                                    "validated": null,
+                                    "admin": false,
+                                    "url": "http://graph.hypejunction.com/profile/api.user.1",
+                                    "icon": {
+                                        "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                        "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                        "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                        "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                        "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                        "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                                    },
+                                    "time_created": "2015-07-20T22:18:47+02:00",
+                                    "enabled": "yes"
+                                },
+                                "container": {
+                                    "type": "user",
+                                    "subtype": "",
+                                    "uid": "ue44",
+                                    "name": "API User 1",
+                                    "username": "api.user.1",
+                                    "briefdescription": null,
+                                    "banned": false,
+                                    "validated": null,
+                                    "admin": false,
+                                    "url": "http://graph.hypejunction.com/profile/api.user.1",
+                                    "icon": {
+                                        "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                        "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                        "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                        "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                        "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                        "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                                    },
+                                    "time_created": "2015-07-20T22:18:47+02:00",
+                                    "enabled": "yes"
+                                },
+                                "access": {
+                                    "id": 101,
+                                    "label": "Limited"
+                                },
+                                "time_created": "2015-07-22T13:48:51+02:00",
+                                "enabled": "yes",
+                                "tags": [],
+                                "simpletype": "image",
+                                "mimetype": "image/jpeg",
+                                "originalfilename": "file000615586116.jpg",
+                                "origin": "messages"
+                            },
+                            {
+                                "type": "object",
+                                "subtype": "file",
+                                "uid": "oe802",
+                                "title": "file000325161223.jpg",
+                                "description": null,
+                                "url": "http://graph.hypejunction.com/file/view/802/file000325161223jpg",
+                                "icon": {
+                                    "topbar": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=802&size=topbar&icontime=1437565710",
+                                    "tiny": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=802&size=tiny&icontime=1437565710",
+                                    "small": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=802&size=small&icontime=1437565710",
+                                    "medium": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=802&size=medium&icontime=1437565710",
+                                    "large": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=802&size=large&icontime=1437565710",
+                                    "master": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=802&size=master&icontime=1437565710"
+                                },
+                                "owner": {
+                                    "type": "user",
+                                    "subtype": "",
+                                    "uid": "ue44",
+                                    "name": "API User 1",
+                                    "username": "api.user.1",
+                                    "briefdescription": null,
+                                    "banned": false,
+                                    "validated": null,
+                                    "admin": false,
+                                    "url": "http://graph.hypejunction.com/profile/api.user.1",
+                                    "icon": {
+                                        "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                        "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                        "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                        "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                        "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                        "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                                    },
+                                    "time_created": "2015-07-20T22:18:47+02:00",
+                                    "enabled": "yes"
+                                },
+                                "container": {
+                                    "type": "user",
+                                    "subtype": "",
+                                    "uid": "ue44",
+                                    "name": "API User 1",
+                                    "username": "api.user.1",
+                                    "briefdescription": null,
+                                    "banned": false,
+                                    "validated": null,
+                                    "admin": false,
+                                    "url": "http://graph.hypejunction.com/profile/api.user.1",
+                                    "icon": {
+                                        "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                        "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                        "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                        "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                        "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                        "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                                    },
+                                    "time_created": "2015-07-20T22:18:47+02:00",
+                                    "enabled": "yes"
+                                },
+                                "access": {
+                                    "id": 101,
+                                    "label": "Limited"
+                                },
+                                "time_created": "2015-07-22T13:48:29+02:00",
+                                "enabled": "yes",
+                                "tags": [],
+                                "simpletype": "image",
+                                "mimetype": "image/jpeg",
+                                "originalfilename": "file000325161223.jpg",
+                                "origin": "messages"
+                            },
+                            {
+                                "type": "object",
+                                "subtype": "file",
+                                "uid": "oe801",
+                                "title": "file000477760838.jpg",
+                                "description": null,
+                                "url": "http://graph.hypejunction.com/file/view/801/file000477760838jpg",
+                                "icon": {
+                                    "topbar": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=801&size=topbar&icontime=1437565662",
+                                    "tiny": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=801&size=tiny&icontime=1437565662",
+                                    "small": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=801&size=small&icontime=1437565662",
+                                    "medium": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=801&size=medium&icontime=1437565662",
+                                    "large": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=801&size=large&icontime=1437565662",
+                                    "master": "http://graph.hypejunction.com/mod/file/thumbnail.php?file_guid=801&size=master&icontime=1437565662"
+                                },
+                                "owner": {
+                                    "type": "user",
+                                    "subtype": "",
+                                    "uid": "ue44",
+                                    "name": "API User 1",
+                                    "username": "api.user.1",
+                                    "briefdescription": null,
+                                    "banned": false,
+                                    "validated": null,
+                                    "admin": false,
+                                    "url": "http://graph.hypejunction.com/profile/api.user.1",
+                                    "icon": {
+                                        "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                        "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                        "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                        "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                        "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                        "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                                    },
+                                    "time_created": "2015-07-20T22:18:47+02:00",
+                                    "enabled": "yes"
+                                },
+                                "container": {
+                                    "type": "user",
+                                    "subtype": "",
+                                    "uid": "ue44",
+                                    "name": "API User 1",
+                                    "username": "api.user.1",
+                                    "briefdescription": null,
+                                    "banned": false,
+                                    "validated": null,
+                                    "admin": false,
+                                    "url": "http://graph.hypejunction.com/profile/api.user.1",
+                                    "icon": {
+                                        "topbar": "http://graph.hypejunction.com/_graphics/icons/user/defaulttopbar.gif",
+                                        "tiny": "http://graph.hypejunction.com/_graphics/icons/user/defaulttiny.gif",
+                                        "small": "http://graph.hypejunction.com/_graphics/icons/user/defaultsmall.gif",
+                                        "medium": "http://graph.hypejunction.com/_graphics/icons/user/defaultmedium.gif",
+                                        "large": "http://graph.hypejunction.com/_graphics/icons/user/defaultlarge.gif",
+                                        "master": "http://graph.hypejunction.com/_graphics/icons/user/defaultmaster.gif"
+                                    },
+                                    "time_created": "2015-07-20T22:18:47+02:00",
+                                    "enabled": "yes"
+                                },
+                                "access": {
+                                    "id": 101,
+                                    "label": "Limited"
+                                },
+                                "time_created": "2015-07-22T13:47:37+02:00",
+                                "enabled": "yes",
+                                "tags": [],
+                                "simpletype": "image",
+                                "mimetype": "image/jpeg",
+                                "originalfilename": "file000477760838.jpg",
+                                "origin": "messages"
+                            }
+                        ]
+                    }
+                },
+                "total": 1,
+                "offset": 0,
+                "limit": 0
+            },
+            "status": 200,
+            "message": "OK"
         }
 
 
