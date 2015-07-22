@@ -5,10 +5,6 @@ HOST: http://graph.hypejunction.com/services/api/graph
 # hypeGraph
 
 
-
-
-
-
 ## About
 
 RESTful API Graph and Web Services for Elgg by hypeJunction.
@@ -1413,6 +1409,9 @@ List all users added as friends by user node
 Adds user as a member of a group (or creates a membership request for closed group). 
 Returns multiple relationship nodes for `member`,`invited`,`membership_request` relationship types
 
++ Parameters
+    + group_uid:`ge101` (string, required) - Group UID
+    
 + Response 200
     [Relationship Node][]
 
@@ -1676,7 +1675,6 @@ Update a comment by its *uid*
     + fields:`uid,description,owner,container` (string, optional) - Comma-separated list of fields to include in the output
 
 + Response 200
-
     [Comment][]
 
 
@@ -1689,12 +1687,7 @@ Delete a single node by its *uid*. Only available to admin users.
     + comment_uid:`oe790` (string, required) - Comment UID
 
 + Response 200
-
-        {
-            "status": 200,
-            "message": "OK",
-            "result": true
-        }
+    [200][]
 
 
 
@@ -1708,7 +1701,6 @@ Post a comment on a object
     + fields:`uid,description,owner,container` (string, optional) - Comma-separated list of fields to include in the output
 
 + Response 200
-
     [Comment][]
 
 
@@ -1722,7 +1714,6 @@ Post a comment on a object
 Retrieve a list of site users
 
 + Parameters
-
     + object_uid:`oe788` (string, required) - Object UID
     + limit:`10` (int, optional) - Number of nodes to return
     + offset:`0` (int, optional) - Offset from the start
@@ -1731,7 +1722,6 @@ Retrieve a list of site users
 
 
 + Response 200
-
     [Comment][]
 
 
@@ -1935,7 +1925,6 @@ Retrieve a like annotation node by its *uid*
     + like_uid:`an174` (string, required) - Annotation UID
 
 + Response 200
-
     [Like][]
 
 
@@ -1948,12 +1937,7 @@ Delete a like annotation node by its *uid*
     + like_uid:`an174` (string, required) - Annotation UID
 
 + Response 200
-
-        {
-            "status": 200,
-            "message": "OK",
-            "result": true
-        }
+    [200][]
 
 
 
@@ -1969,7 +1953,6 @@ Like an object
     + object_uid:`oe788` (string, required) - Object UID to like
 
 + Response 200
-
     [Like][]
 
 
@@ -1982,12 +1965,7 @@ Unlike an object
     + object_uid:`oe788` (string, required) - Object UID to unlike
 
 + Response 200
-
-        {
-            "status": 200,
-            "message": "OK",
-            "result": true
-        }
+    [200][]
 
 
 
@@ -2001,7 +1979,6 @@ List all likes on an object
     + offset:`0` (int, optional) - Offset from list start
 
 + Response 200
-
     [Like][]
 
 
