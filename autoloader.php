@@ -4,7 +4,7 @@ if (!is_callable('hypeApps')) {
 	throw new Exception("hypeGraph requires hypeApps");
 }
 
-$path = __DIR__;
+$path = dirname(dirname(__DIR__));
 
 if (!file_exists("{$path}/vendor/autoload.php")) {
 	throw new Exception('hypeGraph can not resolve composer dependencies. Run composer install');
