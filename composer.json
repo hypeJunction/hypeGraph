@@ -1,7 +1,7 @@
 {
 	"name": "hypejunction/hypegraph",
 	"type": "elgg-plugin",
-	"description": "Elgg Graph and RPC Web Services",
+	"description": "RESTful Graph for Elgg",
 	"homepage": "http://hypejunction.com",
 	"keywords": [
 		"elgg", "plugin", "hypeJunction", "graph", "API", "web services"
