@@ -126,7 +126,7 @@ class PAM {
 			'api_key' => $api_key,
 		));
 
-		if ($api_pam_result == true) {
+		if ($api_pam_result === true) {
 			$this->session->consumer($consumer);
 		} else {
 			$message = $this->pam_api->getFailureMessage();
@@ -140,7 +140,7 @@ class PAM {
 			'password' => get_input('password'),
 			'auth_token' => get_input('auth_token'),
 		));
-		
+
 		if ($user_pam_result === true) {
 			if (!elgg_is_logged_in()) {
 				// userpass PAM does not automatically login the user
@@ -153,9 +153,6 @@ class PAM {
 		} else {
 			$message = $this->pam_user->getFailureMessage();
 			$this->logger->log($message, 'ERROR');
-			if ($this->request->getMethod() !== HttpRequest::METHOD_GET) {
-				throw new \SecurityException("User Authentication Failed", 401);
-			}
 		}
 	}
 
@@ -340,7 +337,7 @@ class PAM {
 	}
 
 	/**
-	 * Checks if the consumer can access a graph endpoint
+	 * Check that authenticated consumer and user can access the endpoint
 	 * 
 	 * @param string $hook   "permissions_check:graph"
 	 * @param string $route  Route
@@ -350,13 +347,21 @@ class PAM {
 	 */
 	public function checkAccess($hook, $route, $return, $params) {
 
+		$request_type = $this->request->getMethod();
+		$request = "{$request_type} /{$route}";
+		
+		$user_auth_exceptions = array(
+			'POST /:site/users',
+		);
+		
+		if (!in_array($request_type, array(HttpRequest::METHOD_GET, HttpRequest::METHOD_HEAD)) && !in_array($request, $user_auth_exceptions)) {
+			return elgg_is_logged_in();
+		}
+
 		$consumer = $this->session->consumer();
 		if (!$consumer) {
 			return $return;
 		}
-
-		$request_type = $this->request->getMethod();
-		$request = "{$request_type} /{$route}";
 
 		$ia = elgg_set_ignore_access(true);
 		$endpoints = (array) $consumer->endpoints;
