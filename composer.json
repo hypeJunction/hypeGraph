@@ -16,6 +16,9 @@
 	"extra": {
 		"installer-name": "hypeGraph"
 	},
+	"config": {
+		"vendor-dir": "/vendor/"
+	},
 	"require": {
 		"php": ">=5.5",
 		"composer/installers": "1.*",
