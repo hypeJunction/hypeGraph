@@ -10,9 +10,7 @@ use hypeJunction\Graph\HttpRequest;
 use hypeJunction\Graph\HttpResponse;
 use hypeJunction\Graph\Parameter;
 use hypeJunction\Graph\ParameterBag;
-use hypeJunction\Inbox\AccessCollection;
-use hypeJunction\Inbox\Config;
-use hypeJunction\Inbox\Message as InboxMessage;
+use hypeJunction\Inbox\Actions\SendMessage;
 
 class UserMessages extends Controller {
 
@@ -92,81 +90,40 @@ class UserMessages extends Controller {
 			throw new GraphException("Can not send a private messageto self", 403);
 		}
 
-		$subject = strip_tags($params->subject);
-		$message = $params->message;
-
 		if (elgg_is_active_plugin('hypeInbox')) {
-			$message_type = InboxMessage::TYPE_PRIVATE;
 
-			$attachments = array();
+			$action = new SendMessage();
+			$action->subject = $params->subject;
+			$action->body = $params->message;
+			$action->attachment_guids = array();
+			$action->sender_guid = $from->guid;
+			$action->recipient_guids = $to->guid;
+
 			$attachment_uids = (array) $params->attachment_uids;
 			foreach ($attachment_uids as $uid) {
 				$attachment = $this->graph->get($uid);
 				if ($attachment && $attachment->origin == 'graph' && $attachment->access_id == ACCESS_PRIVATE) {
-					$attachments[] = $attachment;
+					$action->attachment_guids[] = $attachment->guid;
 				} else {
 					hypeGraph()->logger->log("Can not use node $uid as attachment. Only resources uploaded via Graph API with private access can be attached.", "ERROR");
 				}
 			}
 
-			$access_id = AccessCollection::create(array($to->guid, $from->guid))->getCollectionId();
-			foreach ($attachments as $attachment) {
-				$attachment->origin = 'messages';
-				$attachment->access_id = $access_id;
-				$attachment->save();
+			try {
+				$action->validate();
+				$action->execute();
+				$message = $action->entity;
+				if (!$message) {
+					throw new Exception(implode(', ', $action->getResult()->getErrors()));
+				}
+			} catch (Exception $ex) {
+				throw new GraphException($ex->getMessage());
 			}
 
-			$message = hypeInbox()->actions->sendMessage(array(
-				'sender' => $from->guid,
-				'recipients' => array($to->guid),
-				'subject' => $subject,
-				'body' => $message,
-				'attachments' => $attachments,
-			));
-
-			if (!$message) {
-				throw new GraphException(elgg_echo('inbox:send:error:generic'));
-			}
-
-			$sender = $message->getSender();
-			$message_type = $message->getMessageType();
-			$message_hash = $message->getHash();
-
-			$config = new Config;
-			$ruleset = $config->getRuleset($message_type);
-
-			$body = array_filter(array(
-				($ruleset->hasSubject()) ? $message->subject : '',
-				$message->getBody(),
-				implode(', ', array_map(array(hypeInbox()->model, 'getLinkTag'), $attachments))
-			));
-
-			$notification_body = implode(PHP_EOL, $body);
-
-			$type_label = strtolower($ruleset->getSingularLabel($to->language));
-			$subject = elgg_echo('inbox:notification:subject', array($type_label), $to->language);
-			$notification = elgg_echo('inbox:notification:body', array(
-				$type_label,
-				$sender->name,
-				$notification_body,
-				elgg_view('output/url', array(
-					'href' => $message->getURL(),
-				)),
-				$sender->name,
-				elgg_view('output/url', array(
-					'href' => elgg_normalize_url("messages/thread/$message_hash#reply")
-				)),
-					), $to->language);
-
-			$summary = elgg_echo('inbox:notification:summary', array($type_label), $to->language);
-
-			notify_user($to->guid, $sender->guid, $subject, $notification, array(
-				'action' => 'send',
-				'object' => $message,
-				'summary' => $summary,
-			));
 			return array('nodes' => array($message));
 		} else {
+			$subject = strip_tags($params->subject);
+			$message = $params->message;
 			$id = messages_send($subject, $message, $to->guid, $from->guid);
 			return array('nodes' => array(get_entity($id)));
 		}
