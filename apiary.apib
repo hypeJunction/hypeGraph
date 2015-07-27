@@ -1010,6 +1010,7 @@ Delete a user node by its *uid*. **Note** users can not delete themselves.
 Register a new user. Email validation is required if uservalidationbyemail plugin is enabled.
 To allow registration via Grpah if site registration is disabled, use ```'allow_registration','graph'``` hook.
 To bypass email validation, use ```'validate_registration','graph'``` hook.
+This endpoint will also call `PUT /{user_id}/profile` endpoint, thus you can pass additional profile data during registration.
 
 + Parameters
     + site_uid:`site` (string, required) - Site UID or ```site```

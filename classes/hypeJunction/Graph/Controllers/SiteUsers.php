@@ -28,7 +28,7 @@ class SiteUsers extends Controller {
 				);
 
 			case HttpRequest::METHOD_POST :
-				return array(
+				$params = array(
 					new Parameter('email', true),
 					new Parameter('username', false),
 					new Parameter('password', false),
@@ -38,6 +38,11 @@ class SiteUsers extends Controller {
 					new Parameter('friend_uid', false),
 					new Parameter('invitecode', false),
 				);
+				$profile_fields = array_keys((array) elgg_get_config('profile_fields'));
+				foreach ($profile_fields as $field) {
+					$params[] = new Parameter($field, false, Parameter::TYPE_STRING, null, null, elgg_echo("profile:$field"));
+				}
+				return $params;
 
 			default :
 				return false;
@@ -92,7 +97,20 @@ class SiteUsers extends Controller {
 			// disable uservalidationbyemail
 			elgg_unregister_plugin_hook_handler('register', 'user', 'uservalidationbyemail_disable_new_user');
 		}
+
+		$ia = elgg_set_ignore_access(true);
+
+		$params->guid = $new_user->guid;
+		if (!isset($params->access_id)) {
+			$params->access_id = ACCESS_PRIVATE;
+		}
+		$ctrl = new UserProfile($this->request, $this->graph);
+		$ctrl->put($params);
+
+		elgg_set_ignore_access($ia);
 		
+		$return = array('nodes' => array($new_user));
+
 		if (!elgg_trigger_plugin_hook('register', 'user', $hook_params, true)) {
 			$ia = elgg_set_ignore_access(true);
 			$new_user->delete();
@@ -113,7 +131,7 @@ class SiteUsers extends Controller {
 			notify_user($new_user->guid, elgg_get_site_entity()->guid, $subject, $body);
 		}
 
-		return array('nodes' => array($new_user));
+		return $return;
 	}
 
 }
