@@ -285,23 +285,23 @@ Request above will output something similar to this:
             "limit": 5,
             "offset": 15,
             "nodes": {
-              "16": {
+              "15": {
                 "uid": "ge7210",
                 "name": "Enim voluptatem nisi veniam deserunt et."
               },
-              "17": {
+              "16": {
                 "uid": "ge7199",
                 "name": "Eos qui minima aperiam."
               },
-              "18": {
+              "17": {
                 "uid": "ge7202",
                 "name": "Eos quidem dolorem cum voluptas quis quo."
               },
-              "19": {
+              "18": {
                 "uid": "ge7208",
                 "name": "Et qui iste quo molestiae sit veritatis."
               },
-              "20": {
+              "19": {
                 "uid": "ge7204",
                 "name": "Explicabo ullam saepe debitis qui."
               }
@@ -423,18 +423,18 @@ Retrieve a list of all resource endpoints available through the Graph API
                     "endpoint": "GET /:site/users",
                     "description": "Returns a list of users registered on the site",
                     "parameters": {
-                        "1": {
+                        {
                             "name": "limit",
                             "description": "Number of entries to return (max 50)",
                             "type": "integer",
                             "default": 10
                         },
-                        "2": {
+                        {
                             "name": "offset",
                             "description": "Offset from the start of the list",
                             "type": "integer"
                         },
-                        "3": {
+                        {
                             "name": "sort",
                             "description": "Sorting order",
                             "type": "array",
@@ -548,7 +548,7 @@ Delete a token
                 "limit": 0,
                 "offset": 0,
                 "nodes": {
-                    "1": {
+                    "0": {
                         "type": "site",
                         "subtype": "",
                         "uid": "se1",
@@ -595,7 +595,7 @@ Retrieve a site node by its *uid*
                 "limit": 0,
                 "offset": 0,
                 "nodes": {
-                    "1": {
+                    "0": {
                         "type": "river",
                         "subtype": "item",
                         "uid": "rv280",
@@ -950,7 +950,7 @@ Retrieve a list of user activities filtered by *type*, *subtype*, *action*
                 "limit": 0,
                 "offset": 0,
                 "nodes": {
-                    "1": {
+                    "0": {
                         "type":"user",
                         "subtype":"",
                         "uid":"ue58",
@@ -1176,14 +1176,14 @@ List all users added as friends by user node
 + Model (application/json)
 
         {
+            "status": 200,
+            "message": "OK",
             "result": {
-                "status": 200,
-                "message": "OK",
                 "total": 1,
                 "offset": 0,
                 "limit": 0,
                 "nodes": {
-                    "1": {
+                    "0": {
                         "type": "group",
                         "subtype": "",
                         "uid": "ge7170",
@@ -1444,7 +1444,7 @@ Returns multiple relationship nodes for `member`,`invited`,`membership_request` 
         {
           "result": {
             "nodes": {
-              "1": {
+              "0": {
                 "type": "object",
                 "subtype": "blog",
                 "uid": "oe313",
@@ -1697,7 +1697,7 @@ List all site, user or group blogs
         {
             "result": {
                 "nodes": {
-                    "1": {
+                    "0": {
                         "type": "object",
                         "subtype": "file",
                         "uid": "oe788",
@@ -1949,7 +1949,7 @@ List all site, user or group files
         {
             "result": {
                 "nodes": {
-                    "1": {
+                    "0": {
                         "type": "object",
                         "subtype": "messages",
                         "uid": "oe804",
@@ -2406,7 +2406,7 @@ List incoming or outgoing messages
                 "offset": 0,
                 "limit": 0,
                 "nodes": {
-                    "1": {
+                    "0": {
                         "type": "object",
                         "subtype": "comment",
                         "uid": "oe790",
@@ -2674,7 +2674,7 @@ Retrieve a list of site users
         {
             "result": {
                 "nodes": {
-                    "1": {
+                    "0": {
                         "type": "annotation",
                         "subtype": "likes",
                         "uid": "an174",
@@ -2936,7 +2936,7 @@ List all likes on an object
                 "limit": 0,
                 "offset": 0,
                 "nodes": {
-                    "1": {
+                    "0": {
                         "type": "relationship",
                         "subtype": "friend",
                         "uid": "rl724",

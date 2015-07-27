@@ -118,9 +118,12 @@ abstract class GenericResult {
 				$nodes = $return['nodes'];
 				$return['nodes'] = array();
 				$i = $return['offset'];
-				foreach ($nodes as $node) {
+				foreach ($nodes as $key => $node) {
+					if (!is_string($key)) {
+						$key = $i;
+					}
+					$return['nodes']["$key"] = $node;
 					$i++;
-					$return['nodes']["$i"] = $node;
 				}
 			}
 			return $return;

@@ -42,12 +42,12 @@ class BatchResult {
 		$result->nodes = array();
 		$i = $result->offset;
 		foreach ($batch as $entity) {
-			$i++;
 			if (is_callable(array($entity, 'toObject'))) {
 				$result->nodes["$i"] = $entity->toObject();
 			} else {
 				$result->nodes["$i"] = $entity;
 			}
+			$i++;
 		}
 
 		hypeGraph()->logger->log(array('BatchOptions' => $this->options));
