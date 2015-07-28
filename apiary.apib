@@ -2765,7 +2765,7 @@ Retrieve a single wall post post by its *uid*
 
 
 
-### Edit a blog post [PUT /{wall_post_uid}{?status,address,location,friend_uids,upload_uids,attachment_uids,tags,access_id}]
+### Edit a wall post [PUT /{wall_post_uid}{?status,address,location,friend_uids,upload_uids,attachment_uids,tags,access_id}]
 
 Updates a blog post
 
@@ -2797,11 +2797,11 @@ Delete a blog post
 
 
 
-### Blog Collections [/{target_uid}/wall]
+### Wall Post Collections [/{target_uid}/wall]
 
 
 
-### Create a wall post [POST /{target_uid}{?status,address,location,friend_uids,upload_uids,attachment_uids,tags,access_id,make_bookmark}]
+### Create a wall post [POST /{target_uid}/wall{?status,address,location,friend_uids,upload_uids,attachment_uids,tags,access_id,make_bookmark}]
 
 Updates a blog post
 
@@ -2815,7 +2815,7 @@ Updates a blog post
     + attachment_uids (array, optional) - Content item UIDs to attach
     + tags (string, optional) - Tags
     + access_id (int, optional) - ACL id
-    + mark_bookmark (bool, optional) - Create a new bookmark entity
+    + make_bookmark (bool, optional) - Create a new bookmark entity
 
 + Response 200
     [Wall Post Object][]
