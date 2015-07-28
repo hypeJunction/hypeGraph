@@ -2662,6 +2662,180 @@ Retrieve a list of site users
 
 
 
+## Group Wall Posts
+
+hypeWall integration endpoints
+
+### Wall Post Object [/{wall_post_uid}]
+
++ Model (application/json)
+
+        {
+            "result": {
+                "total": 1,
+                "limit": 0,
+                "offset": 0,
+                "nodes": {
+                    "0": {
+                        "type": "object",
+                        "subtype": "hjwall",
+                        "uid": "oe7992",
+                        "title": null,
+                        "description": "This is a really cool video https://vimeo.com/ondemand/halley",
+                        "url": "https://hackathon.dev/wall/owner/ismayil.khayredinov/7992",
+                        "icon": {
+                            "topbar": "https://hackathon.dev/_graphics/icons/default    opbar.png",
+                            "tiny": "https://hackathon.dev/_graphics/icons/default    iny.png",
+                            "small": "https://hackathon.dev/_graphics/icons/default/small.png",
+                            "medium": "https://hackathon.dev/_graphics/icons/default/medium.png",
+                            "large": "https://hackathon.dev/_graphics/icons/default/large.png",
+                            "master": "https://hackathon.dev/_graphics/icons/default/master.png"
+                        },
+                        "owner": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue43",
+                            "name": "Ismayil Khayredinov",
+                            "username": "ismayil.khayredinov",
+                            "briefdescription": null,
+                            "banned": false,
+                            "validated": "1",
+                            "admin": true,
+                            "url": "https://hackathon.dev/profile/ismayil.khayredinov",
+                            "icon": {
+                                "topbar": "https://hackathon.dev/_graphics/icons/user/defaulttopbar.gif",
+                                "tiny": "https://hackathon.dev/_graphics/icons/user/defaulttiny.gif",
+                                "small": "https://hackathon.dev/_graphics/icons/user/defaultsmall.gif",
+                                "medium": "https://hackathon.dev/_graphics/icons/user/defaultmedium.gif",
+                                "large": "https://hackathon.dev/_graphics/icons/user/defaultlarge.gif",
+                                "master": "https://hackathon.dev/_graphics/icons/user/defaultmaster.gif"
+                            },
+                            "time_created": "2015-06-27T03:22:02-07:00",
+                            "enabled": "yes"
+                        },
+                        "container": {
+                            "type": "user",
+                            "subtype": "",
+                            "uid": "ue43",
+                            "name": "Ismayil Khayredinov",
+                            "username": "ismayil.khayredinov",
+                            "briefdescription": null,
+                            "banned": false,
+                            "validated": "1",
+                            "admin": true,
+                            "url": "https://hackathon.dev/profile/ismayil.khayredinov",
+                            "icon": {
+                                "topbar": "https://hackathon.dev/_graphics/icons/user/defaulttopbar.gif",
+                                "tiny": "https://hackathon.dev/_graphics/icons/user/defaulttiny.gif",
+                                "small": "https://hackathon.dev/_graphics/icons/user/defaultsmall.gif",
+                                "medium": "https://hackathon.dev/_graphics/icons/user/defaultmedium.gif",
+                                "large": "https://hackathon.dev/_graphics/icons/user/defaultlarge.gif",
+                                "master": "https://hackathon.dev/_graphics/icons/user/defaultmaster.gif"
+                            },
+                            "time_created": "2015-06-27T03:22:02-07:00",
+                            "enabled": "yes"
+                        },
+                        "access": {
+                            "id": 0,
+                            "label": "Private"
+                        },
+                        "time_created": "2015-07-28T06:13:02-07:00",
+                        "enabled": "yes",
+                        "tags": [],
+                        "location": "London, UK",
+                        "address": null,
+                        "tagged_users": null,
+                        "attachments": [],
+                        "embed": false
+                    }
+                }
+            }
+        }
+
+
+### Retrieve a wall post [GET /{wall_post_uid}]
+
+Retrieve a single wall post post by its *uid*
+
++ Parameters
+    + wall_post_uid (string, required) - Wall post UID
+
++ Response 200
+    [Wall Post Object][]
+
+
+
+### Edit a wall post [PUT /{wall_post_uid}{?status,address,location,friend_uids,upload_uids,attachment_uids,tags,access_id}]
+
+Updates a blog post
+
++ Parameters
+    + wall_post_uid (string, required) - Wall post UID
+    + status (string, optional) - Post body
+    + address (string, optional) - URL to embed
+    + location (string, optional) - Geographic location
+    + friend_uids (array, optional) - Friends to tags
+    + upload_uids (array, optional) - UIDs of files uploaded via Graph to attach
+    + attachment_uids (array, optional) - Content item UIDs to attach
+    + tags (string, optional) - Tags
+    + access_id (int, optional) - ACL id
+
++ Response 200
+    [Wall Post Object][]
+
+
+
+### Delete a wall post [DELETE /{wall_post_uid}]
+
+Delete a blog post
+
++ Parameters
+    + wall_post_uid (string, required) - Wall post UID
+
++ Response 200
+    [200][]
+
+
+
+### Wall Post Collections [/{target_uid}/wall]
+
+
+
+### Create a wall post [POST /{target_uid}/wall{?status,address,location,friend_uids,upload_uids,attachment_uids,tags,access_id,make_bookmark}]
+
+Updates a blog post
+
++ Parameters
+    + target_uid (string, required) - User or group UID
+    + status (string, required) - Post body
+    + address (string, optional) - URL to embed
+    + location (string, optional) - Geographic location
+    + friend_uids (array, optional) - Friends to tags
+    + upload_uids (array, optional) - UIDs of files uploaded via Graph to attach
+    + attachment_uids (array, optional) - Content item UIDs to attach
+    + tags (string, optional) - Tags
+    + access_id (int, optional) - ACL id
+    + make_bookmark (bool, optional) - Create a new bookmark entity
+
++ Response 200
+    [Wall Post Object][]
+
+
+
+
+### List wall posts [GET /{target_uid}/wall]
+
+List all user or group wall posts
+
++ Parameters
+    + target_uid:`me` (string, required) - User or group UID
+
++ Response 200
+    [Wall Post Object][]
+
+
+
+
 
 ## Group Annotations
 
