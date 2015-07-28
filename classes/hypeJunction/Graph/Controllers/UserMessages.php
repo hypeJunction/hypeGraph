@@ -110,8 +110,9 @@ class UserMessages extends Controller {
 			}
 
 			try {
-				$action->validate();
-				$action->execute();
+				if ($action->validate() !== false) {
+					$action->execute();
+				}
 				$message = $action->entity;
 				if (!$message) {
 					throw new Exception(implode(', ', $action->getResult()->getErrors()));
