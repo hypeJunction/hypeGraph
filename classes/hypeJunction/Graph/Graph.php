@@ -55,7 +55,9 @@ class Graph {
 		if (elgg_is_active_plugin('messages') || elgg_is_active_plugin('hypeInbox')) {
 			$aliases['object']['messages'] = ':message';
 		}
-
+		if (elgg_is_active_plugin('hypeWall')) {
+			$aliases['object'][\hypeJunction\Wall\Post::SUBTYPE] = ':wall';
+		}
 		return elgg_trigger_plugin_hook('aliases', 'graph', null, $aliases);
 	}
 
@@ -152,6 +154,13 @@ class Graph {
 							$fields[] = 'message_type';
 							$fields[] = 'attachments';
 						}
+						break;
+
+					case \hypeJunction\Wall\Post::SUBTYPE :
+						$fields[] = 'location';
+						$fields[] = 'address';
+						$fields[] = 'tagged_users';
+						$fields[] = 'attachments';
 						break;
 				}
 				break;
@@ -612,6 +621,78 @@ class Graph {
 
 				case 'message_type' :
 					$return->message_type = $entity->msgType;
+					break;
+			}
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Wall post export
+	 *
+	 * @param string   $hook   "to:object"
+	 * @param string   $type   "entity"
+	 * @param stdClass $return Export object
+	 * @param array    $params Hook params
+	 * @return stdClass
+	 */
+	public function exportWall($hook, $type, $return, $params) {
+
+		if (!elgg_in_context('graph')) {
+			return $return;
+		}
+
+		$entity = elgg_extract('entity', $params);
+		/* @var $entity \hypeJunction\Wall\Post */
+
+		if (!$entity instanceof ElggObject || $entity->getSubtype() !== \hypeJunction\Wall\Post::SUBTYPE) {
+			return $return;
+		}
+
+		$allowed = $this->getFields($entity);
+		$fields = get_input('fields') ? : $allowed;
+		if (is_string($fields)) {
+			$fields = string_to_tag_array($fields);
+		}
+
+		foreach ($fields as $key) {
+			switch ($key) {
+
+				case 'attachments' :
+					$return->attachments = array();
+					$attachments = new \ElggBatch('elgg_get_entities_from_relationship', array(
+						'types' => 'object',
+						'subtypes' => get_registered_entity_types('object'),
+						'relationship' => 'attached',
+						'relationship_guid' => $entity->guid,
+						'inverse_relationship' => true,
+						'limit' => 0,
+					));
+					foreach ($attachments as $attachment) {
+						$return->attachments[] = $attachment->toObject();
+					}
+					break;
+
+				case 'location' :
+					$return->location = $entity->getLocation();
+					break;
+
+				case 'address' :
+					$return->address = $entity->address;
+					if (elgg_is_active_plugin('hypeScraper')) {
+						$return->embed = hypeScraper()->resources->get($entity->address);
+					}
+					break;
+
+				case 'tagged_users' :
+					$this->tagged_users = array();
+					$users = (array) $entity->getTaggedFriends();
+					foreach ($users as $user) {
+						if ($user instanceof \ElggUser) {
+							$this->tagged_users[] = $user->toObject();
+						}
+					}
 					break;
 			}
 		}

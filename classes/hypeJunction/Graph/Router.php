@@ -340,6 +340,14 @@ class Router {
 			$routes = array_merge($routes, $file_routes);
 		}
 
+		if (elgg_is_active_plugin('hypeWall')) {
+			$wall_routes = array(
+				':wall' => Controllers\Wall::class,
+				':group/wall' => elgg_is_active_plugin('groups') ? Controllers\GroupWall::class : null,
+				':user/wall' => Controllers\UserWall::class,
+			);
+			$routes = array_merge($routes, $wall_routes);
+		}
 		return elgg_trigger_plugin_hook('routes', 'graph', null, array_filter($routes));
 	}
 
