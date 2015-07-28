@@ -98,13 +98,13 @@ class BatchResult {
 				case 'alpha' :
 					if (elgg_extract('types', $options) == 'user') {
 						$options['joins']['ue'] = "JOIN {$dbprefix}users_entity ue ON ue.guid = e.guid";
-						$order_by[] = 'ue.name';
+						$order_by[] = "ue.name  {$direction}";
 					} else if (elgg_extract('types', $options) == 'group') {
 						$options['joins']['ge'] = "JOIN {$dbprefix}groups_entity ge ON ge.guid = e.guid";
-						$order_by[] = 'ge.name';
+						$order_by[] = "ge.name  {$direction}";
 					} else if (elgg_extract('types', $options) == 'object') {
 						$options['joins']['oe'] = "JOIN {$dbprefix}objects_entity oe ON oe.guid = e.guid";
-						$order_by[] = 'oe.title';
+						$order_by[] = "oe.title {$direction}";
 					}
 					break;
 
@@ -119,7 +119,7 @@ class BatchResult {
 				case 'time_updated' :
 				case 'last_action' :
 				case 'access_id' :
-					$order_by[] = "e.{$field}";
+					$order_by[] = "e.{$field} {$direction}";
 					break;
 			}
 		}
