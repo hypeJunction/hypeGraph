@@ -43,8 +43,8 @@ class Logger {
 	/**
 	 * Logs an error or returns an error log
 	 *
-	 * @param string $message Message
-	 * @param level  $level   Message level
+	 * @param mixed $message Message
+	 * @param level $level   Message level
 	 * @return array|void
 	 */
 	public function log($message = null, $level = 'NOTICE') {
@@ -53,6 +53,9 @@ class Logger {
 				$level = (isset($this->levels[$level])) ? $this->levels[$level] : 'NOTICE';
 			}
 			$this->log[] = array('message' => $message, 'level' => $level);
+			if (is_array($message)) {
+				$message = implode(', ', $message);
+			}
 			error_log("$level: $message");
 		} else {
 			return $this->log;
