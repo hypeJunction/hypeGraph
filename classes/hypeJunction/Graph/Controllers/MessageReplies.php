@@ -9,8 +9,7 @@ use hypeJunction\Graph\HiddenParameter;
 use hypeJunction\Graph\HttpRequest;
 use hypeJunction\Graph\Parameter;
 use hypeJunction\Graph\ParameterBag;
-use hypeJunction\Inbox\AccessCollection;
-use hypeJunction\Inbox\Config;
+use hypeJunction\Inbox\Actions\SendMessage;
 use hypeJunction\Inbox\Message as InboxMessage;
 
 class MessageReplies extends Controller {
