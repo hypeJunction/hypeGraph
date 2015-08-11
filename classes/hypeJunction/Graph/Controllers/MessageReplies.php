@@ -100,7 +100,7 @@ class MessageReplies extends Controller {
 
 			$action = new SendMessage();
 			$action->entity = $reply_to;
-			$action->subject = $params->subject;
+			$action->subject = $reply_to->getReplySubject();
 			$action->body = $params->message;
 			$action->attachment_guids = array();
 			$action->sender_guid = $from->guid;
