@@ -1,5 +1,6 @@
 {
 	"name": "hypejunction/hypegraph",
+	"version": "1.1.0",
 	"type": "elgg-plugin",
 	"description": "Elgg Graph and RPC Web Services",
 	"homepage": "http://hypejunction.com",
@@ -16,11 +17,7 @@
 	"extra": {
 		"installer-name": "hypeGraph"
 	},
-	"config": {
-		"vendor-dir": "/vendor/"
-	},
-	"require": {
-		"php": ">=5.5",
+	"require-dev": {
 		"composer/installers": "1.*",
 		"hypejunction/hypeapps": "4.*"
 	},
