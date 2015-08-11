@@ -1,6 +1,6 @@
 {
 	"name": "hypejunction/hypegraph",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"type": "elgg-plugin",
 	"description": "Elgg Graph and RPC Web Services",
 	"homepage": "http://hypejunction.com",
