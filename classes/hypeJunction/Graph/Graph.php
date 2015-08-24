@@ -607,7 +607,7 @@ class Graph {
 					$return->attachments = array();
 					$attachments = new \ElggBatch('elgg_get_entities_from_relationship', array(
 						'relationship' => 'attached',
-						'relationship_guid' => $this->guid,
+						'relationship_guid' => $entity->guid,
 						'inverse_relationship' => false,
 					));
 					foreach ($attachments as $attachment) {
