@@ -99,7 +99,7 @@ class File extends Object {
 			throw new GraphException("You are not allowed to upload files to this container", HttpResponse::HTTP_FORBIDDEN);
 		}
 
-		$file_guid = $params->guid ? : 0;
+		$file_guid = !empty($params->guid) ? $params->guid : 0;
 
 		if ($file_guid) {
 			$file = get_entity($file_guid);
