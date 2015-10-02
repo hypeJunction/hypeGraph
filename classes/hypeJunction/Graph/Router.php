@@ -134,11 +134,11 @@ class Router {
 
 			if ($this->request->getUrlSegments()[0] == 'services') {
 				elgg_trigger_plugin_hook('auth', 'graph');
-			} else {
-				// graph page handler is being accessed directly, and not routed to from services
-				// check csrf tokens
-				action_gatekeeper('');
+			} else {				
 				if ($this->request->getMethod() != HttpRequest::METHOD_GET) {
+					// graph page handler is being accessed directly, and not routed to from services
+					// check csrf tokens
+					action_gatekeeper('');
 					elgg_gatekeeper();
 				}
 			}
