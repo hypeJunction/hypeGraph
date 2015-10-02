@@ -408,7 +408,7 @@ class Router {
 				case 'application/json' :
 					return 'json';
 
-				case 'text/html';
+				case 'text/html' :
 					return 'default';
 
 				case 'application/xml' :
