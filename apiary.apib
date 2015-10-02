@@ -99,10 +99,11 @@ where
  - ```{{api-key}}``` is the API key assigned to your client
  - ```{{elgg_ts}}``` and ```{{elgg_token}} are CSRF token elements (for non GET requests)
 
-Unlike RPC services, you can not pass ```{{format}}```.
 Use HTTP ```Accept``` header to specify the ```Content-Type``` you would like to consume, e.g.
 
 ```Accept: application/json```
+
+Though discouraged, you can force viewtype by passing ```format``` query parameter.
 
 
 

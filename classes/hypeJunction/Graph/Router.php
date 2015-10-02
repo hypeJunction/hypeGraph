@@ -147,7 +147,7 @@ class Router {
 			elgg_push_context('api');
 			elgg_push_context('graph');
 
-			$viewtype = $this->mapViewtype();
+			$viewtype = get_input('format', $this->mapViewtype());
 			$endpoint = implode('/', $segments);
 
 			if (!elgg_is_registered_viewtype($viewtype)) {
