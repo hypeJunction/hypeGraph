@@ -23,6 +23,7 @@
 	<requires>
 		<type>plugin</type>
 		<name>hypeApps</name>
+		<version>4.3</version>
 	</requires>
 	
 </plugin_manifest>
