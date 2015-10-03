@@ -9,7 +9,8 @@ if (!$result instanceof GenericResult) {
 	$result = new ErrorResult(elgg_echo('Exception:ApiResultUnknown'), 200);
 }
 
-$export = $result->export();
+$params = (array) elgg_extract('params', $vars, array());
+$export = $result->export($params);
 ?>
 <table class="graph-result">
 	<tr>

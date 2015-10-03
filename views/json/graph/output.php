@@ -9,5 +9,6 @@ if (!$result instanceof GenericResult) {
 	$result = new SuccessResult($result);
 }
 
-$export = $result->export();
+$params = (array) elgg_extract('params', $vars, array());
+$export = $result->export($params);
 echo json_encode($export);

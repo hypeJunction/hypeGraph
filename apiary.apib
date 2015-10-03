@@ -220,8 +220,8 @@ You have full control over what fields are exported for any given resource type 
 * ```'fields','graph'``` plugin hook handler can be used to define exportable fields
 This hook receives ```'node'``` parameter, which can be either an entity, annotation, metadata, relationship or river item
 
-* ```'to:object',$type``` plugin hook can be used to filter the output of a given resource
-This is a core hook, triggered by ```ElggEntity::toObject()```, so make sure you sniff the context before overriding the output
+* ```'to:array',$type``` and ```'to:array',"$type:$subtype"``` plugin hook can be used to filter the output of a given resource
+These hooks receive ```'object'```, ```'fields'``` and ```'recursive'``` as parameters
 
 * ```'result','graph'``` plugin hook can be used to filter the final result before it is sent to the requestor
 This hook received ```GenericResult``` instance as the return value.
@@ -245,6 +245,7 @@ a node as a parameter.
 
 * ```?debug=true``` will append a log of runtime errors to the response
 * ```?fields=uid,name,owner``` will constrain resource export to only those fields. If fields are not defined as allowed for that resource type, they will return ```null```
+* ```?recursive=true``` will recurse into the nested objects, e.g. expand owner and container objects
 
 
 

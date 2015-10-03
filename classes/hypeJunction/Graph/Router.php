@@ -157,11 +157,22 @@ class Router {
 			elgg_set_viewtype($viewtype);
 
 			$result = $this->route($endpoint);
+			
 		} catch (Exception $ex) {
 			$result = new ErrorResult($ex->getMessage(), $ex->getCode(), $ex);
 		}
 
-		$this->send($result);
+		$fields = get_input('fields', '');
+		if (is_string($fields)) {
+			$fields = string_to_tag_array('fields');
+		}
+		
+		$params = array(
+			'fields' => $fields,
+			'recursive' => get_input('recursive', true),
+		);
+
+		$this->send($result, $params);
 		return true;
 	}
 
@@ -236,10 +247,13 @@ class Router {
 	/**
 	 * Sends the response using the result
 	 * 
-	 * @param mixed $result Result
+	 * @param mixed $result    Result
+	 * @param array $params    Additional params
+	 *                         $params['fields'] Fields to export
+	 *                         $params['recursive'] Export recursively
 	 * @return void
 	 */
-	public function send($result = null) {
+	public function send($result = null, $params = array()) {
 
 		if ($result instanceof HttpResponse) {
 			$result->send();
@@ -251,10 +265,11 @@ class Router {
 			$result = new SuccessResult($result);
 		}
 
-		$result = elgg_trigger_plugin_hook('result', 'graph', null, $result);
+		$result = elgg_trigger_plugin_hook('result', 'graph', $params, $result);
 
 		$output = elgg_view('graph/output', array(
 			'result' => $result,
+			'params' => $params,
 		));
 
 		if (elgg_get_viewtype() === 'default') {

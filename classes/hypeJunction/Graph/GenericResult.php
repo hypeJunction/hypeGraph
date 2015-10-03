@@ -78,70 +78,36 @@ abstract class GenericResult {
 
 	/**
 	 * Get normalized result suitable for export
+	 *
+	 * @params array $params An array of export parameters
 	 * @return array
 	 */
-	public function getResult() {
-		return $this->prepareValue($this->result);
+	public function getResult(array $params = array()) {
+		return $this->prepareValue($this->result, $params);
 	}
 
 	/**
 	 * Prepares a value for export
+	 *
 	 * @param mixed $value Value to prepare
+	 * @params array $params An array of export parameters
 	 * @return stdClass
 	 */
-	protected function prepareValue($value = null) {
-		if ($value instanceof ElggBatch) {
-			$return = array('nodes' => array());
-			foreach ($value as $v) {
-				$return['nodes'][] = $this->prepareValue($v);
-			}
-			$value = $return;
-		}
-
-		if (is_callable(array($value, 'toObject'))) {
-			return $value->toObject();
-		} else if (is_array($value)) {
-			$return = array();
-			foreach ($value as $key => $v) {
-				$return[$key] = $this->prepareValue($v);
-			}
-			if (isset($return['nodes'])) {
-				if (!isset($return['total'])) {
-					$return['total'] = count($return['nodes']);
-				}
-				if (!isset($return['offset'])) {
-					$return['offset'] = 0;
-				}
-				if (!isset($return['limit'])) {
-					$return['limit'] = 0;
-				}
-				$nodes = $return['nodes'];
-				$return['nodes'] = array();
-				$i = $return['offset'];
-				foreach ($nodes as $key => $node) {
-					if (!is_string($key)) {
-						$key = $i;
-					}
-					$return['nodes']["$key"] = $node;
-					$i++;
-				}
-			}
-			return $return;
-		} else if ($value instanceof BatchResult) {
-			return $value->export();
-		}
-		return $value;
+	protected function prepareValue($value = null, array $params = array()) {
+		return (object) hypeApps()->exporter->export($value, $params);
 	}
 
 	/**
 	 * Prepare API request result
+	 *
+	 * @params array $params An array of export parameters
 	 * @return stdClass Object containing the result
 	 */
-	public function export() {
+	public function export(array $params = array()) {
 
 		$result = new stdClass;
 
-		$result->result = $this->getResult();
+		$result->result = $this->getResult($params);
 		$result->status = $this->getStatusCode();
 		$result->message = $this->getStatusMessage();
 
@@ -155,10 +121,8 @@ abstract class GenericResult {
 			$result->debug->postdata = file_get_contents('php://input');
 			$result->debug->vardump = hypeGraph()->logger->vardump();
 			$result->debug->session = new stdClass();
-			$consumer = hypeGraph()->session->consumer();
-			$user = hypeGraph()->session->user();
-			$result->debug->session->logged_in_user = ($user) ? $user->toObject() : null;
-			$result->debug->session->consumer = ($consumer) ? $consumer->toObject() : null;
+			$result->debug->session->logged_in_user = hypeApps()->exporter->export(hypeGraph()->session->user());
+			$result->debug->session->consumer = hypeApps()->exporter->export(hypeGraph()->session->consumer());
 			$result->debug->exception_trace = ($this->exception instanceof Exception) ? $this->exception->getTrace()[0] : null;
 		}
 
