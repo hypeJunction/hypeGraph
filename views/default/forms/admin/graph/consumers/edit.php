@@ -85,7 +85,7 @@ if (hypeGraph()->config->get('auth_consumer_userpass')) {
 	<label><?php echo elgg_echo('graph:consumers:allowed_endpoints') ?></label>
 	<div class="elgg-text-help"><?php echo elgg_echo('graph:consumers:allowed_endpoints:help') ?></div>
 	<?php
-	$routes = hypeGraph()->graph->exportRoutes();
+	$routes = hypeGraph()->router->exportRoutes();
 	$allowed_endpoints = (array) elgg_extract('endpoints', $vars, $entity->endpoints);
 	?>
 	<table class="elgg-table-alt ws-endpoints-form" style="width:100%">

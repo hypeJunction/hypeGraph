@@ -44,7 +44,7 @@ class Router {
 	 * Constructor
 	 *
 	 * @param Config       $config   Config
-	 * @param Graph        $graph    Nodes
+	 * @param \hypeJunction\Data\Graph        $graph    Nodes
 	 * @param HttpRequest  $request  Http Request
 	 * @param HttpResponse $response Http Response
 	 * @param Logger       $logger   Logger
@@ -134,7 +134,7 @@ class Router {
 
 			if ($this->request->getUrlSegments()[0] == 'services') {
 				elgg_trigger_plugin_hook('auth', 'graph');
-			} else {				
+			} else {
 				if ($this->request->getMethod() != HttpRequest::METHOD_GET) {
 					// graph page handler is being accessed directly, and not routed to from services
 					// check csrf tokens
@@ -157,19 +157,20 @@ class Router {
 			elgg_set_viewtype($viewtype);
 
 			$result = $this->route($endpoint);
-			
 		} catch (Exception $ex) {
 			$result = new ErrorResult($ex->getMessage(), $ex->getCode(), $ex);
 		}
 
 		$fields = get_input('fields', '');
 		if (is_string($fields)) {
-			$fields = string_to_tag_array('fields');
+			$fields = string_to_tag_array($fields);
 		}
-		
+
 		$params = array(
 			'fields' => $fields,
 			'recursive' => get_input('recursive', true),
+			'size' => get_input('size'),
+			'full_view' => get_input('full_view', true),
 		);
 
 		$this->send($result, $params);
@@ -259,7 +260,7 @@ class Router {
 			$result->send();
 			exit;
 		}
-		
+
 		// Output the result
 		if (!$result instanceof GenericResult) {
 			$result = new SuccessResult($result);
@@ -364,6 +365,57 @@ class Router {
 			$routes = array_merge($routes, $wall_routes);
 		}
 		return elgg_trigger_plugin_hook('routes', 'graph', null, array_filter($routes));
+	}
+
+	/**
+	 * Returns all configured routes
+	 * @return array
+	 */
+	public function exportRoutes() {
+		$output = array();
+		$request_types = array(
+			HttpRequest::METHOD_GET,
+			HttpRequest::METHOD_POST,
+			HttpRequest::METHOD_PUT,
+			HttpRequest::METHOD_DELETE
+		);
+		$routes = $this->getRoutes();
+
+		foreach ($routes as $route => $ctrl) {
+			try {
+				if (!class_exists($ctrl) || !in_array(ControllerInterface::class, class_implements($ctrl))) {
+					continue;
+				}
+
+				$ctrl = new $ctrl();
+				foreach ($request_types as $request_type) {
+					$method_parameters = $ctrl->params($request_type);
+					if (!is_array($method_parameters) || !is_callable(array($ctrl, strtolower($request_type)))) {
+						continue;
+					}
+					$visible_parameters = array_filter($method_parameters, function($pe) {
+						return !$pe instanceof HiddenParameter;
+					});
+					$parameters = array_map(function($pe) {
+						if ($pe instanceof Parameter) {
+							return $pe->toArray();
+						}
+					}, $visible_parameters);
+					$request = "{$request_type} /{$route}";
+					$output[] = array_filter(array(
+						'method' => $route,
+						'call_method' => $request_type,
+						'endpoint' => $request,
+						'description' => elgg_echo($request),
+						'parameters' => !empty($parameters) ? $parameters : null,
+					));
+				}
+			} catch (Exception $ex) {
+				// do nothing
+			}
+		}
+		
+		return $output;
 	}
 
 	/**

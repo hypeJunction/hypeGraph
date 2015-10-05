@@ -25,7 +25,7 @@ class Front extends Controller {
 	 * {@inheritdoc}
 	 */
 	public function get(ParameterBag $params) {
-		return $this->graph->exportRoutes();
+		return hypeGraph()->router->exportRoutes();
 	}
 
 }

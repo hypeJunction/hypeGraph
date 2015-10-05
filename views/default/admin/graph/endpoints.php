@@ -1,5 +1,5 @@
 <?php
-$routes = hypeGraph()->graph->exportRoutes();
+$routes = hypeGraph()->router->exportRoutes();
 $allowed_endpoints = (array) elgg_extract('endpoints', $vars, $entity->endpoints);
 ?>
 <table class="elgg-table-alt ws-endpoints-form" style="width:100%">

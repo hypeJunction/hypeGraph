@@ -94,7 +94,7 @@ abstract class GenericResult {
 	 * @return stdClass
 	 */
 	protected function prepareValue($value = null, array $params = array()) {
-		return (object) hypeApps()->exporter->export($value, $params);
+		return hypeApps()->graph->export($value, $params);
 	}
 
 	/**
@@ -121,8 +121,8 @@ abstract class GenericResult {
 			$result->debug->postdata = file_get_contents('php://input');
 			$result->debug->vardump = hypeGraph()->logger->vardump();
 			$result->debug->session = new stdClass();
-			$result->debug->session->logged_in_user = hypeApps()->exporter->export(hypeGraph()->session->user());
-			$result->debug->session->consumer = hypeApps()->exporter->export(hypeGraph()->session->consumer());
+			$result->debug->session->logged_in_user = hypeApps()->graph->export(hypeGraph()->session->user());
+			$result->debug->session->consumer = hypeApps()->graph->export(hypeGraph()->session->consumer());
 			$result->debug->exception_trace = ($this->exception instanceof Exception) ? $this->exception->getTrace()[0] : null;
 		}
 
